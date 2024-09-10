@@ -6,6 +6,7 @@ import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_rich_text.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
+import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/get_started/get_started_controller.dart';
 
 class GetStartedView extends StatelessWidget {
@@ -85,14 +86,15 @@ class GetStartedView extends StatelessWidget {
                 height: 44,
               ),
               CommonButton(
-                text: 'Get Started',
-                height: 50.98,
-                width: 345.59,
-                borderRadius: 5,
-                textStyle: CommonTextStyle.getstartedb1Style,
-                boxShadow: const [],
-                onPressed: () {},
-              ),
+                  text: 'Get Started',
+                  height: 50.98,
+                  width: 345.59,
+                  borderRadius: 5,
+                  textStyle: CommonTextStyle.getstartedb1Style,
+                  boxShadow: const [],
+                  onPressed: () {
+                    Get.toNamed(RoutesName.loginPage);
+                  }),
               const SizedBox(
                 height: 10,
               ),

@@ -45,4 +45,11 @@ class CommonTextStyle {
     color: CommonColors.blackColor,
     fontFamily: fontFamilyName,
   );
+
+  static const TextStyle welcomelogin = TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: 40,
+    color: CommonColors.blackColor,
+    fontFamily: fontFamilyName,
+  );
 }

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class CommonRichText extends StatelessWidget {
-  final String text1;
-  final TextStyle style1;
-  final String text2;
-  final TextStyle style2;
-  final String text3;
-  final TextStyle style3;
-  final String text4;
-  final TextStyle style4;
-  final String text5;
-  final TextStyle style5;
+  final String? text1;
+  final TextStyle? style1;
+  final String? text2;
+  final TextStyle? style2;
+  final String? text3;
+  final TextStyle? style3;
+  final String? text4;
+  final TextStyle? style4;
+  final String? text5;
+  final TextStyle? style5;
   final TextAlign textAlign;
   final int? maxLines;
   final TextOverflow? overflow;
