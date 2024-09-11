@@ -6,8 +6,12 @@ import 'package:soldiers_friends/view/get_started/get_started_view.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/login/login_binding.dart';
 import 'package:soldiers_friends/view/login/login_view.dart';
+import 'package:soldiers_friends/view/profile/profile-binding.dart';
+import 'package:soldiers_friends/view/profile/profile_view.dart';
 import 'package:soldiers_friends/view/sign_up/signup_binding.dart';
 import 'package:soldiers_friends/view/sign_up/signup_view.dart';
+import 'package:soldiers_friends/view/use_phoneNo/use_phone_binding.dart';
+import 'package:soldiers_friends/view/use_phoneNo/use_phone_view.dart';
 
 class RoutesPageList {
   static List<GetPage> routList = [
@@ -27,5 +31,13 @@ class RoutesPageList {
         name: RoutesName.forgotpasswordpage,
         page: () => const ForgotPasswordPage(),
         binding: ForgotPasswordBinding()),
+    GetPage(
+        name: RoutesName.usephonepage,
+        page: () => UsePhoneView(),
+        binding: CountryCodeBinding()),
+    GetPage(
+        name: RoutesName.profilePage,
+        page: () => const ProfileView(),
+        binding: ProfileBinding()),
   ];
 }

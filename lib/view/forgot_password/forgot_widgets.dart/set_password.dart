@@ -6,7 +6,7 @@ import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/common/common_textform.dart';
-import 'package:soldiers_friends/view/forgot_password/forget_widgets.dart/custom_bottom_sheet.dart';
+import 'package:soldiers_friends/view/forgot_password/forgot_widgets.dart/custom_bottom_sheet.dart';
 import 'package:soldiers_friends/view/login/login_view.dart';
 
 class SetPassword extends StatelessWidget {

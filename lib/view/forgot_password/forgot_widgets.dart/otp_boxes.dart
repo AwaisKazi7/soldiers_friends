@@ -45,15 +45,15 @@ class _OtpContainerState extends State<OtpContainer> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List.generate(
         widget.length,
         (index) => Container(
           height: 69.74,
           width: 69.74,
           decoration: BoxDecoration(
-            color: CommonColors.darkGreen.withOpacity(0.3),
-            border: Border.all(color: CommonColors.darkGreen),
+            color: CommonColors.neutralGray.withOpacity(0.2),
+            // border: Border.all(color: CommonColors.darkGreen),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Center(

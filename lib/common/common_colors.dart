@@ -19,4 +19,7 @@ class CommonColors {
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
   );
+  static Shader createGradientShader(Rect bounds) {
+    return buttonGradient.createShader(bounds);
+  }
 }

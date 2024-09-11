@@ -52,4 +52,12 @@ class CommonTextStyle {
     color: CommonColors.blackColor,
     fontFamily: fontFamilyName,
   );
+  static TextStyle get gradienttext => TextStyle(
+        fontWeight: FontWeight.w600,
+        fontSize: 16,
+        foreground: Paint()
+          ..shader = CommonColors.createGradientShader(
+              const Rect.fromLTWH(0, 0, 300, 70)),
+        fontFamily: fontFamilyName,
+      );
 }
