@@ -10,6 +10,8 @@ import 'package:soldiers_friends/view/profile/profile-binding.dart';
 import 'package:soldiers_friends/view/profile/profile_view.dart';
 import 'package:soldiers_friends/view/sign_up/signup_binding.dart';
 import 'package:soldiers_friends/view/sign_up/signup_view.dart';
+import 'package:soldiers_friends/view/swipe_profile/swipe_profile_binding.dart';
+import 'package:soldiers_friends/view/swipe_profile/swipe_profile_view.dart';
 import 'package:soldiers_friends/view/use_phoneNo/use_phone_binding.dart';
 import 'package:soldiers_friends/view/use_phoneNo/use_phone_view.dart';
 
@@ -39,5 +41,9 @@ class RoutesPageList {
         name: RoutesName.profilePage,
         page: () => const ProfileView(),
         binding: ProfileBinding()),
+    GetPage(
+        name: RoutesName.swipeprofilepage,
+        page: () => const SwipeProfileView(),
+        binding: SwipeProfileBinding()),
   ];
 }

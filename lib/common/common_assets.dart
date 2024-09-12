@@ -8,6 +8,8 @@ class CommonAssets {
   static const String googleImage = 'assets/images/google.png';
   static const String handphoneImage = 'assets/images/handphone.png';
   static const String lockphoneImage = 'assets/images/lockphone.png';
+  static const String soldierswipeImage = 'assets/images/mark-peter.png';
   static const String backarrowIcon = 'assets/icons/back-arrow.png';
   static const String dropdownIcon = 'assets/icons/dropdownIcon.png';
+  static const String calendarImage = 'assets/icons/calendar.png';
 }

@@ -91,7 +91,7 @@ class OtpVerification extends StatelessWidget {
                         height: 8,
                       ),
                       InkWell(
-                        onTap: () => Get.to(() => const ProfileView()),
+                        onTap: () => Get.to(() => ProfileView()),
                         child: CommonText(
                             text: 'RESEND NEW CODE',
                             style: CommonTextStyle.gradienttext),

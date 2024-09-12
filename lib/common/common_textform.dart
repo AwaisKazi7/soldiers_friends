@@ -19,6 +19,8 @@ class CommonTextform extends StatelessWidget {
   final VoidCallback? onPrefixIconTap;
   final VoidCallback? onSuffixIconTap;
   final bool centerText;
+  final int maxLines;
+  final int minLines;
 
   const CommonTextform({
     Key? key,
@@ -40,6 +42,8 @@ class CommonTextform extends StatelessWidget {
     this.onPrefixIconTap,
     this.onSuffixIconTap,
     this.centerText = false,
+    this.maxLines = 10,
+    this.minLines = 1,
   }) : super(key: key);
 
   Widget? _buildPrefix() {
@@ -74,34 +78,47 @@ class CommonTextform extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      validator: validator,
-      obscureText: obscureText,
-      keyboardType: textInputType,
-      textInputAction: textInputAction,
-      textAlign: centerText ? TextAlign.center : TextAlign.start,
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: fillColor,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
-          borderSide: BorderSide(color: borderColor ?? Colors.grey),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
-          borderSide: BorderSide(color: borderColor ?? Colors.grey),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
-          borderSide: BorderSide(color: borderColor ?? Colors.grey),
-        ),
-        prefixIcon: _buildPrefix(),
-        suffixIcon: _buildSuffix(),
-        hintText: hintText,
-        hintStyle: hintStyle,
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 6,
+            offset: Offset(0, 4), // Customize the shadow offset
+          ),
+        ],
       ),
-      style: textStyle,
+      child: TextFormField(
+        controller: controller,
+        validator: validator,
+        obscureText: obscureText,
+        keyboardType: textInputType,
+        textInputAction: textInputAction,
+        textAlign: centerText ? TextAlign.center : TextAlign.start,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: fillColor,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+            borderSide: BorderSide(color: borderColor ?? Colors.grey),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+            borderSide: BorderSide(color: borderColor ?? Colors.grey),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+            borderSide: BorderSide(color: borderColor ?? Colors.grey),
+          ),
+          prefixIcon: _buildPrefix(),
+          suffixIcon: _buildSuffix(),
+          hintText: hintText,
+          hintStyle: hintStyle,
+        ),
+        style: textStyle,
+        maxLines: maxLines,
+        minLines: minLines,
+      ),
     );
   }
 }
