@@ -6,6 +6,7 @@ import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/common/common_textform.dart';
+import 'package:soldiers_friends/view/forgot_password/forgot_password_controller.dart';
 import 'package:soldiers_friends/view/forgot_password/forgot_widgets.dart/custom_bottom_sheet.dart';
 import 'package:soldiers_friends/view/forgot_password/forgot_widgets.dart/otp_boxes.dart';
 import 'package:soldiers_friends/view/login/login_view.dart';
@@ -15,10 +16,10 @@ class ForgotPasswordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: CommonColors.backgroundColor,
-      body: SafeArea(
-        child: SingleChildScrollView(
+    return GetBuilder<ForgotPasswordController>(builder: (controller) {
+      return Scaffold(
+        backgroundColor: CommonColors.backgroundColor,
+        body: SingleChildScrollView(
           child: Container(
             margin: const EdgeInsets.all(18.0),
             height: context.height,
@@ -162,7 +163,7 @@ class ForgotPasswordPage extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

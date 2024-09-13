@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:soldiers_friends/model/country_code.dart';
-import 'package:soldiers_friends/routes/routes_name_strings.dart';
 
 class CountryCodeController extends GetxController {
   // List of available country codes
@@ -27,14 +26,14 @@ class CountryCodeController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    navigate();
+    // navigate();
   }
 
-  void navigate() {
-    Future.delayed(const Duration(seconds: 2), () {
-      Get.offAndToNamed(RoutesName.usephonepage);
-    });
-  }
+  // void navigate() {
+  //   Future.delayed(const Duration(seconds: 2), () {
+  //     Get.offAndToNamed(RoutesName.usephonepage);
+  //   });
+  // }
 
   // Method to update the selected country code
   void selectCountryCode(CountryCode? countryCode) {

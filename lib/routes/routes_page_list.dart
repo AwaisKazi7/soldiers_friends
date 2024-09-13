@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:soldiers_friends/view/bottomnavbar/bottomnavbar_binding.dart';
+import 'package:soldiers_friends/view/bottomnavbar/bottomnavbar_view.dart';
 import 'package:soldiers_friends/view/forgot_password/forgot_password_binding.dart';
 import 'package:soldiers_friends/view/forgot_password/forgot_password_view.dart';
 import 'package:soldiers_friends/view/get_started/get_started_binding.dart';
@@ -45,5 +47,9 @@ class RoutesPageList {
         name: RoutesName.swipeprofilepage,
         page: () => const SwipeProfileView(),
         binding: SwipeProfileBinding()),
+    GetPage(
+        name: RoutesName.bottomnavbar,
+        page: () => const BottomNavBar(),
+        binding: BottomNavBinding()),
   ];
 }
