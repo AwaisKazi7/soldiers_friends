@@ -7,7 +7,6 @@ import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/common/common_textform.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
-import 'package:soldiers_friends/view/forgot_password/forgot_password_view.dart';
 import 'package:soldiers_friends/view/login/login_controller.dart';
 
 class LoginPage extends StatelessWidget {
@@ -131,8 +130,8 @@ class LoginPage extends StatelessWidget {
                                   ]),
                                   InkWell(
                                     hoverColor: Colors.transparent,
-                                    onTap: () => Get.to(
-                                        () => const ForgotPasswordPage()),
+                                    onTap: () =>
+                                        Get.toNamed(RoutesName.usephonepage),
                                     child: const Align(
                                       alignment: Alignment.centerRight,
                                       child: CommonText(

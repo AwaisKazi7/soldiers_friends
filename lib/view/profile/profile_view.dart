@@ -167,7 +167,7 @@ class ProfileView extends StatelessWidget {
                         .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
                     borderRadius: 5,
                     // boxShadow: const [], onPressed: () {},
-                    onPressed: () => Get.toNamed(RoutesName.swipeprofilepage),
+                    onPressed: () => Get.toNamed(RoutesName.homepage),
                   ),
                 ),
               ],

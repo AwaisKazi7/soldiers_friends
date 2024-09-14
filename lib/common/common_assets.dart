@@ -18,4 +18,6 @@ class CommonAssets {
   static const String dropdownIcon = 'assets/icons/dropdownIcon.png';
   static const String calendarImage = 'assets/icons/calendar.png';
   static const String bellIcon = 'assets/icons/bellicon.png';
+  static const String locationIcon = 'assets/icons/locationicon.png';
+  static const String verifiedIcon = 'assets/icons/verifiedicon.png';
 }

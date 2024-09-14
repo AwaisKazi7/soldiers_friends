@@ -5,6 +5,6 @@ class RoutesName {
   static String loginPage = "/login";
   static String signuppage = "/signuppage";
   static String forgotpasswordpage = "/forgotpasswordpage";
-  static String swipeprofilepage = "/swipeprofilepage";
+  static String homepage = "/homepage";
   static String bottomnavbar = "/bottomnavbar";
 }
