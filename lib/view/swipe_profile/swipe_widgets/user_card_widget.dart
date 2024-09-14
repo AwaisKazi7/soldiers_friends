@@ -1,0 +1,72 @@
+import 'package:flutter/material.dart';
+import 'package:soldiers_friends/common/common_colors.dart';
+import 'package:soldiers_friends/common/common_text.dart';
+import 'package:soldiers_friends/common/common_text_style.dart';
+import 'package:soldiers_friends/model/home_model.dart';
+
+class UserCard extends StatelessWidget {
+  final UserModel user;
+
+  const UserCard({super.key, required this.user});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+      child: Stack(
+        children: [
+          Image.asset(
+            user.imagePath,
+            fit: BoxFit.contain,
+          ),
+          Positioned(
+            bottom: 40,
+            left: 0,
+            child: Container(
+              color: Colors.transparent,
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  CommonText(
+                    text: user.name,
+                    style: CommonTextStyle.getstartedb1Style.copyWith(
+                        color: CommonColors.backgroundColor,
+                        fontSize: 32,
+                        fontWeight: FontWeight.w700),
+                  ),
+                  const SizedBox(width: 8),
+                  Image.asset(
+                    user.verifiedIconPath,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 8,
+            left: 0,
+            child: Container(
+              color: Colors.transparent,
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Image.asset(
+                    user.locationIconPath,
+                  ),
+                  const SizedBox(width: 4),
+                  CommonText(
+                    text: user.location,
+                    style: CommonTextStyle.getstartedb1Style.copyWith(
+                        color: CommonColors.backgroundColor,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
