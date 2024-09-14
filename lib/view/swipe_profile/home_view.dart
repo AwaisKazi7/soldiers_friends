@@ -4,6 +4,7 @@ import 'package:soldiers_friends/Common/common_assets.dart';
 import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
+import 'package:soldiers_friends/view/bottomnavbar/bottomnavbar_view.dart';
 import 'package:soldiers_friends/view/swipe_profile/home_controller.dart';
 import 'package:soldiers_friends/view/swipe_profile/swipe_widgets/user_card_widget.dart';
 
@@ -74,19 +75,7 @@ class HomeView extends StatelessWidget {
             ),
           ],
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: CommonColors.blackColor,
-
-          ///START WORKING ON IT
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.notifications), label: 'Notifications'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle), label: 'Profile'),
-          ],
-        ),
+        bottomNavigationBar: const BottomNavbarView(),
       ),
     );
   }

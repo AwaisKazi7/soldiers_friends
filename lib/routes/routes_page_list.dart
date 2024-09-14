@@ -49,7 +49,7 @@ class RoutesPageList {
         binding: HomeBinding()),
     GetPage(
         name: RoutesName.bottomnavbar,
-        page: () => const BottomNavBar(),
-        binding: BottomNavBinding()),
+        page: () => const BottomNavbarView(),
+        binding: BottomNavbarBinding()),
   ];
 }

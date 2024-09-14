@@ -3,6 +3,7 @@ import 'package:soldiers_friends/common/common_assets.dart';
 import 'package:soldiers_friends/model/home_model.dart';
 
 class HomeController extends GetxController {
+  // List of users (mock data or fetched from an API)
   List<UserModel> users = [
     UserModel(
       name: 'Mark Peter',
@@ -21,13 +22,24 @@ class HomeController extends GetxController {
     // Add more users as needed
   ];
 
+  // Index for the BottomNavigationBar
+  int selectedIndex = 0;
+
+  // Method to add a user
   void addUser(UserModel user) {
     users.add(user);
-    update();
+    update(); // Notify listeners
   }
 
+  // Method to remove a user
   void removeUser(UserModel user) {
     users.remove(user);
-    update();
+    update(); // Notify listeners
+  }
+
+  // Method to change the selected index
+  void changeIndex(int index) {
+    selectedIndex = index;
+    update(); // Notify listeners
   }
 }

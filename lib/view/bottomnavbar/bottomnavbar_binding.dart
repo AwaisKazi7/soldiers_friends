@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:soldiers_friends/view/bottomnavbar/bottomnavbar_controller.dart';
+import 'bottomnavbar_controller.dart';
 
-class BottomNavBinding extends Bindings {
+class BottomNavbarBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<BottomNavController>;
+    Get.put(BottomNavbarController());
   }
 }
