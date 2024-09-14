@@ -45,7 +45,7 @@ class RoutesPageList {
         binding: ProfileBinding()),
     GetPage(
         name: RoutesName.homepage,
-        page: () => HomeView(),
+        page: () => const HomeView(),
         binding: HomeBinding()),
     GetPage(
         name: RoutesName.bottomnavbar,

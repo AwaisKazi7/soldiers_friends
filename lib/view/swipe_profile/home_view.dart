@@ -13,7 +13,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
-      init: HomeController(), // Initialize the controller
+      init: HomeController(),
       builder: (controller) => Scaffold(
         backgroundColor: CommonColors.backgroundColor,
         appBar: AppBar(
