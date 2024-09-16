@@ -1,6 +1,10 @@
 import 'package:get/get.dart';
 import 'package:soldiers_friends/view/bottomnavbar/bottomnavbar_binding.dart';
 import 'package:soldiers_friends/view/bottomnavbar/bottomnavbar_view.dart';
+import 'package:soldiers_friends/view/chat/chat_binding.dart';
+import 'package:soldiers_friends/view/chat/chat_view.dart';
+import 'package:soldiers_friends/view/chatopen/chatopen_binding.dart';
+import 'package:soldiers_friends/view/chatopen/chatopen_view.dart';
 import 'package:soldiers_friends/view/forgot_password/forgot_password_binding.dart';
 import 'package:soldiers_friends/view/forgot_password/forgot_password_view.dart';
 import 'package:soldiers_friends/view/get_started/get_started_binding.dart';
@@ -12,8 +16,8 @@ import 'package:soldiers_friends/view/profile/profile-binding.dart';
 import 'package:soldiers_friends/view/profile/profile_view.dart';
 import 'package:soldiers_friends/view/sign_up/signup_binding.dart';
 import 'package:soldiers_friends/view/sign_up/signup_view.dart';
-import 'package:soldiers_friends/view/swipe_profile/home_binding.dart';
-import 'package:soldiers_friends/view/swipe_profile/home_view.dart';
+import 'package:soldiers_friends/view/home/home_binding.dart';
+import 'package:soldiers_friends/view/home/home_view.dart';
 import 'package:soldiers_friends/view/use_phoneNo/use_phone_binding.dart';
 import 'package:soldiers_friends/view/use_phoneNo/use_phone_view.dart';
 
@@ -49,7 +53,15 @@ class RoutesPageList {
         binding: HomeBinding()),
     GetPage(
         name: RoutesName.bottomnavbar,
-        page: () => const BottomNavbarView(),
-        binding: BottomNavbarBinding()),
+        page: () => const CustomBottomNavbar(),
+        binding: BottomNavbarBindings()),
+    GetPage(
+        name: RoutesName.chatpage,
+        page: () => const ChatView(),
+        binding: ChatBinding()),
+    GetPage(
+        name: RoutesName.chatdetails,
+        page: () => const ChatDetailsView(),
+        binding: ChatDetailBinding()),
   ];
 }

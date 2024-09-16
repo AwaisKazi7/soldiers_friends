@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'bottomnavbar_controller.dart';
+import 'package:soldiers_friends/view/bottomnavbar/bottomnavbar_controller.dart';
 
-class BottomNavbarBinding extends Bindings {
+class BottomNavbarBindings extends Bindings {
   @override
   void dependencies() {
     Get.put(BottomNavbarController());

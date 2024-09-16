@@ -8,6 +8,7 @@ class CommonColors {
   static const Color darkGreen = Color(0xFF3C866D);
   static const Color neutralGray = Color(0xFF999999);
   static const Color blackColor = Color(0xFF000000);
+  static const Color dotColor = Color(0xFFFFBA00);
 
   // Gradient colors
   static const Color gradientStartColor = Color(0xFF5ECA95);

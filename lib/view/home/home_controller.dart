@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:soldiers_friends/common/common_assets.dart';
 import 'package:soldiers_friends/model/home_model.dart';
+import 'package:soldiers_friends/view/chat/chat_view.dart';
+import 'package:soldiers_friends/view/home/home_view.dart'; // Import other views if necessary
 
 class HomeController extends GetxController {
   // List of users (mock data or fetched from an API)
@@ -37,9 +39,27 @@ class HomeController extends GetxController {
     update(); // Notify listeners
   }
 
-  // Method to change the selected index
   void changeIndex(int index) {
     selectedIndex = index;
-    update(); // Notify listeners
+    update();
+
+    switch (index) {
+      case 0:
+        Get.off(() => const HomeView());
+        break;
+      case 1:
+        // Handle Matches navigation
+        // Replace with your matches view if applicable
+        break;
+      case 2:
+        Get.to(() => const ChatView());
+        break;
+      case 3:
+        // Handle Profile navigation
+        // Replace with your profile view if applicable
+        break;
+      default:
+        break;
+    }
   }
 }

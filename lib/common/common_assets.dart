@@ -14,10 +14,13 @@ class CommonAssets {
   static const String lockphoneImage = 'assets/images/lockphone.png';
   static const String soldierswipeImage = 'assets/images/mark-peter.png';
   static const String soldierprofileImage = 'assets/images/soldier.png';
+  static const String chatuserImage = 'assets/images/jennifer.png';
   static const String backarrowIcon = 'assets/icons/back-arrow.png';
   static const String dropdownIcon = 'assets/icons/dropdownIcon.png';
   static const String calendarImage = 'assets/icons/calendar.png';
   static const String bellIcon = 'assets/icons/bellicon.png';
   static const String locationIcon = 'assets/icons/locationicon.png';
   static const String verifiedIcon = 'assets/icons/verifiedicon.png';
+  static const String searchIcon = 'assets/icons/searchicon.png';
+  static const String threedotsIcon = 'assets/icons/3dots.png';
 }

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:soldiers_friends/view/swipe_profile/home_controller.dart';
+import 'package:soldiers_friends/view/home/home_controller.dart';
 
 class HomeBinding extends Bindings {
   @override
