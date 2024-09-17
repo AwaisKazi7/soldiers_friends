@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:soldiers_friends/common/common_colors.dart'; // Ensure this path is correct
+import 'package:soldiers_friends/common/common_colors.dart';
+import 'package:soldiers_friends/common/common_text.dart'; // Ensure this path is correct
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String centerText;
@@ -10,6 +11,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color appBarColor;
   final BoxFit firstImageFit; // Fit property for the first image
   final BoxFit secondImageFit; // Fit property for the second image
+  final TextStyle textStyle; // Add this to use the custom text style
   final ImageProvider? thirdImage;
 
   const CustomAppBar({
@@ -22,7 +24,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.appBarColor = CommonColors.backgroundColor,
     this.firstImageFit = BoxFit.fill,
     this.secondImageFit = BoxFit.fill,
-    required TextStyle textStyle,
+    required this.textStyle,
     this.thirdImage,
   });
 
@@ -61,15 +63,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
             ),
-          Text(centerText),
+          CommonText(
+            text: centerText,
+            style: textStyle,
+          ),
           if (secondImage != null)
             Container(
-              width: imageSize,
-              height: imageSize,
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                color: CommonColors
-                    .lightGray, // Background color for the circular container
               ),
               child: ClipOval(
                 child: FittedBox(

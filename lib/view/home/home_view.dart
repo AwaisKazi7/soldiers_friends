@@ -21,10 +21,10 @@ class HomeView extends StatelessWidget {
             appBar: CustomAppBar(
               appBarColor: CommonColors.backgroundColor,
               centerText: 'Soldiers Friends',
-              textStyle: CommonTextStyle.gradienttext
-                  .copyWith(fontSize: 12, fontWeight: FontWeight.w700),
               firstImage: const AssetImage(CommonAssets.soldierprofileImage),
               secondImage: const AssetImage(CommonAssets.bellIcon),
+              textStyle: CommonTextStyle.gradienttext
+                  .copyWith(fontSize: 24, fontWeight: FontWeight.w700),
             ),
             backgroundColor: CommonColors.backgroundColor,
             body: Container(

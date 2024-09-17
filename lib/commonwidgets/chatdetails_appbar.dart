@@ -24,26 +24,22 @@ class ChatDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double imageSize = 45.0; // Diameter of CircleAvatars
+    const double borderWidth = 3.0;
 
     return AppBar(
       backgroundColor: CommonColors.backgroundColor,
       automaticallyImplyLeading: false,
       title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           if (backIcon != null)
             IconButton(
               icon: CircleAvatar(
                 backgroundColor: CommonColors.lightGray,
-                radius: imageSize / 2,
                 child: ClipOval(
                   child: Image(
                     image: backIcon!,
-                    width: imageSize,
-                    height: imageSize,
-                    fit: BoxFit
-                        .contain, // Adjust fit to ensure image is properly contained
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -51,38 +47,46 @@ class ChatDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
                 Navigator.pop(context);
               },
             ),
+          const SizedBox(width: 15),
           if (userImage != null)
-            CircleAvatar(
-              backgroundImage: userImage,
-              radius: imageSize / 2,
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: CommonColors.gradientStartColor,
+                  width: borderWidth,
+                ),
+              ),
+              child: CircleAvatar(
+                backgroundImage: userImage,
+              ),
             ),
           const SizedBox(width: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              CommonText(
-                text: username,
-                style: CommonTextStyle.splashheadline1
-                    .copyWith(fontSize: 18, fontWeight: FontWeight.w500),
-              ),
-              CommonText(
-                text: subtitle,
-                style: CommonTextStyle.splashheadline1
-                    .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                CommonText(
+                  text: username,
+                  style: CommonTextStyle.splashheadline1
+                      .copyWith(fontSize: 18, fontWeight: FontWeight.w500),
+                ),
+                CommonText(
+                  text: subtitle,
+                  style: CommonTextStyle.splashheadline1
+                      .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
           ),
+          const SizedBox(width: 10),
           if (threeDotIcon != null)
             CircleAvatar(
               backgroundColor: CommonColors.lightGray,
-              radius: imageSize / 2,
               child: ClipOval(
                 child: Image(
                   image: threeDotIcon!,
-                  width: imageSize,
-                  height: imageSize,
-                  fit: BoxFit
-                      .contain, // Use cover to ensure the image covers the entire area
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
