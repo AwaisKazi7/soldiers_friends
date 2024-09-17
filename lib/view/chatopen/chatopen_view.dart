@@ -12,13 +12,13 @@ class ChatDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const ChatDetailAppBar(
-        backIcon: AssetImage(CommonAssets.backarrowIcon),
-        userImage: AssetImage(CommonAssets.chatuserImage),
-        username: 'Jennifer',
-        subtitle: 'Your friend today!',
-        threeDotIcon: AssetImage(CommonAssets.threedotsIcon),
-      ),
+      // appBar: const ChatDetailAppBar(
+      //   backIcon: AssetImage(CommonAssets.backarrowIcon),
+      //   userImage: AssetImage(CommonAssets.chatuserImage),
+      //   username: 'Jennifer',
+      //   subtitle: 'Your friend today!',
+      //   threeDotIcon: AssetImage(CommonAssets.threedotsIcon),
+      // ),
       body: Container(
         margin: const EdgeInsets.all(18.0),
         height: context.height,
