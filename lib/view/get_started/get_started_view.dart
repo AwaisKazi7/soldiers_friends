@@ -19,7 +19,6 @@ class GetStartedView extends StatelessWidget {
         backgroundColor: CommonColors.backgroundColor,
         body: SingleChildScrollView(
           child: Container(
-            margin: const EdgeInsets.all(18.0),
             height: context.height,
             width: context.width,
             child: Column(
@@ -97,7 +96,7 @@ class GetStartedView extends StatelessWidget {
                     textStyle: CommonTextStyle.getstartedb1Style,
                     boxShadow: const [],
                     onPressed: () {
-                      Get.toNamed(RoutesName.loginPage);
+                      Get.toNamed(RoutesName.subscribtion);
                     }),
                 const SizedBox(
                   height: 10,

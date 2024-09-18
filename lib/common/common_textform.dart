@@ -19,11 +19,10 @@ class CommonTextform extends StatelessWidget {
   final VoidCallback? onPrefixIconTap;
   final VoidCallback? onSuffixIconTap;
   final bool centerText;
-  final int maxLines;
-  final int minLines;
+  final bool isUnderline;
 
   const CommonTextform({
-    Key? key,
+    super.key,
     required this.hintText,
     this.prefixIcon,
     this.prefixImage,
@@ -42,9 +41,8 @@ class CommonTextform extends StatelessWidget {
     this.onPrefixIconTap,
     this.onSuffixIconTap,
     this.centerText = false,
-    this.maxLines = 10,
-    this.minLines = 1,
-  }) : super(key: key);
+    this.isUnderline = true,
+  });
 
   Widget? _buildPrefix() {
     if (prefixIcon != null) {
@@ -76,49 +74,40 @@ class CommonTextform extends StatelessWidget {
     return null;
   }
 
+  InputBorder _buildInputBorder() {
+    if (isUnderline) {
+      return UnderlineInputBorder(
+        borderSide: BorderSide(color: borderColor ?? Colors.grey),
+      );
+    } else {
+      return OutlineInputBorder(
+        borderRadius: BorderRadius.circular(borderRadius),
+        borderSide: BorderSide(color: borderColor ?? Colors.grey),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 6,
-            offset: const Offset(0, 4), // Customize the shadow offset
-          ),
-        ],
+    return TextFormField(
+      controller: controller,
+      validator: validator,
+      obscureText: obscureText,
+      keyboardType: textInputType,
+      textInputAction: textInputAction,
+      textAlign: centerText ? TextAlign.center : TextAlign.start,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: fillColor,
+        border: _buildInputBorder(),
+        enabledBorder: _buildInputBorder(),
+        focusedBorder: _buildInputBorder(),
+        prefixIcon: _buildPrefix(),
+        suffixIcon: _buildSuffix(),
+        hintText: hintText,
+        hintStyle: hintStyle,
       ),
-      child: TextFormField(
-        controller: controller,
-        validator: validator,
-        obscureText: obscureText,
-        keyboardType: textInputType,
-        textInputAction: textInputAction,
-        textAlign: centerText ? TextAlign.center : TextAlign.start,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: fillColor,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
-            borderSide: BorderSide(color: borderColor ?? Colors.grey),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
-            borderSide: BorderSide(color: borderColor ?? Colors.grey),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
-            borderSide: BorderSide(color: borderColor ?? Colors.grey),
-          ),
-          prefixIcon: _buildPrefix(),
-          suffixIcon: _buildSuffix(),
-          hintText: hintText,
-          hintStyle: hintStyle,
-        ),
-        style: textStyle,
-        maxLines: maxLines,
-        minLines: minLines,
-      ),
+      style: textStyle,
     );
   }
 }

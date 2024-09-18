@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
-import 'package:soldiers_friends/routes/routes_page_list.dart';
+
+import 'routes/routes_page_list.dart';
 
 void main() {
   runApp(const MyApp());

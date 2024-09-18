@@ -1,12 +1,48 @@
+import 'dart:ffi';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:soldiers_friends/routes/routes_name_strings.dart';
+import 'package:soldiers_friends/view/chat/chat_controller.dart';
+import 'package:soldiers_friends/view/chat/chat_view.dart';
+import 'package:soldiers_friends/view/chatopen/chatopen_cotroller.dart';
+import 'package:soldiers_friends/view/home/home_controller.dart';
+import 'package:soldiers_friends/view/home/home_view.dart';
+import 'package:soldiers_friends/view/profile/profile_controller.dart';
+import 'package:soldiers_friends/view/profile/profile_view.dart';
 
-class BottomNavbarController extends GetxController {
-  // Index of the selected item
-  var selectedIndex = 0;
+class NavbarController extends GetxController {
+  @override
+  void onInit() {
+    super.onInit();
+    onTabTapped(0);
+  }
 
-  // Update the selected item
-  void updateIndex(int index) {
+  final List<Widget> screens = [
+    const HomeView(),
+    const HomeView(),
+    const ChatView(),
+    const ProfileView(),
+  ];
+  int selectedIndex = 0;
+
+  onTabTapped(int index) async {
     selectedIndex = index;
-    update(); // Notify listeners
+
+    update();
+    switch (selectedIndex) {
+      case 0:
+        return await Get.put<HomeController>(HomeController());
+      case 1:
+        return await Get.put<HomeController>(HomeController());
+      case 2:
+        return await Get.put<ChatViewController>(ChatViewController());
+      case 3:
+        return await Get.put<ProfileController>(ProfileController());
+      //For Profile
+
+      default:
+        return await Get.put<HomeController>(HomeController());
+    }
   }
 }

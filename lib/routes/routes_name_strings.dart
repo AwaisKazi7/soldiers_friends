@@ -9,4 +9,6 @@ class RoutesName {
   static String bottomnavbar = "/bottomnavbar";
   static String chatpage = "/chatpage";
   static String chatdetails = "/chatdetails";
+
+  static String subscribtion = "/subscribtion";
 }

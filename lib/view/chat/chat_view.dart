@@ -15,7 +15,6 @@ class ChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ChatViewController>(
-      init: ChatViewController(),
       builder: (controller) {
         return Scaffold(
           appBar: const CustomAppBar(
@@ -123,9 +122,7 @@ class ChatView extends StatelessWidget {
                             color: CommonColors.neutralGray,
                           ),
                         ),
-                        onTap: () {
-                          Get.toNamed(RoutesName.chatdetails);
-                        },
+                        onTap: () => Get.toNamed(RoutesName.chatdetails),
                       );
                     },
                   ),
@@ -133,7 +130,6 @@ class ChatView extends StatelessWidget {
               ],
             ),
           ),
-          bottomNavigationBar: const CustomBottomNavbar(),
         );
       },
     );

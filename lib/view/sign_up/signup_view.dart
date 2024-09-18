@@ -25,13 +25,10 @@ class SignupPage extends StatelessWidget {
             width: context.width,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Image.asset(
                   CommonAssets.rankImage,
-                ),
-                const SizedBox(
-                  height: 36,
                 ),
                 const CommonText(
                   text: "Welcome Back!",
@@ -42,134 +39,91 @@ class SignupPage extends StatelessWidget {
                   style: CommonTextStyle.welcomelogin
                       .copyWith(fontSize: 20, fontWeight: FontWeight.w400),
                 ),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: context.height * 0.03,
                 ),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: CommonColors.blackColor,
-                            width: 0.9,
-                          ),
-                        ),
-                      ),
-                      child: CommonTextform(
-                        hintText: 'Fullname',
-                        textStyle: CommonTextStyle.splashheadline1,
-                        fillColor: CommonColors.backgroundColor,
-                        borderColor: Colors.transparent,
-                        controller: TextEditingController(),
-                      ),
+                    CommonTextform(
+                      hintText: 'Fullname',
+                      textStyle: CommonTextStyle.splashheadline1,
+                      fillColor: CommonColors.backgroundColor,
+                      controller: TextEditingController(),
                     ),
                     const SizedBox(
-                      height: 24,
+                      height: 10,
                     ),
-                    Container(
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: CommonColors.blackColor,
-                            width: 0.9,
-                          ),
-                        ),
-                      ),
-                      child: CommonTextform(
-                        hintText: 'Email',
-                        textStyle: CommonTextStyle.splashheadline1,
-                        fillColor: CommonColors.backgroundColor,
-                        borderColor: Colors.transparent,
-                        controller: TextEditingController(),
-                      ),
+                    CommonTextform(
+                      hintText: 'Email',
+                      textStyle: CommonTextStyle.splashheadline1,
+                      fillColor: CommonColors.backgroundColor,
+                      controller: TextEditingController(),
                     ),
                     const SizedBox(
-                      height: 24,
+                      height: 10,
                     ),
-                    Container(
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: CommonColors.blackColor,
-                            width: 0.9,
-                          ),
-                        ),
-                      ),
-                      child: CommonTextform(
-                        hintText: 'Password',
-                        textStyle: CommonTextStyle.splashheadline1,
-                        fillColor: CommonColors.backgroundColor,
-                        borderColor: Colors.transparent,
-                        controller: TextEditingController(),
-                      ),
+                    CommonTextform(
+                      hintText: 'Password',
+                      textStyle: CommonTextStyle.splashheadline1,
+                      fillColor: CommonColors.backgroundColor,
+                      controller: TextEditingController(),
                     ),
                     const SizedBox(
-                      height: 24,
+                      height: 10,
                     ),
-                    Container(
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: CommonColors.blackColor,
-                            width: 0.9,
-                          ),
-                        ),
-                      ),
-                      child: CommonTextform(
-                        hintText: 'Confirm Password',
-                        textStyle: CommonTextStyle.splashheadline1,
-                        fillColor: CommonColors.backgroundColor,
-                        borderColor: Colors.transparent,
-                        controller: TextEditingController(),
-                      ),
+                    CommonTextform(
+                      hintText: 'Confirm Password',
+                      textStyle: CommonTextStyle.splashheadline1,
+                      fillColor: CommonColors.backgroundColor,
+                      controller: TextEditingController(),
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 80,
+                SizedBox(
+                  height: context.height * 0.1,
                 ),
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                Expanded(
+                  child: Column(
                     children: [
-                      const CommonText(
-                        text: 'Already have an account?',
-                        style: CommonTextStyle.splashheadline1,
-                      ),
-                      InkWell(
-                        hoverColor: Colors.transparent,
-                        onTap: () => Get.to(() => const LoginPage()),
-                        child: Align(
-                          child: CommonText(
-                            text: 'Sign In',
-                            style: CommonTextStyle.splashheadline1.copyWith(
-                              fontWeight: FontWeight.w700,
-                              decoration: TextDecoration.underline,
-                              decorationColor: CommonColors.blackColor,
-                              decorationThickness: 4.0,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          const CommonText(
+                            text: 'Already have an account?',
+                            style: CommonTextStyle.splashheadline1,
+                          ),
+                          InkWell(
+                            hoverColor: Colors.transparent,
+                            onTap: () => Get.to(() => const LoginPage()),
+                            child: Align(
+                              child: CommonText(
+                                text: 'Sign In',
+                                style: CommonTextStyle.splashheadline1.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: CommonColors.blackColor,
+                                  decorationThickness: 4.0,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      CommonButton(
+                          height: 50.98,
+                          width: 345.59,
+                          text: 'Sign Up',
+                          textStyle: CommonTextStyle.splashheadline1.copyWith(
+                              fontSize: 14, fontWeight: FontWeight.w500),
+                          borderRadius: 5,
+                          boxShadow: const [],
+                          onPressed: () {}),
                     ],
                   ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Center(
-                  child: CommonButton(
-                      height: 50.98,
-                      width: 345.59,
-                      text: 'Sign Up',
-                      textStyle: CommonTextStyle.splashheadline1
-                          .copyWith(fontSize: 14, fontWeight: FontWeight.w500),
-                      borderRadius: 5,
-                      boxShadow: const [],
-                      onPressed: () {}),
-                ),
+                )
               ],
             ),
           ),

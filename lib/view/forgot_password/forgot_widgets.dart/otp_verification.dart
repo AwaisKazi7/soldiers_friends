@@ -88,7 +88,7 @@ class OtpVerification extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       InkWell(
-                        onTap: () => Get.toNamed(RoutesName.homepage),
+                        onTap: () => Get.toNamed(RoutesName.bottomnavbar),
                         child: CommonText(
                           text: 'RESEND NEW CODE',
                           style: CommonTextStyle.gradienttext,

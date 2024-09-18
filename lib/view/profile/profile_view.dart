@@ -116,19 +116,17 @@ class ProfileView extends StatelessWidget {
                 const SizedBox(
                   height: 14,
                 ),
-                Flexible(
-                  child: CommonTextform(
-                    hintText:
-                        'Dedicated soldier serving with honor, \ncourage, and duty. Ready to lead by \nexample.',
-                    textStyle: CommonTextStyle.splashheadline1
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
-                    controller: TextEditingController(),
-                    fillColor: CommonColors.backgroundColor,
-                    borderColor: CommonColors.lightGray,
-                    borderRadius: 5,
-                    minLines: 1,
-                    maxLines: 3,
-                  ),
+                CommonTextform(
+                  hintText:
+                      'Dedicated soldier serving with honor, \ncourage, and duty. Ready to lead by \nexample.',
+                  textStyle: CommonTextStyle.splashheadline1
+                      .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
+                  controller: TextEditingController(),
+                  fillColor: CommonColors.backgroundColor,
+                  borderColor: CommonColors.lightGray,
+                  borderRadius: 5,
+                  // minLines: 1,
+                  // maxLines: 3,
                 ),
                 const SizedBox(
                   height: 14,
@@ -143,16 +141,14 @@ class ProfileView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: Expanded(
-                    child: CommonTextform(
-                      hintText: 'Country',
-                      textStyle: CommonTextStyle.splashheadline1
-                          .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
-                      controller: TextEditingController(),
-                      fillColor: CommonColors.backgroundColor,
-                      borderColor: CommonColors.lightGray,
-                      borderRadius: 5,
-                    ),
+                  child: CommonTextform(
+                    hintText: 'Country',
+                    textStyle: CommonTextStyle.splashheadline1
+                        .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
+                    controller: TextEditingController(),
+                    fillColor: CommonColors.backgroundColor,
+                    borderColor: CommonColors.lightGray,
+                    borderRadius: 5,
                   ),
                 ),
                 const SizedBox(
@@ -167,7 +163,7 @@ class ProfileView extends StatelessWidget {
                         .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
                     borderRadius: 5,
                     // boxShadow: const [], onPressed: () {},
-                    onPressed: () => Get.toNamed(RoutesName.homepage),
+                    onPressed: () => Get.toNamed(RoutesName.bottomnavbar),
                   ),
                 ),
               ],

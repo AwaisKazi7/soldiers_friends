@@ -18,6 +18,8 @@ import 'package:soldiers_friends/view/sign_up/signup_binding.dart';
 import 'package:soldiers_friends/view/sign_up/signup_view.dart';
 import 'package:soldiers_friends/view/home/home_binding.dart';
 import 'package:soldiers_friends/view/home/home_view.dart';
+import 'package:soldiers_friends/view/subscribtion/subscribtio_screens/subscribtion_view.dart';
+import 'package:soldiers_friends/view/subscribtion/subscribtion_binding.dart';
 import 'package:soldiers_friends/view/use_phoneNo/use_phone_binding.dart';
 import 'package:soldiers_friends/view/use_phoneNo/use_phone_view.dart';
 
@@ -53,7 +55,7 @@ class RoutesPageList {
         binding: HomeBinding()),
     GetPage(
         name: RoutesName.bottomnavbar,
-        page: () => const CustomBottomNavbar(),
+        page: () => const NavBarScreen(),
         binding: BottomNavbarBindings()),
     GetPage(
         name: RoutesName.chatpage,
@@ -61,7 +63,11 @@ class RoutesPageList {
         binding: ChatBinding()),
     GetPage(
         name: RoutesName.chatdetails,
-        page: () => const ChatDetailsView(),
+        page: () => ChatOpenScreen(),
         binding: ChatDetailBinding()),
+    GetPage(
+        name: RoutesName.subscribtion,
+        page: () => SubscribtionView(),
+        binding: SubscribtionBinding()),
   ];
 }
