@@ -86,6 +86,41 @@ class SubscribtionView extends StatelessWidget {
                     CommonAssets.rankImage,
                   ),
                 ),
+                SizedBox(height: 16),
+                buildFeatureItem(
+                  icon: Icons.message,
+                  title: 'Send unlimited amount of Hello',
+                ),
+                buildFeatureItem(
+                  icon: Icons.verified_user,
+                  title: 'See only verified profiles',
+                ),
+                buildFeatureItem(
+                  icon: Icons.chat,
+                  title: 'Chat with anyone and send photos/videos',
+                ),
+                buildFeatureItem(
+                  icon: Icons.visibility_off,
+                  title: 'Hide your distance and age',
+                ),
+                buildFeatureItem(
+                  icon: Icons.lock_open,
+                  title: 'Unlock advance features',
+                ),
+                buildFeatureItem(
+                  icon: Icons.settings,
+                  title: 'Another feature example',
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                CommonButton(
+                  borderRadius: 3,
+                  text: "Confirm",
+                  onPressed: () {},
+                  height: 46,
+                  boxShadow: [],
+                )
               ],
             ),
           ),
@@ -101,13 +136,14 @@ class SubscribtionView extends StatelessWidget {
         children: [
           Icon(
             icon,
-            color: Colors.grey,
+            color: Colors.grey.withOpacity(0.6),
           ),
           SizedBox(width: 16),
           Text(
             title,
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 12,
+              color: Colors.grey.withOpacity(0.8),
             ),
           ),
         ],
