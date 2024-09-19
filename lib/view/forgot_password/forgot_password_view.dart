@@ -69,6 +69,7 @@ class ForgotPasswordPage extends StatelessWidget {
                     height: 50.98,
                     width: 133.28,
                     text: 'Send OTP',
+
                     textStyle: CommonTextStyle.splashheadline1.copyWith(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,

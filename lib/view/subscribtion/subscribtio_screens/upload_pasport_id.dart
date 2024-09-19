@@ -9,11 +9,11 @@ import 'package:soldiers_friends/common/common_textform.dart';
 import 'package:soldiers_friends/commonwidgets/chatdetails_appbar.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/login/login_controller.dart';
-import 'package:soldiers_friends/view/subscribtion/subscribtio_screens/upload_pasport_id.dart';
+import 'package:soldiers_friends/view/subscribtion/subscribtio_screens/purchase_screen.dart';
 import 'package:soldiers_friends/view/subscribtion/subscribtion_controller.dart';
 
-class SubscribtionView extends StatelessWidget {
-  const SubscribtionView({super.key});
+class UploadPasportId extends StatelessWidget {
+  const UploadPasportId({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,8 @@ class SubscribtionView extends StatelessWidget {
                           },
                         ),
                         CommonText(
-                          text: "Are you a real soldier",
+                          textAlign: TextAlign.center,
+                          text: "Upload your passport \n or a valid ID",
                           style: CommonTextStyle.splashheadline1.copyWith(
                               fontSize:
                                   screenWidth * 0.045, // Responsive font size
@@ -64,66 +65,73 @@ class SubscribtionView extends StatelessWidget {
                         SizedBox(width: screenWidth * 0.16),
                       ],
                     ),
-                    SizedBox(height: screenHeight * 0.02), // Responsive spacing
                     Center(
-                      child: CommonText(
-                        textAlign: TextAlign.center,
-                        text:
-                            'Verify your identity by uploading your \n passport or a valid ID.',
-                        style: CommonTextStyle.splashheadline1.copyWith(
-                            fontSize:
-                                screenWidth * 0.04, // Responsive font size
-                            fontWeight: FontWeight.w400),
+                      child: Image.asset(
+                        CommonAssets.passport,
+                        height: screenHeight * 0.3,
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.03), // Responsive spacing
                   ],
                 ),
-                Center(
-                  child: Image.asset(
-                    fit: BoxFit.contain,
-                    height: 300,
-                    width: 200,
-                    CommonAssets.rankImage,
+                Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: CommonColors.blackColor.withOpacity(0.2),
+                        blurRadius: 6,
+                        offset: const Offset(0, 0),
+                      ),
+                    ],
+                  ),
+                  child: CommonTextform(
+                    hintText: 'Upload + Photo',
+                    textStyle: CommonTextStyle.splashheadline1
+                        .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
+                    controller: TextEditingController(),
+                    fillColor: CommonColors.backgroundColor,
+                    borderColor: CommonColors.lightGray,
+                    suffixImage: CommonAssets.calendarImage,
+                    borderRadius: 5,
                   ),
                 ),
                 SizedBox(height: 16),
-                buildFeatureItem(
-                  icon: Icons.message,
-                  title: 'Send unlimited amount of Hello',
+                Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: CommonColors.blackColor.withOpacity(0.2),
+                        blurRadius: 6,
+                        offset: const Offset(0, 0),
+                      ),
+                    ],
+                  ),
+                  child: CommonTextform(
+                    hintText: 'Take + Photo',
+                    textStyle: CommonTextStyle.splashheadline1
+                        .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
+                    controller: TextEditingController(),
+                    fillColor: CommonColors.backgroundColor,
+                    borderColor: CommonColors.lightGray,
+                    suffixImage: CommonAssets.calendarImage,
+                    borderRadius: 5,
+                  ),
                 ),
-                buildFeatureItem(
-                  icon: Icons.verified_user,
-                  title: 'See only verified profiles',
-                ),
-                buildFeatureItem(
-                  icon: Icons.chat,
-                  title: 'Chat with anyone and send photos/videos',
-                ),
-                buildFeatureItem(
-                  icon: Icons.visibility_off,
-                  title: 'Hide your distance and age',
-                ),
-                buildFeatureItem(
-                  icon: Icons.lock_open,
-                  title: 'Unlock advance features',
-                ),
-                buildFeatureItem(
-                  icon: Icons.settings,
-                  title: 'Another feature example',
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                CommonButton(
-                  borderRadius: 3,
-                  text: "Confirm",
-                  onPressed: () => Get.to(() => UploadPasportId()),
-                  height: 46,
-                  boxShadow: [],
-                )
+                // SizedBox(
+                //   height: screenHeight * 0.2,
+                // ),
               ],
             ),
+          ),
+        ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.only(bottom: 32, left: 14, right: 14),
+          child: CommonButton(
+            borderRadius: 3,
+            text: "Continue",
+            onPressed: () => Get.to(() => MyHomePage()),
+            height: 46,
+            boxShadow: [],
           ),
         ),
       );

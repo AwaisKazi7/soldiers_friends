@@ -23,150 +23,133 @@ class ProfileView extends StatelessWidget {
             margin: const EdgeInsets.all(18.0),
             height: context.height,
             width: context.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      icon: Image.asset(CommonAssets.backarrowIcon),
-                      iconSize: 24,
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
+            child: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  CommonText(
+                    text: "Profile details",
+                    style: CommonTextStyle.splashheadline1
+                        .copyWith(fontSize: 24, fontWeight: FontWeight.w500),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(child: DottedBoxWidget()),
+                      SizedBox(width: 10),
+                      Expanded(child: DottedBoxWidget()),
+                      SizedBox(width: 10),
+                      Expanded(child: DottedBoxWidget()),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 34,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: CommonColors.blackColor.withOpacity(0.2),
+                          blurRadius: 6,
+                          offset: const Offset(0, 0),
+                        ),
+                      ],
                     ),
-                    Expanded(
-                      child: CommonText(
-                        text: 'Profile',
-                        style: CommonTextStyle.splashheadline1.copyWith(
-                            fontSize: 20, fontWeight: FontWeight.w500),
-                      ),
+                    child: CommonTextform(
+                      hintText: 'Date of birth',
+                      textStyle: CommonTextStyle.splashheadline1
+                          .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
+                      controller: TextEditingController(),
+                      fillColor: CommonColors.backgroundColor,
+                      borderColor: CommonColors.lightGray,
+                      suffixImage: CommonAssets.calendarImage,
+                      borderRadius: 5,
                     ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                CommonText(
-                  text: "Profile details",
-                  style: CommonTextStyle.splashheadline1
-                      .copyWith(fontSize: 24, fontWeight: FontWeight.w500),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Expanded(child: DottedBoxWidget()),
-                    SizedBox(width: 10),
-                    Expanded(child: DottedBoxWidget()),
-                    SizedBox(width: 10),
-                    Expanded(child: DottedBoxWidget()),
-                  ],
-                ),
-                const SizedBox(
-                  height: 34,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: CommonColors.blackColor.withOpacity(0.2),
-                        blurRadius: 6,
-                        offset: const Offset(0, 0),
-                      ),
-                    ],
                   ),
-                  child: CommonTextform(
-                    hintText: 'Date of birth',
-                    textStyle: CommonTextStyle.splashheadline1
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
-                    controller: TextEditingController(),
-                    fillColor: CommonColors.backgroundColor,
-                    borderColor: CommonColors.lightGray,
-                    suffixImage: CommonAssets.calendarImage,
-                    borderRadius: 5,
+                  const SizedBox(
+                    height: 14,
                   ),
-                ),
-                const SizedBox(
-                  height: 14,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: CommonColors.blackColor.withOpacity(0.2),
-                        blurRadius: 6,
-                        offset: const Offset(0, 0),
-                      ),
-                    ],
+                  Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: CommonColors.blackColor.withOpacity(0.2),
+                          blurRadius: 6,
+                          offset: const Offset(0, 0),
+                        ),
+                      ],
+                    ),
+                    child: CommonTextform(
+                      hintText: 'Name',
+                      textStyle: CommonTextStyle.splashheadline1
+                          .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
+                      controller: TextEditingController(),
+                      fillColor: CommonColors.backgroundColor,
+                      borderColor: CommonColors.lightGray,
+                      borderRadius: 5,
+                    ),
                   ),
-                  child: CommonTextform(
-                    hintText: 'Name',
+                  const SizedBox(
+                    height: 14,
+                  ),
+                  CommonTextform(
+                    hintText:
+                        'Dedicated soldier serving with honor, \ncourage, and duty. Ready to lead by \nexample.',
                     textStyle: CommonTextStyle.splashheadline1
                         .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
                     controller: TextEditingController(),
                     fillColor: CommonColors.backgroundColor,
                     borderColor: CommonColors.lightGray,
                     borderRadius: 5,
+                    // minLines: 1,
+                    // maxLines: 3,
                   ),
-                ),
-                const SizedBox(
-                  height: 14,
-                ),
-                CommonTextform(
-                  hintText:
-                      'Dedicated soldier serving with honor, \ncourage, and duty. Ready to lead by \nexample.',
-                  textStyle: CommonTextStyle.splashheadline1
-                      .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
-                  controller: TextEditingController(),
-                  fillColor: CommonColors.backgroundColor,
-                  borderColor: CommonColors.lightGray,
-                  borderRadius: 5,
-                  // minLines: 1,
-                  // maxLines: 3,
-                ),
-                const SizedBox(
-                  height: 14,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: CommonColors.blackColor.withOpacity(0.2),
-                        blurRadius: 6,
-                        offset: const Offset(0, 0),
-                      ),
-                    ],
+                  const SizedBox(
+                    height: 14,
                   ),
-                  child: CommonTextform(
-                    hintText: 'Country',
-                    textStyle: CommonTextStyle.splashheadline1
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
-                    controller: TextEditingController(),
-                    fillColor: CommonColors.backgroundColor,
-                    borderColor: CommonColors.lightGray,
-                    borderRadius: 5,
+                  Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: CommonColors.blackColor.withOpacity(0.2),
+                          blurRadius: 6,
+                          offset: const Offset(0, 0),
+                        ),
+                      ],
+                    ),
+                    child: CommonTextform(
+                      hintText: 'Country',
+                      textStyle: CommonTextStyle.splashheadline1
+                          .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
+                      controller: TextEditingController(),
+                      fillColor: CommonColors.backgroundColor,
+                      borderColor: CommonColors.lightGray,
+                      borderRadius: 5,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 44,
-                ),
-                Center(
-                  child: CommonButton(
-                    height: 50.98,
-                    width: 345.59,
-                    text: 'Confirm',
-                    textStyle: CommonTextStyle.splashheadline1
-                        .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
-                    borderRadius: 5,
-                    // boxShadow: const [], onPressed: () {},
-                    onPressed: () => Get.toNamed(RoutesName.bottomnavbar),
+                  const SizedBox(
+                    height: 44,
                   ),
-                ),
-              ],
+                  Center(
+                    child: CommonButton(
+                      height: 50.98,
+                      width: 345.59,
+                      text: 'Confirm',
+                      textStyle: CommonTextStyle.splashheadline1
+                          .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
+                      borderRadius: 5,
+                      // boxShadow: const [], onPressed: () {},
+                      onPressed: () => Get.toNamed(RoutesName.bottomnavbar),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

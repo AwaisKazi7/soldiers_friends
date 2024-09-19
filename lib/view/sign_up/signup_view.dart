@@ -117,7 +117,7 @@ class SignupPage extends StatelessWidget {
                           width: 345.59,
                           text: 'Sign Up',
                           textStyle: CommonTextStyle.splashheadline1.copyWith(
-                              fontSize: 14, fontWeight: FontWeight.w500),
+                              fontSize: 14, fontWeight: FontWeight.w600),
                           borderRadius: 5,
                           boxShadow: const [],
                           onPressed: () {}),
