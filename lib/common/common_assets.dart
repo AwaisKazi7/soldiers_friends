@@ -14,6 +14,10 @@ class CommonAssets {
   static const String handphoneImage = 'assets/images/handphone.png';
   static const String lockphoneImage = 'assets/images/lockphone.png';
   static const String soldierswipeImage = 'assets/images/mark-peter.png';
+  static const String soldierswipesecondImage =
+      'assets/images/secondsoldier.png';
+  static const String soldier3 = 'assets/images/soldier3.jpg';
+  static const String soldier4 = 'assets/images/soldier4.jpg';
   static const String soldierprofileImage = 'assets/images/soldier.png';
   static const String chatuserImage = 'assets/images/jennifer.png';
   static const String backarrowIcon = 'assets/icons/back-arrow.png';

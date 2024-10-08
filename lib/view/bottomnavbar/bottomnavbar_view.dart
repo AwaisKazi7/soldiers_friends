@@ -14,47 +14,42 @@ class NavBarScreen extends StatelessWidget {
         return Scaffold(
           body: controller.screens[controller.selectedIndex],
           bottomNavigationBar: ClipRRect(
-            // decoration: BoxDecoration(
-            //   color: CommonColors.backgroundColor,
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(24), topRight: Radius.circular(24)),
-            // ),
             child: BottomNavigationBar(
               onTap: controller.onTabTapped,
               currentIndex: controller.selectedIndex,
-
-              backgroundColor:
-                  Colors.white, // Background color for the BottomNavigationBar
-              selectedItemColor: CommonColors.darkGreen, // Selected item color
-              unselectedItemColor: Colors.grey, // Unselected item color
+              backgroundColor: CommonColors.backgroundColor,
+              selectedItemColor: CommonColors.darkGreen,
+              unselectedItemColor: CommonColors.gradientEndColor,
               selectedLabelStyle: TextStyle(fontWeight: FontWeight.w400),
               unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
-              iconSize: 32, // Size of icons
+              iconSize: 32,
               type: BottomNavigationBarType.fixed,
               items: [
                 buildNavBarItem(
                   iconPath: CommonAssets.homeImage,
                   label: 'Home',
                   isSelected: controller.selectedIndex == 0,
-                  selectedColor: CommonColors.primaryColor,
+                  selectedColor: CommonColors.gradientEndColor,
                 ),
                 buildNavBarItem(
                   iconPath: CommonAssets.heartImage,
-                  label: 'Matches',
+                  label: 'Likes',
                   isSelected: controller.selectedIndex == 1,
-                  selectedColor: CommonColors.primaryColor,
+                  selectedColor: CommonColors.gradientEndColor,
                 ),
                 buildNavBarItem(
                   iconPath: CommonAssets.chatImage,
-                  label: 'Chat',
+                  label: 'Chats',
                   isSelected: controller.selectedIndex == 2,
-                  selectedColor: CommonColors.primaryColor,
+                  selectedColor: CommonColors.gradientEndColor,
                 ),
                 buildNavBarItem(
                   iconPath: CommonAssets.profilenavImage,
                   label: 'Profile',
                   isSelected: controller.selectedIndex == 3,
-                  selectedColor: CommonColors.primaryColor,
+                  selectedColor: CommonColors.gradientEndColor,
                 ),
               ],
             ),
@@ -75,7 +70,7 @@ class NavBarScreen extends StatelessWidget {
         padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
           color:
-              isSelected ? selectedColor.withOpacity(0.1) : Colors.transparent,
+              isSelected ? selectedColor.withOpacity(0.4) : Colors.transparent,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Image.asset(
@@ -87,57 +82,4 @@ class NavBarScreen extends StatelessWidget {
       label: label,
     );
   }
-// BottomNavigationBarItem buildNavItem(
-//   BuildContext context,
-//   HomeController controller,
-//   int index,
-//   String assetPath,
-//   String label,
-//   bool isSelected,
-// ) {
-//   return Expanded(
-//     child: GestureDetector(
-//       onTap: () => controller.changeIndex(index),
-//       child: Container(
-//         decoration: BoxDecoration(
-//           color: controller.selectedIndex == index
-//               ? CommonColors.lightGray
-//               : Colors.transparent,
-//           borderRadius: BorderRadius.circular(8.0),
-//         ),
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.start,
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           children: [
-//             Image.asset(
-//               assetPath,
-//               color: isSelected
-//                   ? CommonColors.darkGreen
-//                   : CommonColors.gradientEndColor,
-//               height: 28.0,
-//             ),
-//             const SizedBox(height: 4.0),
-//             Flexible(
-//               child: Align(
-//                 alignment: Alignment.center,
-//                 child: CommonText(
-//                   text: label,
-//                   style: CommonTextStyle.splashheadline1.copyWith(
-//                     color: isSelected
-//                         ? CommonColors.darkGreen
-//                         : CommonColors.neutralGray,
-//                     fontSize: 12,
-//                     fontWeight: FontWeight.w700,
-//                   ),
-//                   overflow: TextOverflow.ellipsis,
-//                   textAlign: TextAlign.center,
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     ),
-//   );
-// }
 }

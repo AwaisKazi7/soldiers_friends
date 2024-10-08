@@ -8,7 +8,6 @@ import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/common/common_textform.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/profile/profile_controller.dart';
-import 'package:soldiers_friends/view/profile/profile_widget/dotted_box_widget.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -16,6 +15,7 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(builder: (controller) {
+      String? selectedGender;
       return Scaffold(
         backgroundColor: CommonColors.backgroundColor,
         body: SingleChildScrollView(
@@ -25,31 +25,56 @@ class ProfileView extends StatelessWidget {
             width: context.width,
             child: SafeArea(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
                     height: 20,
                   ),
                   CommonText(
-                    text: "Profile details",
+                    text: "Profile Details",
                     style: CommonTextStyle.splashheadline1
-                        .copyWith(fontSize: 24, fontWeight: FontWeight.w500),
+                        .copyWith(fontSize: 28, fontWeight: FontWeight.w500),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Center(
+                    child: Stack(
+                      children: [
+                        const CircleAvatar(
+                          radius: 100,
+                          backgroundImage:
+                              AssetImage(CommonAssets.soldierswipesecondImage),
+                          backgroundColor: Colors.transparent,
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 10,
+                          child: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: CommonColors.darkGreen,
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              Icons.edit,
+                              color: Colors.white,
+                              size: 24,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(child: DottedBoxWidget()),
-                      SizedBox(width: 10),
-                      Expanded(child: DottedBoxWidget()),
-                      SizedBox(width: 10),
-                      Expanded(child: DottedBoxWidget()),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 34,
+                  CommonText(
+                    text: 'First Name',
+                    style: CommonTextStyle.splashheadline1
+                        .copyWith(fontSize: 18, fontWeight: FontWeight.w500),
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -62,18 +87,22 @@ class ProfileView extends StatelessWidget {
                       ],
                     ),
                     child: CommonTextform(
-                      hintText: 'Date of birth',
-                      textStyle: CommonTextStyle.splashheadline1
-                          .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
+                      hintText: 'Enter First Name',
+                      hintStyle: CommonTextStyle.getstartedt1
+                          .copyWith(fontSize: 14, fontWeight: FontWeight.w200),
                       controller: TextEditingController(),
                       fillColor: CommonColors.backgroundColor,
                       borderColor: CommonColors.lightGray,
-                      suffixImage: CommonAssets.calendarImage,
                       borderRadius: 5,
                     ),
                   ),
                   const SizedBox(
-                    height: 14,
+                    height: 10,
+                  ),
+                  CommonText(
+                    text: 'Last Name',
+                    style: CommonTextStyle.splashheadline1
+                        .copyWith(fontSize: 18, fontWeight: FontWeight.w500),
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -86,9 +115,9 @@ class ProfileView extends StatelessWidget {
                       ],
                     ),
                     child: CommonTextform(
-                      hintText: 'Name',
-                      textStyle: CommonTextStyle.splashheadline1
-                          .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
+                      hintText: 'Enter Last Name',
+                      hintStyle: CommonTextStyle.getstartedt1
+                          .copyWith(fontSize: 14, fontWeight: FontWeight.w200),
                       controller: TextEditingController(),
                       fillColor: CommonColors.backgroundColor,
                       borderColor: CommonColors.lightGray,
@@ -96,22 +125,12 @@ class ProfileView extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: 14,
+                    height: 10,
                   ),
-                  CommonTextform(
-                    hintText:
-                        'Dedicated soldier serving with honor, \ncourage, and duty. Ready to lead by \nexample.',
-                    textStyle: CommonTextStyle.splashheadline1
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
-                    controller: TextEditingController(),
-                    fillColor: CommonColors.backgroundColor,
-                    borderColor: CommonColors.lightGray,
-                    borderRadius: 5,
-                    // minLines: 1,
-                    // maxLines: 3,
-                  ),
-                  const SizedBox(
-                    height: 14,
+                  CommonText(
+                    text: 'Select Gender',
+                    style: CommonTextStyle.splashheadline1
+                        .copyWith(fontSize: 18, fontWeight: FontWeight.w500),
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -123,14 +142,54 @@ class ProfileView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: CommonTextform(
-                      hintText: 'Country',
-                      textStyle: CommonTextStyle.splashheadline1
-                          .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
-                      controller: TextEditingController(),
-                      fillColor: CommonColors.backgroundColor,
-                      borderColor: CommonColors.lightGray,
-                      borderRadius: 5,
+                    child: DropdownButtonFormField<String>(
+                      dropdownColor: CommonColors.backgroundColor,
+                      value: selectedGender,
+                      hint: CommonText(
+                        text: 'Select Gender',
+                        style: CommonTextStyle.getstartedt1.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.w200),
+                      ),
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: CommonColors.backgroundColor,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(color: CommonColors.lightGray),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(color: CommonColors.lightGray),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide:
+                              BorderSide(color: CommonColors.backgroundColor),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 12),
+                      ),
+                      items: [
+                        DropdownMenuItem(
+                          value: 'Male',
+                          child: Text('Male'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'Female',
+                          child: Text('Female'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'Other',
+                          child: Text('Other'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'Not Confirmed',
+                          child: Text('Not Confirmed'),
+                        ),
+                      ],
+                      onChanged: (value) {
+                        selectedGender = value;
+                      },
                     ),
                   ),
                   const SizedBox(
@@ -144,7 +203,7 @@ class ProfileView extends StatelessWidget {
                       textStyle: CommonTextStyle.splashheadline1
                           .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
                       borderRadius: 5,
-                      // boxShadow: const [], onPressed: () {},
+                      boxShadow: const [],
                       onPressed: () => Get.toNamed(RoutesName.bottomnavbar),
                     ),
                   ),

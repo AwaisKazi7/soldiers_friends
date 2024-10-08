@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soldiers_friends/common/common_colors.dart';
-import 'package:soldiers_friends/view/profile/profile_widget/dotted_border_painter.dart';
+import 'package:soldiers_friends/view/edit_profile/edit_profile_widget/dotted_border_painter.dart';
 
 class DottedBoxWidget extends StatelessWidget {
   const DottedBoxWidget({super.key});

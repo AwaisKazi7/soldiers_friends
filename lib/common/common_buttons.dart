@@ -60,7 +60,7 @@ class CommonButton extends StatelessWidget {
           gradient: gradient,
           color: gradient == null ? backgroundColor : null,
           border: Border.all(
-            color: !isBorderColor ? Colors.transparent : borderColor,
+            color: !isBorderColor ? borderColor : Colors.transparent,
             width: borderWidth,
           ),
           borderRadius: BorderRadius.circular(borderRadius),
