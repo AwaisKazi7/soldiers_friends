@@ -6,9 +6,9 @@ import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/common/common_textform.dart';
-import 'package:soldiers_friends/commonwidgets/chatdetails_appbar.dart';
-import 'package:soldiers_friends/routes/routes_name_strings.dart';
-import 'package:soldiers_friends/view/login/login_controller.dart';
+// import 'package:soldiers_friends/commonwidgets/chatdetails_appbar.dart';
+// import 'package:soldiers_friends/routes/routes_name_strings.dart';
+// import 'package:soldiers_friends/view/login/login_controller.dart';
 import 'package:soldiers_friends/view/subscribtion/subscribtio_screens/purchase_screen.dart';
 import 'package:soldiers_friends/view/subscribtion/subscribtion_controller.dart';
 
@@ -79,7 +79,7 @@ class UploadPasportId extends StatelessWidget {
                     boxShadow: [
                       BoxShadow(
                         color: CommonColors.blackColor.withOpacity(0.2),
-                        blurRadius: 6,
+                        blurRadius: 4,
                         offset: const Offset(0, 0),
                       ),
                     ],
@@ -91,7 +91,7 @@ class UploadPasportId extends StatelessWidget {
                     controller: TextEditingController(),
                     fillColor: CommonColors.backgroundColor,
                     borderColor: CommonColors.lightGray,
-                    suffixImage: CommonAssets.calendarImage,
+                    suffixImage: CommonAssets.upload,
                     borderRadius: 5,
                   ),
                 ),
@@ -101,7 +101,7 @@ class UploadPasportId extends StatelessWidget {
                     boxShadow: [
                       BoxShadow(
                         color: CommonColors.blackColor.withOpacity(0.2),
-                        blurRadius: 6,
+                        blurRadius: 4,
                         offset: const Offset(0, 0),
                       ),
                     ],
@@ -113,25 +113,22 @@ class UploadPasportId extends StatelessWidget {
                     controller: TextEditingController(),
                     fillColor: CommonColors.backgroundColor,
                     borderColor: CommonColors.lightGray,
-                    suffixImage: CommonAssets.calendarImage,
+                    suffixImage: CommonAssets.camera,
                     borderRadius: 5,
                   ),
                 ),
-                // SizedBox(
-                //   height: screenHeight * 0.2,
-                // ),
+                SizedBox(height: 30),
+                CommonButton(
+                  borderRadius: 3,
+                  text: "Continue",
+                  textStyle: CommonTextStyle.getstartedb1Style
+                      .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
+                  onPressed: () => Get.to(() => MyHomePage()),
+                  height: 46,
+                  boxShadow: [],
+                ),
               ],
             ),
-          ),
-        ),
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.only(bottom: 32, left: 14, right: 14),
-          child: CommonButton(
-            borderRadius: 3,
-            text: "Continue",
-            onPressed: () => Get.to(() => MyHomePage()),
-            height: 46,
-            boxShadow: [],
           ),
         ),
       );

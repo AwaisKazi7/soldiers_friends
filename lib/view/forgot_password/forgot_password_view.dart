@@ -46,13 +46,14 @@ class ForgotPasswordPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Container(
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: CommonColors.blackColor,
-                        width: 0.7,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: CommonColors.blackColor.withOpacity(0.2),
+                        blurRadius: 4,
+                        offset: const Offset(0, 0),
                       ),
-                    ),
+                    ],
                   ),
                   child: CommonTextform(
                     textStyle: CommonTextStyle.splashheadline1,
@@ -91,15 +92,16 @@ class ForgotPasswordPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     OtpContainer(onChanged: (v) {}),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 18),
                     Container(
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: CommonColors.blackColor,
-                            width: 0.7,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: CommonColors.blackColor.withOpacity(0.2),
+                            blurRadius: 4,
+                            offset: const Offset(0, 0),
                           ),
-                        ),
+                        ],
                       ),
                       child: CommonTextform(
                         textStyle: CommonTextStyle.splashheadline1,
@@ -111,13 +113,14 @@ class ForgotPasswordPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 18),
                     Container(
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: CommonColors.blackColor,
-                            width: 0.7,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: CommonColors.blackColor.withOpacity(0.2),
+                            blurRadius: 4,
+                            offset: const Offset(0, 0),
                           ),
-                        ),
+                        ],
                       ),
                       child: CommonTextform(
                         textStyle: CommonTextStyle.splashheadline1,

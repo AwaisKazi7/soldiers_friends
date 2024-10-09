@@ -91,12 +91,16 @@ class UsePhoneView extends StatelessWidget {
                                   BoxShadow(
                                     color: CommonColors.blackColor
                                         .withOpacity(0.2),
-                                    blurRadius: 6,
+                                    blurRadius: 4,
                                     offset: const Offset(0, 0),
                                   ),
                                 ], borderRadius: BorderRadius.circular(5)),
                                 child: CommonTextform(
                                   hintText: '',
+                                  hintStyle: CommonTextStyle.splashheadline1
+                                      .copyWith(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500),
                                   controller: phoneNumberController,
                                   fillColor: CommonColors.backgroundColor,
                                   borderColor: CommonColors.backgroundColor,
@@ -123,16 +127,28 @@ class UsePhoneView extends StatelessWidget {
                         ),
                         CommonRichText(
                           text1:
-                              'By providing my phone number, I hereby agree and\n accept the',
+                              'By providing my phone number, I hereby agree and\n accept the ',
                           style1: CommonTextStyle.getstartedt1,
-                          text2: ' Terms of Service',
+                          text2: 'Terms of Service',
                           style2: CommonTextStyle.gradienttext.copyWith(
-                              fontSize: 13, fontWeight: FontWeight.w600),
-                          text3: ' and',
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            decoration: TextDecoration.underline,
+                            decorationColor: CommonColors.gradientEndColor,
+                            decorationThickness: 2.5,
+                            height: 1.4,
+                          ),
+                          text3: ' and ',
                           style3: CommonTextStyle.getstartedt1,
-                          text4: ' Privacy Policy.',
+                          text4: 'Privacy Policy.',
                           style4: CommonTextStyle.gradienttext.copyWith(
-                              fontSize: 13, fontWeight: FontWeight.w600),
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            decoration: TextDecoration.underline,
+                            decorationColor: CommonColors.gradientEndColor,
+                            decorationThickness: 2.5,
+                            height: 1.4,
+                          ),
                           textAlign: TextAlign.center,
                           text5: '',
                           style5: CommonTextStyle.getstartedt1,

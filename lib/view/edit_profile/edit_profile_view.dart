@@ -56,7 +56,7 @@ class EditProfileView extends StatelessWidget {
                       boxShadow: [
                         BoxShadow(
                           color: CommonColors.blackColor.withOpacity(0.2),
-                          blurRadius: 6,
+                          blurRadius: 4,
                           offset: const Offset(0, 0),
                         ),
                       ],
@@ -80,7 +80,7 @@ class EditProfileView extends StatelessWidget {
                       boxShadow: [
                         BoxShadow(
                           color: CommonColors.blackColor.withOpacity(0.2),
-                          blurRadius: 6,
+                          blurRadius: 4,
                           offset: const Offset(0, 0),
                         ),
                       ],
@@ -98,17 +98,26 @@ class EditProfileView extends StatelessWidget {
                   const SizedBox(
                     height: 14,
                   ),
-                  CommonTextform(
-                    hintText:
-                        'Dedicated soldier serving with honor, \ncourage, and duty. Ready to lead by \nexample.',
-                    textStyle: CommonTextStyle.splashheadline1
-                        .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
-                    controller: TextEditingController(),
-                    fillColor: CommonColors.backgroundColor,
-                    borderColor: CommonColors.lightGray,
-                    borderRadius: 5,
-                    // minLines: 1,
-                    // maxLines: 3,
+                  Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: CommonColors.blackColor.withOpacity(0.2),
+                          blurRadius: 4,
+                          offset: const Offset(0, 0),
+                        ),
+                      ],
+                    ),
+                    child: CommonTextform(
+                      hintText:
+                          'Dedicated soldier serving with honor, \ncourage, and duty. Ready to lead by \nexample.',
+                      textStyle: CommonTextStyle.splashheadline1
+                          .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
+                      controller: TextEditingController(),
+                      fillColor: CommonColors.backgroundColor,
+                      borderColor: CommonColors.lightGray,
+                      borderRadius: 5,
+                    ),
                   ),
                   const SizedBox(
                     height: 14,
@@ -118,7 +127,7 @@ class EditProfileView extends StatelessWidget {
                       boxShadow: [
                         BoxShadow(
                           color: CommonColors.blackColor.withOpacity(0.2),
-                          blurRadius: 6,
+                          blurRadius: 4,
                           offset: const Offset(0, 0),
                         ),
                       ],
@@ -134,7 +143,7 @@ class EditProfileView extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: 44,
+                    height: 24,
                   ),
                   Center(
                     child: CommonButton(
@@ -144,7 +153,7 @@ class EditProfileView extends StatelessWidget {
                       textStyle: CommonTextStyle.splashheadline1
                           .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
                       borderRadius: 5,
-                      // boxShadow: const [], onPressed: () {},
+                      boxShadow: const [],
                       onPressed: () => Get.toNamed(RoutesName.bottomnavbar),
                     ),
                   ),

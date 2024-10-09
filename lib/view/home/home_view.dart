@@ -5,9 +5,9 @@ import 'package:soldiers_friends/Common/common_assets.dart';
 import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
-import 'package:soldiers_friends/common/common_textform.dart';
+// import 'package:soldiers_friends/common/common_textform.dart';
 import 'package:soldiers_friends/commonwidgets/common_app_bar.dart';
-import 'package:soldiers_friends/view/bottomnavbar/bottomnavbar_view.dart';
+// import 'package:soldiers_friends/view/bottomnavbar/bottomnavbar_view.dart';
 import 'package:soldiers_friends/view/home/home_controller.dart';
 import 'package:soldiers_friends/view/home/home_widgets/user_card_widget.dart';
 
@@ -32,13 +32,14 @@ class HomeView extends StatelessWidget {
             child: Column(
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const SizedBox(
                       width: 16,
                     ),
                     CommonText(
                       // textAlign: TextAlign.end,
-                      text: 'Find New Friend\'s',
+                      text: 'Discover New Friend\'s',
                       style:
                           CommonTextStyle.welcomelogin.copyWith(fontSize: 28),
                     ),

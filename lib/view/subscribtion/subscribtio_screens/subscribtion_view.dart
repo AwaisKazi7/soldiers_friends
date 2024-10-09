@@ -5,10 +5,10 @@ import 'package:soldiers_friends/common/common_buttons.dart';
 import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
-import 'package:soldiers_friends/common/common_textform.dart';
-import 'package:soldiers_friends/commonwidgets/chatdetails_appbar.dart';
-import 'package:soldiers_friends/routes/routes_name_strings.dart';
-import 'package:soldiers_friends/view/login/login_controller.dart';
+// import 'package:soldiers_friends/common/common_textform.dart';
+// import 'package:soldiers_friends/commonwidgets/chatdetails_appbar.dart';
+// import 'package:soldiers_friends/routes/routes_name_strings.dart';
+// import 'package:soldiers_friends/view/login/login_controller.dart';
 import 'package:soldiers_friends/view/subscribtion/subscribtio_screens/upload_pasport_id.dart';
 import 'package:soldiers_friends/view/subscribtion/subscribtion_controller.dart';
 
@@ -118,6 +118,8 @@ class SubscribtionView extends StatelessWidget {
                 CommonButton(
                   borderRadius: 3,
                   text: "Confirm",
+                  textStyle: CommonTextStyle.getstartedb1Style
+                      .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
                   onPressed: () => Get.to(() => UploadPasportId()),
                   height: 46,
                   boxShadow: [],

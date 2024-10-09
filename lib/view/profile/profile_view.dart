@@ -15,6 +15,7 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(builder: (controller) {
+      double screenWidth = MediaQuery.of(context).size.width;
       String? selectedGender;
       return Scaffold(
         backgroundColor: CommonColors.backgroundColor,
@@ -25,9 +26,24 @@ class ProfileView extends StatelessWidget {
             width: context.width,
             child: SafeArea(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  IconButton(
+                    icon: CircleAvatar(
+                      backgroundColor: CommonColors.lightGray,
+                      child: ClipOval(
+                        child: Image.asset(
+                          CommonAssets.backarrowIcon,
+                          fit: BoxFit.cover,
+                          width: screenWidth * 0.07, // Responsive sizing
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -49,7 +65,7 @@ class ProfileView extends StatelessWidget {
                           backgroundColor: Colors.transparent,
                         ),
                         Positioned(
-                          bottom: 0,
+                          bottom: 10,
                           right: 10,
                           child: Container(
                             width: 40,
@@ -60,7 +76,7 @@ class ProfileView extends StatelessWidget {
                             ),
                             child: const Icon(
                               Icons.edit,
-                              color: Colors.white,
+                              color: CommonColors.backgroundColor,
                               size: 24,
                             ),
                           ),
@@ -81,7 +97,7 @@ class ProfileView extends StatelessWidget {
                       boxShadow: [
                         BoxShadow(
                           color: CommonColors.blackColor.withOpacity(0.2),
-                          blurRadius: 6,
+                          blurRadius: 4,
                           offset: const Offset(0, 0),
                         ),
                       ],
@@ -109,7 +125,7 @@ class ProfileView extends StatelessWidget {
                       boxShadow: [
                         BoxShadow(
                           color: CommonColors.blackColor.withOpacity(0.2),
-                          blurRadius: 6,
+                          blurRadius: 4,
                           offset: const Offset(0, 0),
                         ),
                       ],
@@ -137,7 +153,7 @@ class ProfileView extends StatelessWidget {
                       boxShadow: [
                         BoxShadow(
                           color: CommonColors.blackColor.withOpacity(0.2),
-                          blurRadius: 6,
+                          blurRadius: 4,
                           offset: const Offset(0, 0),
                         ),
                       ],
@@ -182,10 +198,6 @@ class ProfileView extends StatelessWidget {
                           value: 'Other',
                           child: Text('Other'),
                         ),
-                        DropdownMenuItem(
-                          value: 'Not Confirmed',
-                          child: Text('Not Confirmed'),
-                        ),
                       ],
                       onChanged: (value) {
                         selectedGender = value;
@@ -204,7 +216,7 @@ class ProfileView extends StatelessWidget {
                           .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
                       borderRadius: 5,
                       boxShadow: const [],
-                      onPressed: () => Get.toNamed(RoutesName.bottomnavbar),
+                      onPressed: () => Get.toNamed(RoutesName.subscribtion),
                     ),
                   ),
                 ],

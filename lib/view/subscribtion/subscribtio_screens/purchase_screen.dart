@@ -12,48 +12,58 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: SafeArea(
+      body: Container(
+        margin: EdgeInsets.only(top: screenHeight * 0.08, right: 8, left: 8),
+        height: screenHeight,
+        width: screenWidth,
         child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  IconButton(
-                    icon: CircleAvatar(
-                      backgroundColor: CommonColors.lightGray,
-                      child: ClipOval(
-                        child: Image.asset(
-                          CommonAssets.backarrowIcon,
-                          fit: BoxFit.cover,
-                          width: screenWidth * 0.07, // Responsive sizing
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: CircleAvatar(
+                          backgroundColor: CommonColors.lightGray,
+                          child: ClipOval(
+                            child: Image.asset(
+                              CommonAssets.backarrowIcon,
+                              fit: BoxFit.cover,
+                              width: screenWidth * 0.07, // Responsive sizing
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      ShaderMask(
+                        shaderCallback: (bounds) => const LinearGradient(
+                          colors: [
+                            CommonColors.gradientEndColor,
+                            CommonColors.gradientStartColor
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ).createShader(bounds),
+                        blendMode: BlendMode.srcIn,
+                        child: const CommonText(
+                          textAlign: TextAlign.center,
+                          text: 'Soldiers Friends',
+                          style: CommonTextStyle.splashtitle,
                         ),
                       ),
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                      SizedBox(width: screenWidth * 0.16),
+                    ],
                   ),
-                  ShaderMask(
-                    shaderCallback: (bounds) => const LinearGradient(
-                      colors: [
-                        CommonColors.gradientEndColor,
-                        CommonColors.gradientStartColor
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ).createShader(bounds),
-                    blendMode: BlendMode.srcIn,
-                    child: const CommonText(
-                      textAlign: TextAlign.center,
-                      text: 'Soldiers Friends',
-                      style: CommonTextStyle.splashtitle,
-                    ),
-                  ),
-                  SizedBox(width: screenWidth * 0.16),
                 ],
               ),
               Center(
@@ -129,24 +139,32 @@ class MyHomePage extends StatelessWidget {
                 icon: Icons.settings,
                 title: 'Another feature example',
               ),
-              SizedBox(height: context.height * 0.03),
+              CommonButton(
+                borderRadius: 3,
+                text: "Continue Free",
+                textStyle: CommonTextStyle.getstartedb1Style
+                    .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
+                onPressed: () => Get.offAndToNamed(RoutesName.loginPage),
+                height: 46,
+                boxShadow: [],
+              ),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.only(
-            bottom: context.height * 0.04,
-            left: context.width * 0.05,
-            right: context.width * 0.05),
-        child: CommonButton(
-          borderRadius: 3,
-          text: "Continue Free",
-          onPressed: () => Get.offAndToNamed(RoutesName.loginPage),
-          height: context.height * 0.06,
-          boxShadow: [],
-        ),
-      ),
+      // bottomNavigationBar: Padding(
+      //   padding: EdgeInsets.only(
+      //       bottom: context.height * 0.04,
+      //       left: context.width * 0.05,
+      //       right: context.width * 0.05),
+      //   child: CommonButton(
+      //     borderRadius: 3,
+      //     text: "Continue Free",
+      //     onPressed: () => Get.offAndToNamed(RoutesName.loginPage),
+      //     height: context.height * 0.06,
+      //     boxShadow: [],
+      //   ),
+      // ),
     );
   }
 

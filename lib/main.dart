@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       getPages: RoutesPageList.routList,
-      initialRoute: RoutesName.editprofile,
+      initialRoute: RoutesName.getstartedPage,
     );
   }
 }

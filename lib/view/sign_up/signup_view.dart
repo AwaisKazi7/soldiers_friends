@@ -6,6 +6,7 @@ import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/common/common_textform.dart';
+import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/login/login_view.dart';
 import 'package:soldiers_friends/view/sign_up/signup_controller.dart';
 
@@ -27,11 +28,26 @@ class SignupPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                IconButton(
+                  icon: CircleAvatar(
+                    backgroundColor: CommonColors.lightGray,
+                    child: ClipOval(
+                      child: Image.asset(
+                        CommonAssets.backarrowIcon,
+                        fit: BoxFit.cover,
+                        width: 70, // Responsive sizing
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
                 Image.asset(
                   CommonAssets.rankImage,
                 ),
                 const CommonText(
-                  text: "Welcome Back!",
+                  text: "Welcome",
                   style: CommonTextStyle.welcomelogin,
                 ),
                 CommonText(
@@ -40,47 +56,126 @@ class SignupPage extends StatelessWidget {
                       .copyWith(fontSize: 20, fontWeight: FontWeight.w400),
                 ),
                 SizedBox(
-                  height: context.height * 0.03,
+                  height: 30,
                 ),
                 Column(
                   children: [
-                    CommonTextform(
-                      hintText: 'Fullname',
-                      textStyle: CommonTextStyle.splashheadline1,
-                      fillColor: CommonColors.backgroundColor,
-                      controller: TextEditingController(),
+                    Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: CommonColors.blackColor.withOpacity(0.2),
+                            blurRadius: 4,
+                            offset: const Offset(0, 0),
+                          ),
+                        ],
+                      ),
+                      child: CommonTextform(
+                        hintText: 'Fullname',
+                        textStyle: CommonTextStyle.splashheadline1,
+                        fillColor: CommonColors.backgroundColor,
+                        controller: TextEditingController(),
+                        isUnderline: false,
+                        borderColor: CommonColors.backgroundColor,
+                        borderRadius: 5,
+                      ),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    CommonTextform(
-                      hintText: 'Email',
-                      textStyle: CommonTextStyle.splashheadline1,
-                      fillColor: CommonColors.backgroundColor,
-                      controller: TextEditingController(),
+                    Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: CommonColors.blackColor.withOpacity(0.2),
+                            blurRadius: 4,
+                            offset: const Offset(0, 0),
+                          ),
+                        ],
+                      ),
+                      child: CommonTextform(
+                        hintText: 'Email',
+                        textStyle: CommonTextStyle.splashheadline1,
+                        fillColor: CommonColors.backgroundColor,
+                        controller: TextEditingController(),
+                        isUnderline: false,
+                        borderColor: CommonColors.backgroundColor,
+                        borderRadius: 5,
+                      ),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    CommonTextform(
-                      hintText: 'Password',
-                      textStyle: CommonTextStyle.splashheadline1,
-                      fillColor: CommonColors.backgroundColor,
-                      controller: TextEditingController(),
+                    Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: CommonColors.blackColor.withOpacity(0.2),
+                            blurRadius: 4,
+                            offset: const Offset(0, 0),
+                          ),
+                        ],
+                      ),
+                      child: CommonTextform(
+                        hintText: 'Password',
+                        textStyle: CommonTextStyle.splashheadline1,
+                        fillColor: CommonColors.backgroundColor,
+                        controller: TextEditingController(),
+                        isUnderline: false,
+                        borderColor: CommonColors.backgroundColor,
+                        borderRadius: 5,
+                      ),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    CommonTextform(
-                      hintText: 'Confirm Password',
-                      textStyle: CommonTextStyle.splashheadline1,
-                      fillColor: CommonColors.backgroundColor,
-                      controller: TextEditingController(),
+                    Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: CommonColors.blackColor.withOpacity(0.2),
+                            blurRadius: 4,
+                            offset: const Offset(0, 0),
+                          ),
+                        ],
+                      ),
+                      child: CommonTextform(
+                        hintText: 'Confirm Password',
+                        textStyle: CommonTextStyle.splashheadline1,
+                        fillColor: CommonColors.backgroundColor,
+                        controller: TextEditingController(),
+                        isUnderline: false,
+                        borderColor: CommonColors.backgroundColor,
+                        borderRadius: 5,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: CommonColors.blackColor.withOpacity(0.2),
+                            blurRadius: 4,
+                            offset: const Offset(0, 0),
+                          ),
+                        ],
+                      ),
+                      child: CommonTextform(
+                        hintText: 'Mobile Number',
+                        textStyle: CommonTextStyle.splashheadline1,
+                        fillColor: CommonColors.backgroundColor,
+                        controller: TextEditingController(),
+                        isUnderline: false,
+                        borderColor: CommonColors.backgroundColor,
+                        borderRadius: 5,
+                      ),
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: context.height * 0.1,
+                  height: 20,
                 ),
                 Expanded(
                   child: Column(
@@ -99,6 +194,7 @@ class SignupPage extends StatelessWidget {
                               child: CommonText(
                                 text: 'Sign In',
                                 style: CommonTextStyle.splashheadline1.copyWith(
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w700,
                                   decoration: TextDecoration.underline,
                                   decorationColor: CommonColors.blackColor,
@@ -113,14 +209,17 @@ class SignupPage extends StatelessWidget {
                         height: 30,
                       ),
                       CommonButton(
-                          height: 50.98,
-                          width: 345.59,
-                          text: 'Sign Up',
-                          textStyle: CommonTextStyle.splashheadline1.copyWith(
-                              fontSize: 14, fontWeight: FontWeight.w600),
-                          borderRadius: 5,
-                          boxShadow: const [],
-                          onPressed: () {}),
+                        height: 50.98,
+                        width: 345.59,
+                        text: 'Sign Up',
+                        textStyle: CommonTextStyle.splashheadline1.copyWith(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                        borderRadius: 5,
+                        boxShadow: const [],
+                        onPressed: () {
+                          Get.toNamed(RoutesName.loginPage);
+                        },
+                      ),
                     ],
                   ),
                 )

@@ -6,7 +6,7 @@ import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/commonwidgets/common_app_bar.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
-import 'package:soldiers_friends/view/bottomnavbar/bottomnavbar_view.dart';
+// import 'package:soldiers_friends/view/bottomnavbar/bottomnavbar_view.dart';
 import 'package:soldiers_friends/view/chat/chat_controller.dart';
 
 class ChatView extends StatelessWidget {

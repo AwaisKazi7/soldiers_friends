@@ -3,7 +3,8 @@ class CommonAssets {
   static const String phoneIcon = 'assets/images/phoneicon.png';
   static const String rankImage = 'assets/images/rank.png';
   static const String passport = 'assets/images/passport.png';
-
+  static const String upload = 'assets/images/upload.png';
+  static const String camera = 'assets/images/camera.png';
   static const String eyeSplashIcon = 'assets/icons/eye.png';
   static const String appleImage = 'assets/images/apple.png';
   static const String homeImage = 'assets/images/home.png';
@@ -21,6 +22,7 @@ class CommonAssets {
   static const String soldierprofileImage = 'assets/images/soldier.png';
   static const String chatuserImage = 'assets/images/jennifer.png';
   static const String backarrowIcon = 'assets/icons/back-arrow.png';
+  static const String forwardarrowIcon = 'assets/icons/forwardarrow.png';
   static const String dropdownIcon = 'assets/icons/dropdownIcon.png';
   static const String calendarImage = 'assets/icons/calendar.png';
   static const String bellIcon = 'assets/icons/bellicon.png';

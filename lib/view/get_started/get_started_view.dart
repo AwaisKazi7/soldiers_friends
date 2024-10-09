@@ -96,7 +96,7 @@ class GetStartedView extends StatelessWidget {
                     textStyle: CommonTextStyle.getstartedb1Style,
                     boxShadow: const [],
                     onPressed: () {
-                      Get.toNamed(RoutesName.subscribtion);
+                      Get.toNamed(RoutesName.profilePage);
                     }),
                 const SizedBox(
                   height: 10,

@@ -3,7 +3,7 @@ import 'package:soldiers_friends/common/common_assets.dart';
 import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
-import 'package:soldiers_friends/common/common_textform.dart';
+// import 'package:soldiers_friends/common/common_textform.dart';
 import 'package:soldiers_friends/commonwidgets/chatdetails_appbar.dart';
 
 class ChatOpenScreen extends StatelessWidget {
