@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "177377617100",
+    "project_id": "soldiers-friends-18909",
+    "storage_bucket": "soldiers-friends-18909.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:177377617100:android:313a99d78d57588a42ce69",
+        "android_client_info": {
+          "package_name": "com.example.soldiers_friends"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDttuEX877jGA5Guvv-w6vfc7zBaBA-8_g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

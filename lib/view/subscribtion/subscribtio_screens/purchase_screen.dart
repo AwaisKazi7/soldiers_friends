@@ -61,7 +61,7 @@ class MyHomePage extends StatelessWidget {
                           style: CommonTextStyle.splashtitle,
                         ),
                       ),
-                      SizedBox(width: screenWidth * 0.16),
+                      Spacer(),
                     ],
                   ),
                 ],

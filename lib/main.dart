@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
@@ -5,6 +6,7 @@ import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'routes/routes_page_list.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

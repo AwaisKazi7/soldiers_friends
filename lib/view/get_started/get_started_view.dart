@@ -85,9 +85,7 @@ class GetStartedView extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 44,
-                ),
+                const Spacer(),
                 CommonButton(
                     text: 'Get Started',
                     height: 50.98,

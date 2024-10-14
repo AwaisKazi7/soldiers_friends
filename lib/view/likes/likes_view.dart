@@ -43,45 +43,49 @@ class LikesView extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        CommonButton(
-                          width: 180,
-                          text: 'Likes Me',
-                          textStyle: CommonTextStyle.splashheadline1.copyWith(
-                              fontSize: 16, fontWeight: FontWeight.w600),
-                          borderRadius: 24,
-                          onPressed: () {
-                            controller.toggleLikes(true);
-                          },
-                          boxShadow: const [],
-                          gradient: controller.showLikesMe
-                              ? CommonColors.buttonGradient
-                              : null,
-                          backgroundColor: controller.showLikesMe
-                              ? Colors.transparent
-                              : CommonColors.lightGray,
-                          textColor: controller.showLikesMe
-                              ? Colors.white
-                              : Colors.black,
+                        Expanded(
+                          child: CommonButton(
+                            // width: 180,
+                            text: 'Likes Me',
+                            textStyle: CommonTextStyle.splashheadline1.copyWith(
+                                fontSize: 16, fontWeight: FontWeight.w600),
+                            borderRadius: 24,
+                            onPressed: () {
+                              controller.toggleLikes(true);
+                            },
+                            boxShadow: const [],
+                            gradient: controller.showLikesMe
+                                ? CommonColors.buttonGradient
+                                : null,
+                            backgroundColor: controller.showLikesMe
+                                ? Colors.transparent
+                                : CommonColors.lightGray,
+                            textColor: controller.showLikesMe
+                                ? Colors.white
+                                : Colors.black,
+                          ),
                         ),
-                        CommonButton(
-                          width: 180,
-                          text: 'My Likes',
-                          textStyle: CommonTextStyle.splashheadline1.copyWith(
-                              fontSize: 16, fontWeight: FontWeight.w600),
-                          borderRadius: 24,
-                          onPressed: () {
-                            controller.toggleLikes(false);
-                          },
-                          boxShadow: const [],
-                          gradient: !controller.showLikesMe
-                              ? CommonColors.buttonGradient
-                              : null,
-                          backgroundColor: !controller.showLikesMe
-                              ? Colors.transparent
-                              : CommonColors.lightGray,
-                          textColor: !controller.showLikesMe
-                              ? Colors.white
-                              : Colors.black,
+                        Expanded(
+                          child: CommonButton(
+                            // width: 180,
+                            text: 'My Likes',
+                            textStyle: CommonTextStyle.splashheadline1.copyWith(
+                                fontSize: 16, fontWeight: FontWeight.w600),
+                            borderRadius: 24,
+                            onPressed: () {
+                              controller.toggleLikes(false);
+                            },
+                            boxShadow: const [],
+                            gradient: !controller.showLikesMe
+                                ? CommonColors.buttonGradient
+                                : null,
+                            backgroundColor: !controller.showLikesMe
+                                ? Colors.transparent
+                                : CommonColors.lightGray,
+                            textColor: !controller.showLikesMe
+                                ? Colors.white
+                                : Colors.black,
+                          ),
                         ),
                       ],
                     ),
