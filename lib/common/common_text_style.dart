@@ -22,6 +22,13 @@ class CommonTextStyle {
     color: CommonColors.primaryColor,
     fontFamily: fontFamilyName,
   );
+  static const TextStyle loginAccountStyle = TextStyle(
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    color: CommonColors.primaryColor,
+    fontFamily: fontFamilyName,
+  );
+
   static const TextStyle getstartedt1 = TextStyle(
     fontWeight: FontWeight.w700,
     fontSize: 12,

@@ -76,6 +76,7 @@ class DatePickerWidget extends StatelessWidget {
             prefixIcon: prefixIcon != null
                 ? Icon(prefixIcon)
                 : (prefixImage != null ? Image.asset(prefixImage!) : null),
+            suffixIcon: Icon(Icons.calendar_today), // Date icon at the end
             hintText: hintText,
             hintStyle: hintStyle,
           ),

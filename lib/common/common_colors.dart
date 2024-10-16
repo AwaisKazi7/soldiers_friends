@@ -10,6 +10,10 @@ class CommonColors {
   static const Color blackColor = Color(0xFF000000);
   static const Color dotColor = Color(0xFFFFBA00);
 
+  static const Color textformFillColor = Color(0xFFEEEEEE);
+  static const Color subHeafingBlackColor = Color(0xFFFFBA00);
+
+
   // Gradient colors
   static const Color gradientStartColor = Color(0xFF5ECA95);
   static const Color gradientEndColor = Color(0xFF1AADD5);

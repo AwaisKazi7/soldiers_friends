@@ -9,6 +9,7 @@ import 'package:soldiers_friends/common/common_textform.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/edit_profile/edit_profile_controller.dart';
 import 'package:soldiers_friends/view/edit_profile/edit_profile_widget/dotted_box_widget.dart';
+import 'package:soldiers_friends/view/edit_profile/edit_profile_widget/profile_pic_box.dart';
 
 import '../../common/common_date_picker.dart';
 
@@ -57,16 +58,17 @@ class _EditProfileViewState extends State<EditProfileView> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(child: DottedBoxWidget()),
-                      SizedBox(width: 10),
-                      Expanded(child: DottedBoxWidget()),
-                      SizedBox(width: 10),
-                      Expanded(child: DottedBoxWidget()),
-                    ],
-                  ),
+                  // const Row(
+                  //   mainAxisAlignment: MainAxisAlignment.start,
+                  //   children: [
+                  //     Expanded(child: DottedBoxWidget()),
+                  //     SizedBox(width: 10),
+                  //     Expanded(child: DottedBoxWidget()),
+                  //     SizedBox(width: 10),
+                  //     Expanded(child: DottedBoxWidget()),
+                  //   ],
+                  // ),
+                  ProfilePictureRow(),
                   const SizedBox(
                     height: 34,
                   ),
@@ -87,6 +89,8 @@ class _EditProfileViewState extends State<EditProfileView> {
                       onDateSelected: _handleDateSelected, // Pass the callback
                       fillColor: Colors.white,
                       borderColor: Colors.grey,
+                      textStyle: CommonTextStyle.splashheadline1
+                          .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
                     ),
                   ),
                   const SizedBox(
@@ -127,7 +131,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                     ),
                     child: CommonTextform(
                       hintText:
-                          'Dedicated soldier serving with honor, \ncourage, and duty. Ready to lead by \nexample.',
+                          'About',
                       textStyle: CommonTextStyle.splashheadline1
                           .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
                       controller: TextEditingController(),
