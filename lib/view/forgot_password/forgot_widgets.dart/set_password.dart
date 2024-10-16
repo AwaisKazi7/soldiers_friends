@@ -97,7 +97,7 @@ class SetPassword extends StatelessWidget {
                 ),
                 Center(
                   child: InkWell(
-                    onTap: () => Get.to(() => const LoginPage()),
+                    onTap: () => Get.to(() => LoginPage()),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [

@@ -146,7 +146,7 @@ class ForgotPasswordPage extends StatelessWidget {
                     const SizedBox(height: 16),
                     Center(
                       child: InkWell(
-                        onTap: () => Get.to(() => const LoginPage()),
+                        onTap: () => Get.to(() => LoginPage()),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [

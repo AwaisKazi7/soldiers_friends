@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/common/common_assets.dart';
@@ -9,8 +10,22 @@ import 'package:soldiers_friends/common/common_textform.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/login/login_controller.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _emailController = TextEditingController();
+
+  final TextEditingController _pwdController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +90,7 @@ class LoginPage extends StatelessWidget {
                           textStyle: CommonTextStyle.splashheadline1,
                           hintText: "Email/Number",
                           fillColor: CommonColors.backgroundColor,
-                          controller: TextEditingController(),
+                          controller: _emailController,
                           isUnderline: false,
                           borderColor: CommonColors.backgroundColor,
                           borderRadius: 5,
@@ -99,7 +114,7 @@ class LoginPage extends StatelessWidget {
                           hintText: "Password",
                           fillColor: CommonColors.backgroundColor,
                           suffixImage: CommonAssets.eyeSplashIcon,
-                          controller: TextEditingController(),
+                          controller: _pwdController,
                           isUnderline: false,
                           borderColor: CommonColors.backgroundColor,
                           borderRadius: 5,
@@ -200,8 +215,9 @@ class LoginPage extends StatelessWidget {
                         boxShadow: const [],
                         backgroundColor: CommonColors.lightGray,
                         textColor: CommonColors.primaryColor,
-                        onPressed: () =>
-                            Get.offAndToNamed(RoutesName.bottomnavbar),
+                        onPressed: () async{
+                          await controller.signInWithEmail(context,_emailController.text, _pwdController.text);
+                        },
                         gradient: null,
                       ),
                       const SizedBox(

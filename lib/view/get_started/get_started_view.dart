@@ -8,6 +8,7 @@ import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/get_started/get_started_controller.dart';
+import 'package:soldiers_friends/view/login/login_controller.dart';
 
 class GetStartedView extends StatelessWidget {
   const GetStartedView({super.key});
@@ -93,8 +94,9 @@ class GetStartedView extends StatelessWidget {
                     borderRadius: 5,
                     textStyle: CommonTextStyle.getstartedb1Style,
                     boxShadow: const [],
-                    onPressed: () {
-                      Get.toNamed(RoutesName.profilePage);
+                    onPressed: () async{
+                      await controller.onGetStartedPressed();
+
                     }),
                 const SizedBox(
                   height: 10,

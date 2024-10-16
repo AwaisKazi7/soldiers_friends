@@ -79,7 +79,8 @@ class CommonTextform extends StatelessWidget {
       return UnderlineInputBorder(
         borderSide: BorderSide(color: borderColor ?? Colors.grey),
       );
-    } else {
+    }
+    else {
       return OutlineInputBorder(
         borderRadius: BorderRadius.circular(borderRadius),
         borderSide: BorderSide(color: borderColor ?? Colors.grey),

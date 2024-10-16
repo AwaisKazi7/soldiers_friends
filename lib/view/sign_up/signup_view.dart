@@ -11,7 +11,12 @@ import 'package:soldiers_friends/view/login/login_view.dart';
 import 'package:soldiers_friends/view/sign_up/signup_controller.dart';
 
 class SignupPage extends StatelessWidget {
-  const SignupPage({super.key});
+  SignupPage({super.key});
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _pwdController = TextEditingController();
+  final TextEditingController _confirmPwdController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +102,7 @@ class SignupPage extends StatelessWidget {
                         hintText: 'Email',
                         textStyle: CommonTextStyle.splashheadline1,
                         fillColor: CommonColors.backgroundColor,
-                        controller: TextEditingController(),
+                        controller: _emailController,
                         isUnderline: false,
                         borderColor: CommonColors.backgroundColor,
                         borderRadius: 5,
@@ -120,7 +125,7 @@ class SignupPage extends StatelessWidget {
                         hintText: 'Password',
                         textStyle: CommonTextStyle.splashheadline1,
                         fillColor: CommonColors.backgroundColor,
-                        controller: TextEditingController(),
+                        controller: _pwdController,
                         isUnderline: false,
                         borderColor: CommonColors.backgroundColor,
                         borderRadius: 5,
@@ -143,7 +148,7 @@ class SignupPage extends StatelessWidget {
                         hintText: 'Confirm Password',
                         textStyle: CommonTextStyle.splashheadline1,
                         fillColor: CommonColors.backgroundColor,
-                        controller: TextEditingController(),
+                        controller: _confirmPwdController,
                         isUnderline: false,
                         borderColor: CommonColors.backgroundColor,
                         borderRadius: 5,
@@ -166,7 +171,7 @@ class SignupPage extends StatelessWidget {
                         hintText: 'Mobile Number',
                         textStyle: CommonTextStyle.splashheadline1,
                         fillColor: CommonColors.backgroundColor,
-                        controller: TextEditingController(),
+                        controller: _phoneController,
                         isUnderline: false,
                         borderColor: CommonColors.backgroundColor,
                         borderRadius: 5,
@@ -189,7 +194,7 @@ class SignupPage extends StatelessWidget {
                           ),
                           InkWell(
                             hoverColor: Colors.transparent,
-                            onTap: () => Get.to(() => const LoginPage()),
+                            onTap: () => Get.to(() => LoginPage()),
                             child: Align(
                               child: CommonText(
                                 text: 'Sign In',
@@ -216,8 +221,10 @@ class SignupPage extends StatelessWidget {
                             fontSize: 16, fontWeight: FontWeight.w500),
                         borderRadius: 5,
                         boxShadow: const [],
-                        onPressed: () {
-                          Get.toNamed(RoutesName.loginPage);
+                        onPressed: () async{
+                          var result = await controller.signUpWithEmailAndPhone(_emailController.text, _pwdController.text, _phoneController.text, context);
+                          if(result != null )
+                            Get.toNamed(RoutesName.loginPage);
                         },
                       ),
                     ],

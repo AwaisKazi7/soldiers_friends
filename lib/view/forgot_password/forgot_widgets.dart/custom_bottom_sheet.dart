@@ -55,7 +55,7 @@ class CustomBottomSheet extends StatelessWidget {
                       height: 16,
                     ),
                     InkWell(
-                      onTap: () => Get.to(() => const LoginPage()),
+                      onTap: () => Get.to(() => LoginPage()),
                       child: const CommonText(
                         text: "Go to Homepage",
                         style: CommonTextStyle.splashheadline1,

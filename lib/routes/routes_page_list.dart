@@ -35,11 +35,11 @@ class RoutesPageList {
         binding: GetStartedBinding()),
     GetPage(
         name: RoutesName.loginPage,
-        page: () => const LoginPage(),
+        page: () => LoginPage(),
         binding: LoginBinding()),
     GetPage(
         name: RoutesName.signuppage,
-        page: () => const SignupPage(),
+        page: () => SignupPage(),
         binding: SignUpBinding()),
     GetPage(
         name: RoutesName.forgotpasswordpage,
@@ -55,7 +55,7 @@ class RoutesPageList {
         binding: ProfileBinding()),
     GetPage(
         name: RoutesName.editprofile,
-        page: () => const EditProfileView(),
+        page: () => EditProfileView(),
         binding: EditProfileBinding()),
     GetPage(
         name: RoutesName.homepage,

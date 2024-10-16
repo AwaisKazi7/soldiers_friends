@@ -20,7 +20,7 @@ class NavbarController extends GetxController {
     const HomeView(),
     const LikesView(),
     const ChatView(),
-    const EditProfileView(),
+    EditProfileView(),
   ];
   int selectedIndex = 0;
 

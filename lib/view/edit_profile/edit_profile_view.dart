@@ -10,8 +10,27 @@ import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/edit_profile/edit_profile_controller.dart';
 import 'package:soldiers_friends/view/edit_profile/edit_profile_widget/dotted_box_widget.dart';
 
-class EditProfileView extends StatelessWidget {
-  const EditProfileView({super.key});
+import '../../common/common_date_picker.dart';
+
+class EditProfileView extends StatefulWidget {
+  EditProfileView({super.key});
+
+  @override
+  State<EditProfileView> createState() => _EditProfileViewState();
+}
+
+class _EditProfileViewState extends State<EditProfileView> {
+  final TextEditingController _dateController = TextEditingController();
+
+  DateTime? _selectedDate;
+
+  // Variable to store the selected date
+  void _handleDateSelected(DateTime date) {
+    setState(() {
+      _selectedDate = date; // Store the selected date
+    });
+    print("Selected date: ${date.toLocal()}"); // For demonstration
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,15 +80,13 @@ class EditProfileView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: CommonTextform(
-                      hintText: 'Date of birth',
-                      textStyle: CommonTextStyle.splashheadline1
-                          .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
-                      controller: TextEditingController(),
-                      fillColor: CommonColors.backgroundColor,
-                      borderColor: CommonColors.lightGray,
-                      suffixImage: CommonAssets.calendarImage,
-                      borderRadius: 5,
+                    child: DatePickerWidget(
+                      hintText: "Select Date",
+                      controller: _dateController,
+                      selectedDate: _selectedDate,
+                      onDateSelected: _handleDateSelected, // Pass the callback
+                      fillColor: Colors.white,
+                      borderColor: Colors.grey,
                     ),
                   ),
                   const SizedBox(
