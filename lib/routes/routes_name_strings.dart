@@ -12,4 +12,7 @@ class RoutesName {
   static String chatpage = "/chatpage";
   static String chatdetails = "/chatdetails";
   static String subscribtion = "/subscribtion";
+  static String settingview = "/settingview";
+  static String deleteview = "/deleteview";
+
 }

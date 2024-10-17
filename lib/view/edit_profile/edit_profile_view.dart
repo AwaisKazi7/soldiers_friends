@@ -38,6 +38,28 @@ class _EditProfileViewState extends State<EditProfileView> {
     return GetBuilder<EditProfileController>(builder: (controller) {
       return Scaffold(
         backgroundColor: CommonColors.backgroundColor,
+        appBar: AppBar(
+          backgroundColor: CommonColors.backgroundColor,
+          surfaceTintColor: CommonColors.backgroundColor,
+          title: CommonText(
+            text: "Edit Profile",
+            style: CommonTextStyle.splashheadline1
+                .copyWith(fontSize: 24, fontWeight: FontWeight.w500),
+          ),
+          centerTitle: true,
+          leading: SizedBox(),
+          actions: [
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(RoutesName.settingview);
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Icon(Icons.settings),
+              ),
+            )
+          ],
+        ),
         body: SingleChildScrollView(
           child: Container(
             margin: const EdgeInsets.all(18.0),
@@ -50,11 +72,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                   const SizedBox(
                     height: 20,
                   ),
-                  CommonText(
-                    text: "Edit Profile",
-                    style: CommonTextStyle.splashheadline1
-                        .copyWith(fontSize: 24, fontWeight: FontWeight.w500),
-                  ),
+
                   const SizedBox(
                     height: 20,
                   ),
@@ -130,8 +148,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                       ],
                     ),
                     child: CommonTextform(
-                      hintText:
-                          'About',
+                      hintText: 'About',
                       textStyle: CommonTextStyle.splashheadline1
                           .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
                       controller: TextEditingController(),

@@ -10,11 +10,13 @@ class GetStartedController extends GetxController {
     // navigate();
   }
 
-  onGetStartedPressed() async{
-    if((await LoginController().isUserLoggedIn()) == null){
-    Get.toNamed(RoutesName.loginPage);
+  onGetStartedPressed() async {
+    var user = await LoginController().isUserLoggedIn();
+    if (user == null) {
+      Get.toNamed(RoutesName.loginPage);
+    } else {
+      Get.toNamed(RoutesName.bottomnavbar);
     }
-    Get.toNamed(RoutesName.bottomnavbar);
   }
 
   // void navigate() {

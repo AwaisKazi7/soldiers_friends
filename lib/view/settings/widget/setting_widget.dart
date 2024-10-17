@@ -5,9 +5,10 @@ import '../../../common/common_colors.dart';
 import '../../../common/common_text.dart';
 import '../../../common/common_text_style.dart';
 
-
 Widget buildAccountItemSettings({
   required String text,
+  TextStyle? textStyle,
+  Widget? icon,
   required void Function() onPressed,
   bool? switchValue,
   void Function(bool)? onSwitchChanged,
@@ -20,22 +21,23 @@ Widget buildAccountItemSettings({
     child: ListTile(
       title: CommonText(
         text: text,
-        style: CommonTextStyle.loginAccountStyle.copyWith(
-          fontSize: 14,
-          color: CommonColors.subHeafingBlackColor,
-          fontWeight: FontWeight.w400,
-        ),
+        style: textStyle ??
+            CommonTextStyle.loginAccountStyle.copyWith(
+              fontSize: 14,
+              color: CommonColors.subHeafingBlackColor,
+              fontWeight: FontWeight.w400,
+            ),
       ),
       trailing: switchValue != null
           ? CustomSwitch(
-        value: switchValue,
-        onChanged: onSwitchChanged!,
-      )
-          : Icon(
-        Icons.arrow_forward_ios,
-        color: CommonColors.subHeafingBlackColor,
-        size: 16,
-      ),
+              value: switchValue,
+              onChanged: onSwitchChanged!,
+            )
+          : icon??Icon(
+              Icons.arrow_forward_ios,
+              color: CommonColors.subHeafingBlackColor,
+              size: 16,
+            ),
       onTap: onPressed,
     ),
   );

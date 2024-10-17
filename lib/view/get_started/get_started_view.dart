@@ -28,6 +28,7 @@ class GetStartedView extends StatelessWidget {
                 Stack(
                   children: [
                     Image.asset(
+                      width: double.infinity,
                       CommonAssets.logo,
                       fit: BoxFit.contain,
                     ),

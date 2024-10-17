@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:soldiers_friends/common/common_buttons.dart';
 import 'package:soldiers_friends/view/settings/settings_controller.dart';
 import 'package:soldiers_friends/view/settings/widget/setting_widget.dart';
-
-
 import '../../common/common_colors.dart';
 import '../../common/common_text.dart';
 import '../../common/common_text_style.dart';
@@ -66,7 +65,7 @@ class SettingView extends StatelessWidget {
                 text: 'Notification',
                 switchValue: controller.isNotificationEnabled,
                 onSwitchChanged: (value) {
-                  controller.toggleNotification(value);
+                  // controller.toggleNotification(value);
                 },
                 onPressed: () {},
               ),
@@ -75,6 +74,36 @@ class SettingView extends StatelessWidget {
                 text: 'Change Password',
                 onPressed: () {
                   Get.toNamed(RoutesName.forgotpasswordpage);
+                },
+              ),
+              const SizedBox(height: 10),
+              buildAccountItemSettings(
+                text: 'Delete Account',
+                textStyle: TextStyle(
+                  color: Colors.red,
+                ),
+                icon: Icon(
+                  Icons.delete_outline,
+                  color: Colors.red,
+                  size: 16,
+                ),
+                onPressed: () async {
+                  Get.toNamed(RoutesName.deleteview);
+                },
+              ),
+              const SizedBox(height: 10),
+              buildAccountItemSettings(
+                text: 'Logout',
+                textStyle: TextStyle(
+                  color: Colors.red,
+                ),
+                icon: Icon(
+                  Icons.logout,
+                  color: Colors.red,
+                  size: 16,
+                ),
+                onPressed: () async {
+                  await controller.Logout(context);
                 },
               ),
             ],
