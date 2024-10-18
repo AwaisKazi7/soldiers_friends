@@ -1,138 +1,75 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:soldiers_friends/model/users_model.dart';
+import 'package:soldiers_friends/services/localStorage.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SignUpController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    // navigate();
   }
 
-  // void navigate() {
-  //   Future.delayed(const Duration(seconds: 2), () {
-  //     Get.offAndToNamed(RoutesName.signuppage);
-  //   });
-  //   update();
-  // }
+  final formkey = GlobalKey<FormState>();
 
+  final fullnameController = TextEditingController();
+  final EmailController = TextEditingController();
+  final phoneController = TextEditingController();
+  final PassowrdController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
-  Future<User?> signUpWithEmailAndPhone(String email, String password,
-      String phoneNumber, BuildContext context) async {
+  final FocusNode NameFocusNode = FocusNode();
+  final FocusNode EmailFocusNode = FocusNode();
+  final FocusNode PhoneFocusNode = FocusNode();
+  final FocusNode PasswordFocusNode = FocusNode();
+  final FocusNode ConfirmPasswordFocusNode = FocusNode();
+
+  RxBool apihitting = false.obs;
+
+  Future signUpWithEmailAndPhone(
+      String email, String password, BuildContext context) async {
     try {
-      // Create a user with email and password
-      UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      // After successful email/password sign up, link phone number
       if (userCredential.user != null) {
-        // Verify phone number using Firebase Phone Auth
-        // Disabling currently due to not enable billing
-
-        await FirebaseAuth.instance.verifyPhoneNumber(
-          phoneNumber: phoneNumber,
-          verificationCompleted: (PhoneAuthCredential credential) async {
-            // Automatically link phone number if verification completes automatically
-            await userCredential.user?.linkWithCredential(credential);
-            print('Phone number linked successfully');
-          },
-          verificationFailed: (FirebaseAuthException e) {
-            // Handle verification failure
-            print('Phone verification failed: ${e.message}');
-          },
-          codeSent: (String verificationId, int? resendToken) {
-            // Handle when the verification code is sent
-            print('Verification code sent to $phoneNumber');
-            // Now, you need to prompt the user to enter the code and then use this code to sign in
-          },
-          codeAutoRetrievalTimeout: (String verificationId) {
-            print('Timeout for phone verification');
-          },
-        );
-
-        return userCredential.user;
-      }
-      else {
-        return null;
+        await insert_userDetails();
+        return true;
       }
     } on FirebaseAuthException catch (e) {
       print('Sign up failed: ${e.message}');
-      return null;
-    }
-    catch (e) {
+      return false;
+    } catch (e) {
       print('Sign up failed: ${e.toString()}');
-      return null;
+      return false;
     }
   }
 
-  final FirebaseAuth auth = FirebaseAuth.instance;
+  insert_userDetails() async {
+    try {
+      var data = await Supabase.instance.client.from('users_table').insert([
+        {
+          'name': fullnameController.text,
+          'phonenumber': phoneController.text,
+          'email': EmailController.text,
+          'password': PassowrdController.text,
+        }
+      ]).select('*');
+      print("insert_userDetails 👌✅");
+      print(data);
+      UserModel User = UserModel.fromMap(data.last);
+      await LocalDataStorage.getInstance.insertUserData(User);
+      print('UserId : ${User.id}');
+      print('User email : ${User.email}');
+
+      return true;
+    } catch (e) {
+      print('insert_userDetails Error: $e');
+      return false;
+    }
+  }
 }
-
-//---------------------------SEND OTP
-
-//   Future<void> mobileotp_Send(var number) async {
-//     try {
-//       loading.value = true;
-//       auth.verifyPhoneNumber(
-//           phoneNumber: number,
-//           verificationCompleted: (_) {
-//             loading.value = !loading.value;
-//           },
-//           verificationFailed: (e) {
-//             loading.value = false;
-//             print(e.toString());
-//             Fluttertoast.showToast(msg: 'OTP Service is having issue');
-//             // Get.snackbar('Error', e.toString());
-//           },
-//           codeSent: (String verificationId, int? Token) {
-//             loading.value = false;
-//             Get.to(OtpScreen(
-//               verfiyId: verificationId,
-//               phonenumber: number,
-//               IsloginOTP: Islogin,
-//               name: name,
-//             ));
-//           },
-//           codeAutoRetrievalTimeout: (e) {
-//             loading.value = false;
-//             print(e.toString());
-//           });
-//     } catch (e) {
-//       print('error in otp function: $e');
-//     }
-//   }
-//
-//   //---------------------------VERIFICATION
-//
-//   Future<void> otp_verification(String verifyotp, String verifyId, String name,
-//       String phone, bool Islogin, BuildContext context) async {
-//     final credential = PhoneAuthProvider.credential(
-//         verificationId: verifyId, smsCode: verifyotp);
-//     try {
-//       loading.value = true;
-//       await auth.signInWithCredential(credential).then((value) async {
-//         print(name);
-//         print(phone);
-//         if (Islogin == true) {
-//           await AppService.getInstance.login(context, phone);
-//           loading.value = false;
-//         } else {
-//           await AppService.getInstance.Registeration(context, phone, name);
-//           loading.value = false;
-//         }
-//         // Get.to(() => Home_Bottom_Bar());
-//         // );
-//       }).onError((error, stackTrace) {
-//         print(error.toString());
-//         // Get.snackbar('Error', error.toString());
-//       });
-//     } catch (e) {
-//       loading.value = !loading.value;
-//       print(e.toString());
-//       // Get.snackbar('Error', e.toString());
-//     }
-//   }
-// }

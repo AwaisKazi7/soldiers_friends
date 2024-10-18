@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/firebase_options.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
+import 'package:soldiers_friends/services/SupabaseDB.dart';
 
 import 'routes/routes_page_list.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp(options: androidFirebaseOptions);
+  await supabse_DB.supabase_init();
   runApp(const MyApp());
 }
 

@@ -6,17 +6,13 @@ import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/common/common_textform.dart';
+import 'package:soldiers_friends/common/custom_textfield.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/login/login_view.dart';
 import 'package:soldiers_friends/view/sign_up/signup_controller.dart';
 
 class SignupPage extends StatelessWidget {
   SignupPage({super.key});
-
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _pwdController = TextEditingController();
-  final TextEditingController _confirmPwdController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -63,121 +59,172 @@ class SignupPage extends StatelessWidget {
                 SizedBox(
                   height: 30,
                 ),
-                Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: CommonColors.blackColor.withOpacity(0.2),
-                            blurRadius: 4,
-                            offset: const Offset(0, 0),
-                          ),
-                        ],
+                Form(
+                  key: controller.formkey,
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: CommonColors.blackColor.withOpacity(0.1),
+                              blurRadius: 9,
+                              offset: const Offset(0, 0),
+                            ),
+                          ],
+                        ),
+                        child: CustomTextFieldWidget(
+                          enabled: true,
+                          label: '',
+                          controller: controller.fullnameController,
+                          hintText: "Fullname",
+                          inputType: TextInputType.name,
+                          focusNode: controller.NameFocusNode,
+                          onchange: (value) {
+                            controller.apihitting.value = false;
+                          },
+                          onsubmit: () {},
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter fullname';
+                            }
+                            return null;
+                          },
+                        ),
                       ),
-                      child: CommonTextform(
-                        hintText: 'Fullname',
-                        textStyle: CommonTextStyle.splashheadline1,
-                        fillColor: CommonColors.backgroundColor,
-                        controller: TextEditingController(),
-                        isUnderline: false,
-                        borderColor: CommonColors.backgroundColor,
-                        borderRadius: 5,
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: CommonColors.blackColor.withOpacity(0.2),
-                            blurRadius: 4,
-                            offset: const Offset(0, 0),
-                          ),
-                        ],
+                      Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: CommonColors.blackColor.withOpacity(0.1),
+                              blurRadius: 9,
+                              offset: const Offset(0, 0),
+                            ),
+                          ],
+                        ),
+                        child: CustomTextFieldWidget(
+                          enabled: true,
+                          label: '',
+                          controller: controller.EmailController,
+                          hintText: "Email",
+                          inputType: TextInputType.name,
+                          focusNode: controller.EmailFocusNode,
+                          onchange: (value) {
+                            controller.apihitting.value = false;
+                          },
+                          onsubmit: () {},
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter an email address';
+                            }
+                            const emailPattern =
+                                r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)*(\.[a-z]{2,4})$';
+                            if (!RegExp(emailPattern).hasMatch(value)) {
+                              return 'Please enter a valid email address';
+                            }
+                            return null;
+                          },
+                        ),
                       ),
-                      child: CommonTextform(
-                        hintText: 'Email',
-                        textStyle: CommonTextStyle.splashheadline1,
-                        fillColor: CommonColors.backgroundColor,
-                        controller: _emailController,
-                        isUnderline: false,
-                        borderColor: CommonColors.backgroundColor,
-                        borderRadius: 5,
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: CommonColors.blackColor.withOpacity(0.2),
-                            blurRadius: 4,
-                            offset: const Offset(0, 0),
-                          ),
-                        ],
+                      Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: CommonColors.blackColor.withOpacity(0.1),
+                              blurRadius: 9,
+                              offset: const Offset(0, 0),
+                            ),
+                          ],
+                        ),
+                        child: CustomTextFieldWidget(
+                          enabled: true,
+                          label: '',
+                          controller: controller.PassowrdController,
+                          hintText: "Password",
+                          inputType: TextInputType.name,
+                          focusNode: controller.PasswordFocusNode,
+                          onchange: (value) {
+                            controller.apihitting.value = false;
+                          },
+                          onsubmit: () {},
+                          validator: (input) => input!.length < 3
+                              ? 'Please enter at least 3 characters'
+                              : input.length > 20
+                                  ? 'Please enter less then 20 characters'
+                                  : null,
+                        ),
                       ),
-                      child: CommonTextform(
-                        hintText: 'Password',
-                        textStyle: CommonTextStyle.splashheadline1,
-                        fillColor: CommonColors.backgroundColor,
-                        controller: _pwdController,
-                        isUnderline: false,
-                        borderColor: CommonColors.backgroundColor,
-                        borderRadius: 5,
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: CommonColors.blackColor.withOpacity(0.2),
-                            blurRadius: 4,
-                            offset: const Offset(0, 0),
-                          ),
-                        ],
+                      Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: CommonColors.blackColor.withOpacity(0.1),
+                              blurRadius: 9,
+                              offset: const Offset(0, 0),
+                            ),
+                          ],
+                        ),
+                        child: CustomTextFieldWidget(
+                          enabled: true,
+                          label: '',
+                          controller: controller.confirmPasswordController,
+                          hintText: "Confirm Password",
+                          inputType: TextInputType.name,
+                          focusNode: controller.ConfirmPasswordFocusNode,
+                          onchange: (value) {
+                            controller.apihitting.value = false;
+                          },
+                          onsubmit: () {},
+                          validator: (input) => input!.length < 3
+                              ? 'Please enter at least 3 characters'
+                              : input.length > 20
+                                  ? 'Please enter less then 20 characters'
+                                  : null,
+                        ),
                       ),
-                      child: CommonTextform(
-                        hintText: 'Confirm Password',
-                        textStyle: CommonTextStyle.splashheadline1,
-                        fillColor: CommonColors.backgroundColor,
-                        controller: _confirmPwdController,
-                        isUnderline: false,
-                        borderColor: CommonColors.backgroundColor,
-                        borderRadius: 5,
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: CommonColors.blackColor.withOpacity(0.2),
-                            blurRadius: 4,
-                            offset: const Offset(0, 0),
-                          ),
-                        ],
+                      Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: CommonColors.blackColor.withOpacity(0.1),
+                              blurRadius: 9,
+                              offset: const Offset(0, 0),
+                            ),
+                          ],
+                        ),
+                        child: CustomTextFieldWidget(
+                          enabled: true,
+                          label: 'Phone number',
+                          controller: controller.phoneController,
+                          hintText: "Phone number",
+                          inputType: TextInputType.number,
+                          focusNode: controller.PhoneFocusNode,
+                          onchange: (value) {
+                            controller.apihitting.value = false;
+                          },
+                          onsubmit: () {},
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter ';
+                            }
+                            return null;
+                          },
+                        ),
                       ),
-                      child: CommonTextform(
-                        hintText: 'Mobile Number',
-                        textStyle: CommonTextStyle.splashheadline1,
-                        fillColor: CommonColors.backgroundColor,
-                        controller: _phoneController,
-                        isUnderline: false,
-                        borderColor: CommonColors.backgroundColor,
-                        borderRadius: 5,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 SizedBox(
                   height: 20,
@@ -221,10 +268,26 @@ class SignupPage extends StatelessWidget {
                             fontSize: 16, fontWeight: FontWeight.w500),
                         borderRadius: 5,
                         boxShadow: const [],
-                        onPressed: () async{
-                          var result = await controller.signUpWithEmailAndPhone(_emailController.text, _pwdController.text, _phoneController.text, context);
-                          if(result != null )
-                            Get.toNamed(RoutesName.loginPage);
+                        onPressed: () async {
+                          if (controller.formkey.currentState!.validate()) {
+                            if (controller.PassowrdController.text ==
+                                controller.confirmPasswordController.text) {
+                              var result =
+                                  await controller.signUpWithEmailAndPhone(
+                                      controller.EmailController.text,
+                                      controller.PassowrdController.text,
+                                      context);
+                              if (result)
+                                Get.toNamed(RoutesName.bottomnavbar);
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("Password doesn't Match"),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
+                          }
                         },
                       ),
                     ],
