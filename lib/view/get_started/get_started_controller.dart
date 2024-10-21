@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:soldiers_friends/services/localStorage.dart';
 
 import '../../routes/routes_name_strings.dart';
 import '../login/login_controller.dart';
@@ -11,8 +12,12 @@ class GetStartedController extends GetxController {
   }
 
   onGetStartedPressed() async {
-    var user = await LoginController().isUserLoggedIn();
-    if (user == null) {
+    await LocalDataStorage.getInstance.getUserData();
+    print('=========WELCOME BACK===========');
+    print('USER NAME:${LocalDataStorage.username.value}');
+    print('USER EMAIL:${LocalDataStorage.userEmail.value}');
+    print('================================');
+    if (LocalDataStorage.currentUserId.value == "") {
       Get.toNamed(RoutesName.loginPage);
     } else {
       Get.toNamed(RoutesName.bottomnavbar);

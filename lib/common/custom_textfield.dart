@@ -47,7 +47,7 @@ class CustomTextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height ?? 70,
+      height: height ?? 60,
       child: Center(
         child: TextFormField(
           onChanged: onchange,

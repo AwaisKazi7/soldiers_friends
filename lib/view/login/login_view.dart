@@ -18,10 +18,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _emailController = TextEditingController();
-final _formkey = GlobalKey<FormState>();
-  final TextEditingController _pwdController = TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -39,7 +35,7 @@ final _formkey = GlobalKey<FormState>();
               height: context.height,
               width: context.width,
               child: Form(
-                key: _formkey,
+                key: controller.formkey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -92,10 +88,21 @@ final _formkey = GlobalKey<FormState>();
                             textStyle: CommonTextStyle.splashheadline1,
                             hintText: "Email/Number",
                             fillColor: CommonColors.backgroundColor,
-                            controller: _emailController,
+                            controller: controller.emailController,
                             isUnderline: false,
                             borderColor: CommonColors.backgroundColor,
                             borderRadius: 5,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter an email address';
+                              }
+                              const emailPattern =
+                                  r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)*(\.[a-z]{2,4})$';
+                              if (!RegExp(emailPattern).hasMatch(value)) {
+                                return 'Please enter a valid email address';
+                              }
+                              return null;
+                            },
                           ),
                         ),
                         const SizedBox(
@@ -116,10 +123,15 @@ final _formkey = GlobalKey<FormState>();
                             hintText: "Password",
                             fillColor: CommonColors.backgroundColor,
                             suffixImage: CommonAssets.eyeSplashIcon,
-                            controller: _pwdController,
+                            controller: controller.pwdController,
                             isUnderline: false,
                             borderColor: CommonColors.backgroundColor,
                             borderRadius: 5,
+                            validator: (input) => input!.length < 3
+                                ? 'Please enter at least 3 characters'
+                                : input.length > 20
+                                    ? 'Please enter less then 20 characters'
+                                    : null,
                           ),
                         ),
                         const SizedBox(
@@ -207,20 +219,25 @@ final _formkey = GlobalKey<FormState>();
                         const SizedBox(
                           height: 12,
                         ),
-                        CommonButton(
-                          height: 50.98,
-                          width: 345.59,
-                          text: 'Sign In',
-                          textStyle: CommonTextStyle.splashheadline1.copyWith(
-                              fontSize: 16, fontWeight: FontWeight.w500),
-                          borderRadius: 5,
-                          boxShadow: const [],
-                          backgroundColor: CommonColors.lightGray,
-                          textColor: CommonColors.primaryColor,
-                          onPressed: () async{
-                            await controller.signInWithEmail(context,_emailController.text, _pwdController.text);
-                          },
-                          gradient: null,
+                        Obx(
+                          () => CommonButton(
+                            height: 50.98,
+                            width: 345.59,
+                            text: 'Sign In',
+                            isloading: controller.apihitting.value,
+                            textStyle: CommonTextStyle.splashheadline1.copyWith(
+                                fontSize: 16, fontWeight: FontWeight.w500),
+                            borderRadius: 5,
+                            boxShadow: const [],
+                            backgroundColor: CommonColors.lightGray,
+                            textColor: CommonColors.primaryColor,
+                            onPressed: () async {
+                              if (controller.formkey.currentState!.validate()) {
+                                await controller.login(context);
+                              }
+                            },
+                            gradient: null,
+                          ),
                         ),
                         const SizedBox(
                           height: 12,

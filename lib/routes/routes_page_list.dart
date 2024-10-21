@@ -88,6 +88,7 @@ class RoutesPageList {
     GetPage(
         name: RoutesName.settingview,
         page: () => const SettingView(),
+        
         binding: SettingBinding()),
     GetPage(
         name: RoutesName.deleteview,

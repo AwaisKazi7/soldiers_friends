@@ -64,23 +64,25 @@ class LocalDataStorage extends GetxController {
   //   }
   // }
 
-  // getUserData() async {
-  //   final SharedPreferences? prefs = await _prefs;
-  //   userToken.value = prefs?.getString('token') ?? "";
-
-  //   FullName.value = prefs?.getString('fullName') ?? "";
-  //   userName.value = prefs?.getString('userName') ?? "";
-
-  //   userEmail.value = prefs?.getString('email') ?? "";
-
-  //   userRole.value = prefs?.getString('role') ?? "";
-
-  //   currentUserId.value = prefs?.getString('id') ?? "";
-  // }
+  getUserData() async {
+    final SharedPreferences? prefs = await _prefs;
+    currentUserId.value = prefs?.getString('id') ?? "";
+    username.value = prefs?.getString('fullName') ?? "";
+    userEmail.value = prefs?.getString('email') ?? "";
+    userBio.value = prefs?.getString('bio') ?? "";
+    userDOB.value = prefs?.getString('DOB') ?? "";
+    usercountry.value = prefs?.getString('country') ?? "";
+  }
 
   logout() async {
     final SharedPreferences prefs = await _prefs;
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.clear();
+    currentUserId.value = "";
+    username.value = "";
+    userEmail.value = "";
+    userBio.value = "";
+    userDOB.value = "";
+    usercountry.value = "";
   }
 }
