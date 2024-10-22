@@ -27,15 +27,19 @@ class SignUpController extends GetxController {
   final FocusNode PasswordFocusNode = FocusNode();
   final FocusNode ConfirmPasswordFocusNode = FocusNode();
 
-  RxBool apihitting = true.obs;
+  RxBool apihitting = false.obs;
 
-  signUp() async {
+  signUp(BuildContext context) async {
     try {
       apihitting.value = true;
-      await supabse_DB.getInstance.registerUser(fullnameController.text,
-          phoneController.text, EmailController.text, PassowrdController.text);
+      var Data = await supabse_DB.getInstance.registerUser(
+          context,
+          fullnameController.text,
+          phoneController.text,
+          EmailController.text,
+          PassowrdController.text);
       apihitting.value = false;
-      return true;
+      return Data;
     } catch (e) {
       print('ERROR IN Sign Up :${e}');
       return false;

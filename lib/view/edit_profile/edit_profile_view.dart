@@ -30,7 +30,9 @@ class _EditProfileViewState extends State<EditProfileView> {
     setState(() {
       _selectedDate = date; // Store the selected date
     });
-    print("Selected date: ${date.toLocal()}"); // For demonstration
+    _dateController.text = "${date.day}-${date.month}-${date.year}";
+    print(
+        "Selected date: ${date.day}/${date.month}/${date.year}"); // For demonstration
   }
 
   @override
@@ -66,136 +68,159 @@ class _EditProfileViewState extends State<EditProfileView> {
             height: context.height,
             width: context.width,
             child: SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
+              child: Form(
+                key: controller.formkey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
 
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  // const Row(
-                  //   mainAxisAlignment: MainAxisAlignment.start,
-                  //   children: [
-                  //     Expanded(child: DottedBoxWidget()),
-                  //     SizedBox(width: 10),
-                  //     Expanded(child: DottedBoxWidget()),
-                  //     SizedBox(width: 10),
-                  //     Expanded(child: DottedBoxWidget()),
-                  //   ],
-                  // ),
-                  ProfilePictureRow(),
-                  const SizedBox(
-                    height: 34,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: CommonColors.blackColor.withOpacity(0.2),
-                          blurRadius: 4,
-                          offset: const Offset(0, 0),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    // const Row(
+                    //   mainAxisAlignment: MainAxisAlignment.start,
+                    //   children: [
+                    //     Expanded(child: DottedBoxWidget()),
+                    //     SizedBox(width: 10),
+                    //     Expanded(child: DottedBoxWidget()),
+                    //     SizedBox(width: 10),
+                    //     Expanded(child: DottedBoxWidget()),
+                    //   ],
+                    // ),
+                    ProfilePictureRow(),
+                    const SizedBox(
+                      height: 34,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: CommonColors.blackColor.withOpacity(0.2),
+                            blurRadius: 4,
+                            offset: const Offset(0, 0),
+                          ),
+                        ],
+                      ),
+                      child: DatePickerWidget(
+                        hintText: "Select Date of birth",
+                        controller: controller.DOBController,
+                        selectedDate: _selectedDate,
+                        onDateSelected:
+                            _handleDateSelected, // Pass the callback
+                        fillColor: Colors.white,
+                        borderColor: Colors.grey,
+                        textStyle: CommonTextStyle.splashheadline1.copyWith(
+                            fontSize: 15, fontWeight: FontWeight.w300),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 14,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: CommonColors.blackColor.withOpacity(0.2),
+                            blurRadius: 4,
+                            offset: const Offset(0, 0),
+                          ),
+                        ],
+                      ),
+                      child: CommonTextform(
+                        hintText: 'Name',
+                        textStyle: CommonTextStyle.splashheadline1.copyWith(
+                            fontSize: 15, fontWeight: FontWeight.w300),
+                        controller: controller.nameController,
+                        fillColor: CommonColors.backgroundColor,
+                        borderColor: CommonColors.lightGray,
+                        borderRadius: 5,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter fullname';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 14,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: CommonColors.blackColor.withOpacity(0.2),
+                            blurRadius: 4,
+                            offset: const Offset(0, 0),
+                          ),
+                        ],
+                      ),
+                      child: CommonTextform(
+                        hintText: 'About',
+                        textStyle: CommonTextStyle.splashheadline1.copyWith(
+                            fontSize: 15, fontWeight: FontWeight.w300),
+                        controller: controller.BioController,
+                        fillColor: CommonColors.backgroundColor,
+                        borderColor: CommonColors.lightGray,
+                        borderRadius: 5,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 14,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: CommonColors.blackColor.withOpacity(0.2),
+                            blurRadius: 4,
+                            offset: const Offset(0, 0),
+                          ),
+                        ],
+                      ),
+                      child: CommonTextform(
+                        hintText: 'Country',
+                        textStyle: CommonTextStyle.splashheadline1.copyWith(
+                            fontSize: 15, fontWeight: FontWeight.w300),
+                        controller: controller.CountryController,
+                        fillColor: CommonColors.backgroundColor,
+                        borderColor: CommonColors.lightGray,
+                        borderRadius: 5,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    Center(
+                      child: Obx(
+                        () => CommonButton(
+                          height: 50.98,
+                          width: 345.59,
+                          text: 'Confirm',
+                          isloading: controller.apihitting.value,
+                          textStyle: CommonTextStyle.splashheadline1.copyWith(
+                              fontSize: 16, fontWeight: FontWeight.w500),
+                          borderRadius: 5,
+                          boxShadow: const [],
+                          onPressed: () async {
+                            if (controller.formkey.currentState!.validate()) {
+                              controller.DOBController.text =
+                                  _dateController.text;
+                              var result =
+                                  await controller.editProfile(context);
+                              if (result) {
+                                Get.offAllNamed(RoutesName.bottomnavbar);
+                              }
+                            }
+                          },
                         ),
-                      ],
+                      ),
                     ),
-                    child: DatePickerWidget(
-                      hintText: "Select Date",
-                      controller: _dateController,
-                      selectedDate: _selectedDate,
-                      onDateSelected: _handleDateSelected, // Pass the callback
-                      fillColor: Colors.white,
-                      borderColor: Colors.grey,
-                      textStyle: CommonTextStyle.splashheadline1
-                          .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 14,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: CommonColors.blackColor.withOpacity(0.2),
-                          blurRadius: 4,
-                          offset: const Offset(0, 0),
-                        ),
-                      ],
-                    ),
-                    child: CommonTextform(
-                      hintText: 'Name',
-                      textStyle: CommonTextStyle.splashheadline1
-                          .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
-                      controller: TextEditingController(),
-                      fillColor: CommonColors.backgroundColor,
-                      borderColor: CommonColors.lightGray,
-                      borderRadius: 5,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 14,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: CommonColors.blackColor.withOpacity(0.2),
-                          blurRadius: 4,
-                          offset: const Offset(0, 0),
-                        ),
-                      ],
-                    ),
-                    child: CommonTextform(
-                      hintText: 'About',
-                      textStyle: CommonTextStyle.splashheadline1
-                          .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
-                      controller: TextEditingController(),
-                      fillColor: CommonColors.backgroundColor,
-                      borderColor: CommonColors.lightGray,
-                      borderRadius: 5,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 14,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: CommonColors.blackColor.withOpacity(0.2),
-                          blurRadius: 4,
-                          offset: const Offset(0, 0),
-                        ),
-                      ],
-                    ),
-                    child: CommonTextform(
-                      hintText: 'Country',
-                      textStyle: CommonTextStyle.splashheadline1
-                          .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
-                      controller: TextEditingController(),
-                      fillColor: CommonColors.backgroundColor,
-                      borderColor: CommonColors.lightGray,
-                      borderRadius: 5,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Center(
-                    child: CommonButton(
-                      height: 50.98,
-                      width: 345.59,
-                      text: 'Confirm',
-                      textStyle: CommonTextStyle.splashheadline1
-                          .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
-                      borderRadius: 5,
-                      boxShadow: const [],
-                      onPressed: () => Get.toNamed(RoutesName.bottomnavbar),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

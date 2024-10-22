@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/common/common_assets.dart';
@@ -202,19 +201,24 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(
                           height: 12,
                         ),
-                        CommonButton(
-                          height: 50.98,
-                          width: 345.59,
-                          icon: Image.asset(CommonAssets.googleImage),
-                          text: 'Continue with Google',
-                          textStyle: CommonTextStyle.splashheadline1.copyWith(
-                              fontSize: 16, fontWeight: FontWeight.w500),
-                          borderRadius: 5,
-                          boxShadow: const [],
-                          backgroundColor: CommonColors.lightGray,
-                          textColor: CommonColors.primaryColor,
-                          onPressed: () {},
-                          gradient: null,
+                        Obx(
+                          () => CommonButton(
+                            height: 50.98,
+                            width: 345.59,
+                            icon: Image.asset(CommonAssets.googleImage),
+                            text: 'Continue with Google',
+                            isloading: controller.google_signin.value,
+                            textStyle: CommonTextStyle.splashheadline1.copyWith(
+                                fontSize: 16, fontWeight: FontWeight.w500),
+                            borderRadius: 5,
+                            boxShadow: const [],
+                            backgroundColor: CommonColors.lightGray,
+                            textColor: CommonColors.primaryColor,
+                            onPressed: () async {
+                              await controller.signUpWithGoogle(context);
+                            },
+                            gradient: null,
+                          ),
                         ),
                         const SizedBox(
                           height: 12,

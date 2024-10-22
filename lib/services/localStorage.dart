@@ -48,21 +48,21 @@ class LocalDataStorage extends GetxController {
   //   DeviceID.value = deviceID;
   // }
 
-  // updateUserData({username, fullname, photo}) async {
-  //   final SharedPreferences? prefs = await _prefs;
+  updateUserData({fullname, phone, bio, DOB, Country}) async {
+    final SharedPreferences? prefs = await _prefs;
 
-  //   if (photo != "") {
-  //     await prefs?.setString('photo', photo);
+    await prefs?.setString('fullName', fullname);
+    await prefs?.setString('phonenumber', phone);
+    await prefs?.setString('country', Country);
+    await prefs?.setString('bio', bio);
+    await prefs?.setString('DOB', DOB);
 
-  //     userImage.value = photo;
-  //   } else if (username != '') {
-  //     await prefs?.setString('fullName', fullname);
-  //     await prefs?.setString('userName', username);
-
-  //     username.value = username;
-  //     us.value = fullname;
-  //   }
-  // }
+    username.value = fullname;
+    userPhone.value = phone;
+    userBio.value = bio;
+    userDOB.value = DOB;
+    usercountry.value = Country;
+  }
 
   getUserData() async {
     final SharedPreferences? prefs = await _prefs;

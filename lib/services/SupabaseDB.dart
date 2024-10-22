@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/model/users_model.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/services/localStorage.dart';
@@ -53,8 +56,8 @@ class supabse_DB {
     } catch (e) {}
   }
 
-  registerUser(String fullname, String phonenumber, String email,
-      String Password) async {
+  registerUser(BuildContext context, String fullname, String phonenumber,
+      String email, String Password) async {
     try {
       var data = await Supabase.instance.client.from('users_table').insert([
         {
@@ -74,6 +77,12 @@ class supabse_DB {
       return true;
     } catch (e) {
       print('insert_userDetails Error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("ERROR: $e"),
+          backgroundColor: Colors.red,
+        ),
+      );
       return false;
     }
   }
@@ -123,6 +132,102 @@ class supabse_DB {
         ),
       );
       return false;
+    }
+  }
+
+  editProfile(BuildContext context, String fullname, String phonenumber,
+      String Bio, String DOB, String country, List<File?> images) async {
+    try {
+      // Prepare the updated data
+      var updatedData = {
+        'name': fullname,
+        'phonenumber': phonenumber,
+        'DOB': DOB,
+        'bio': Bio,
+        'country': country
+      };
+
+      // Update the user profile in the database
+      var data = await Supabase.instance.client
+          .from('users_table')
+          .update(updatedData)
+          .eq('id', LocalDataStorage.currentUserId.value)
+          .select('*');
+
+      print("editProfile 👌✅");
+      print(data);
+
+      if (data.isNotEmpty) {
+        UserModel user = UserModel.fromMap(data.last);
+        await LocalDataStorage.getInstance.updateUserData(
+            fullname: user.name,
+            phone: user.phonenumber,
+            DOB: user.DOB,
+            bio: user.bio,
+            Country: user.country);
+
+        print('Updated UserId: ${user.id}');
+        print('Updated User email: ${user.email}');
+
+        // final List<String> fileUrls = await Future.wait(images.map((e) async {
+        //   String fileName =
+        //       'userProfile/${DateTime.now().millisecondsSinceEpoch}-${e}';
+
+        //   final response = await Supabase.instance.client.storage
+        //       .from('soliderbucket')
+        //       .upload(fileName, e.);
+
+        //   return Supabase.instance.client.storage
+        //       .from('soliderbucket')
+        //       .getPublicUrl(fileName);
+        // }).toList());
+
+        // print('Uploaded file URLs: $fileUrls');
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Profile Updated successfully.'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+
+      return true;
+    } catch (e) {
+      print('editProfile Error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error updating profile.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return false;
+    }
+  }
+
+  GetAllUser() async {
+    try {
+      var data = await Supabase.instance.client
+          .from('users_table')
+          .select('*, profilepicture_table(*)');
+
+      print("GetAllUser 👌✅");
+      print(data);
+
+      if (data.isNotEmpty) {
+        List<homeModel> UsersList = data
+            .map(
+              (e) => homeModel.fromMap(e),
+            )
+            .toList();
+
+        print('User Count: ${UsersList.length}');
+        return UsersList;
+      } else {}
+      return [];
+    } catch (e) {
+      print('GetAllUser Error: $e');
+      return [];
     }
   }
 }

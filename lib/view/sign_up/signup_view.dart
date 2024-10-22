@@ -260,36 +260,36 @@ class SignupPage extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                        Obx(
-                          () =>  CommonButton(
-                            height: 50.98,
-                            width: 345.59,
-                            text: 'Sign Up',
-                            textStyle: CommonTextStyle.splashheadline1.copyWith(
-                                fontSize: 16, fontWeight: FontWeight.w500),
-                            borderRadius: 5,
-                            isloading: controller.apihitting.value,
-                            boxShadow: const [],
-                            onPressed: () async {
-                              if (controller.formkey.currentState!.validate()) {
-                                if (controller.PassowrdController.text ==
-                                    controller.confirmPasswordController.text) {
-                                  var result = await controller.signUp();
-                                  if (result) {
-                                    Get.toNamed(RoutesName.bottomnavbar);
-                                  }
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text("Password doesn't Match"),
-                                      backgroundColor: Colors.red,
-                                    ),
-                                  );
+                      Obx(
+                        () => CommonButton(
+                          height: 50.98,
+                          width: 345.59,
+                          text: 'Sign Up',
+                          textStyle: CommonTextStyle.splashheadline1.copyWith(
+                              fontSize: 16, fontWeight: FontWeight.w500),
+                          borderRadius: 5,
+                          isloading: controller.apihitting.value,
+                          boxShadow: const [],
+                          onPressed: () async {
+                            if (controller.formkey.currentState!.validate()) {
+                              if (controller.PassowrdController.text ==
+                                  controller.confirmPasswordController.text) {
+                                var result = await controller.signUp(context);
+                                if (result) {
+                                  Get.toNamed(RoutesName.bottomnavbar);
                                 }
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("Password doesn't Match"),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
                               }
-                            },
-                          ),
+                            }
+                          },
                         ),
+                      ),
                       // ),
                     ],
                   ),

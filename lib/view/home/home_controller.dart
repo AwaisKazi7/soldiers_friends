@@ -1,287 +1,58 @@
 import 'package:flutter_tinder_swipe/flutter_tinder_swipe.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/common/common_assets.dart';
+import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/model/home_model.dart';
+import 'package:soldiers_friends/services/SupabaseDB.dart';
 import 'package:soldiers_friends/view/chat/chat_view.dart';
 import 'package:soldiers_friends/view/home/home_view.dart';
 
 class HomeController extends GetxController {
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
     cardController;
+    await getHomeData();
+  }
+
+  RxList<homeModel> UsersList = <homeModel>[].obs;
+  RxBool loadingHome = false.obs;
+  getHomeData() async {
+    loadingHome.value = true;
+    var data = await supabse_DB.getInstance.GetAllUser(); // Await the Future
+
+    if (data != null && data.isNotEmpty) {
+      UsersList.addAll(data);
+      loadingHome.value = false;
+    } else {
+      print('No users found');
+    }
   }
 
   CardController cardController = CardController();
-  // List of users (mock data or fetched from an API)
-  List<UserModel> users = [
-    UserModel(
-      id: 0,
-      name: 'Mark Peter',
-      location: 'New York',
-      imagePath: CommonAssets.soldierswipeImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 1,
-      name: 'Qasim',
-      location: 'San Francisco',
-      imagePath: CommonAssets.soldierswipesecondImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 0,
-      name: 'Mark Peter',
-      location: 'New York',
-      imagePath: CommonAssets.soldierswipeImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 1,
-      name: 'Qasim',
-      location: 'San Francisco',
-      imagePath: CommonAssets.soldierswipesecondImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 0,
-      name: 'Mark Peter',
-      location: 'New York',
-      imagePath: CommonAssets.soldierswipeImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 1,
-      name: 'Qasim',
-      location: 'San Francisco',
-      imagePath: CommonAssets.soldierswipesecondImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 0,
-      name: 'Mark Peter',
-      location: 'New York',
-      imagePath: CommonAssets.soldierswipeImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 1,
-      name: 'Qasim',
-      location: 'San Francisco',
-      imagePath: CommonAssets.soldierswipesecondImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 0,
-      name: 'Mark Peter',
-      location: 'New York',
-      imagePath: CommonAssets.soldierswipeImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 1,
-      name: 'Qasim',
-      location: 'San Francisco',
-      imagePath: CommonAssets.soldierswipesecondImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 0,
-      name: 'Mark Peter',
-      location: 'New York',
-      imagePath: CommonAssets.soldierswipeImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 1,
-      name: 'Qasim',
-      location: 'San Francisco',
-      imagePath: CommonAssets.soldierswipesecondImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 0,
-      name: 'Mark Peter',
-      location: 'New York',
-      imagePath: CommonAssets.soldierswipeImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 1,
-      name: 'Qasim',
-      location: 'San Francisco',
-      imagePath: CommonAssets.soldierswipesecondImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 0,
-      name: 'Mark Peter',
-      location: 'New York',
-      imagePath: CommonAssets.soldierswipeImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 1,
-      name: 'Qasim',
-      location: 'San Francisco',
-      imagePath: CommonAssets.soldierswipesecondImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 0,
-      name: 'Mark Peter',
-      location: 'New York',
-      imagePath: CommonAssets.soldierswipeImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 1,
-      name: 'Qasim',
-      location: 'San Francisco',
-      imagePath: CommonAssets.soldierswipesecondImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 0,
-      name: 'Mark Peter',
-      location: 'New York',
-      imagePath: CommonAssets.soldierswipeImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 1,
-      name: 'Qasim',
-      location: 'San Francisco',
-      imagePath: CommonAssets.soldierswipesecondImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 0,
-      name: 'Mark Peter',
-      location: 'New York',
-      imagePath: CommonAssets.soldierswipeImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 1,
-      name: 'Qasim',
-      location: 'San Francisco',
-      imagePath: CommonAssets.soldierswipesecondImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 0,
-      name: 'Mark Peter',
-      location: 'New York',
-      imagePath: CommonAssets.soldierswipeImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 1,
-      name: 'Qasim',
-      location: 'San Francisco',
-      imagePath: CommonAssets.soldierswipesecondImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 0,
-      name: 'Mark Peter',
-      location: 'New York',
-      imagePath: CommonAssets.soldierswipeImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 1,
-      name: 'Qasim',
-      location: 'San Francisco',
-      imagePath: CommonAssets.soldierswipesecondImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 0,
-      name: 'Mark Peter',
-      location: 'New York',
-      imagePath: CommonAssets.soldierswipeImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 1,
-      name: 'Qasim',
-      location: 'San Francisco',
-      imagePath: CommonAssets.soldierswipesecondImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 0,
-      name: 'Mark Peter',
-      location: 'New York',
-      imagePath: CommonAssets.soldierswipeImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-    UserModel(
-      id: 1,
-      name: 'Qasim',
-      location: 'San Francisco',
-      imagePath: CommonAssets.soldierswipesecondImage,
-      verifiedIconPath: CommonAssets.verifiedIcon,
-      locationIconPath: CommonAssets.locationIcon,
-    ),
-
-    // Add more users as needed
-  ];
 
   // Index for the BottomNavigationBar
   int selectedIndex = 0;
 
-  // Track liked and disliked users
-  List<UserModel> likedUsers = [];
-  List<UserModel> dislikedUsers = [];
+  RxList<homeModel> likedUsers = <homeModel>[].obs;
+  RxList<homeModel> dislikedUsers = <homeModel>[].obs;
 
   // Method to like a user (swipe right)
-  void likeUser(UserModel user) {
+  void likeUser(homeModel user) {
     if (!likedUsers.contains(user)) {
       likedUsers.add(user);
     }
-    users.remove(user); // Remove the user from the card stack after liking
+    UsersList.remove(user); // Remove the user from the card stack after liking
     update(); // Notify listeners
   }
 
   // Method to dislike a user (swipe left)
-  void dislikeUser(UserModel user) {
+  void dislikeUser(homeModel user) {
     if (!dislikedUsers.contains(user)) {
       dislikedUsers.add(user);
     }
-    users.remove(user); // Remove the user from the card stack after disliking
-    update(); // Notify listeners
+    UsersList.remove(user);
+    update();
   }
 
   // Method to change bottom navigation index
