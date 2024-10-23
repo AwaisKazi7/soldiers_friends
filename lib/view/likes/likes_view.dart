@@ -5,6 +5,7 @@ import 'package:soldiers_friends/common/common_buttons.dart';
 import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
+import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/view/likes/likes_controller.dart';
 import 'package:soldiers_friends/model/likes_model.dart';
 import 'package:soldiers_friends/view/likes/likes_widgets/likes_card.dart';
@@ -92,18 +93,20 @@ class LikesView extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   Expanded(
-                    child: controller.currentLikesList.isEmpty
-                        ? Center(
-                            child: CommonText(
-                              text: "No More Data",
-                              style: CommonTextStyle.splashheadline1.copyWith(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          )
-                        : Column(
+                    child: 
+                    // controller.currentLikesList.isEmpty
+                    //     ? Center(
+                    //         child: CommonText(
+                    //           text: "No More Data",
+                    //           style: CommonTextStyle.splashheadline1.copyWith(
+                    //             fontSize: 18,
+                    //             fontWeight: FontWeight.w600,
+                    //             color: Colors.grey,
+                    //           ),
+                    //         ),
+                    //       )
+                    //     :
+                         Column(
                             children: [
                               Expanded(
                                 child: GridView.builder(
@@ -114,12 +117,12 @@ class LikesView extends StatelessWidget {
                                     crossAxisSpacing: 10,
                                     mainAxisSpacing: 10,
                                   ),
-                                  itemCount: controller.currentLikesList.length,
+                                  itemCount: controller.likesMeList.length,
                                   itemBuilder: (context, index) {
-                                    LikeModel like =
-                                        controller.currentLikesList[index];
+                                    homeModel Data =
+                                        controller.likesMeList[index];
                                     return LikeCard(
-                                      like: like,
+                                      Data: Data,
                                       onTap: () {
                                         // controller.navigateToDetail(like);
                                       },

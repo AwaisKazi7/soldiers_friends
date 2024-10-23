@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
+import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/model/likes_model.dart';
 
 class LikeCard extends StatelessWidget {
-  final LikeModel like;
+  final homeModel Data;
   final VoidCallback onTap;
   final String verifiedIconPath;
 
   const LikeCard({
     Key? key,
-    required this.like,
+    required this.Data,
     required this.onTap,
     required this.verifiedIconPath,
   }) : super(key: key);
@@ -31,7 +32,7 @@ class LikeCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
                 child: Image.asset(
-                  like.imagePath,
+                  Data.images[0],
                   fit: BoxFit.cover,
                   width: double.infinity,
                 ),
@@ -42,7 +43,7 @@ class LikeCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CommonText(
-                  text: like.name,
+                  text: Data.name,
                   style: CommonTextStyle.splashheadline1.copyWith(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,

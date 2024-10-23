@@ -283,6 +283,71 @@ class supabse_DB {
     }
   }
 
+  GetLikeUsers() async {
+    try {
+      List<homeModel> myLikesList = [];
+      List<homeModel> likesMeList = [];
+      // STEP 1:
+
+      //Fetch the liked user IDs
+      final likedResponse =
+          await Supabase.instance.client.from('like_table').select('*');
+
+      //Fetch All users
+      final userResponse = await Supabase.instance.client
+          .from('users_table')
+          .select('*,profilepicture_table(*)');
+
+      if (likedResponse.isNotEmpty) {
+        //----getting Ids of those users whom i like
+        final likedUserIds = (likedResponse as List<dynamic>)
+            .where(
+              (e) =>
+                  e['liked_by_userId'] == LocalDataStorage.currentUserId.value,
+            )
+            .map((item) => item['liked_userId'])
+            .toList();
+
+        //----getting Data of those users whom i like
+        for (final userId in likedUserIds) {
+          final userData = (userResponse as List<dynamic>).firstWhere(
+            (e) => e['id'] == userId,
+          );
+          homeModel data = homeModel.fromMap(userData);
+          myLikesList.add(data);
+        }
+
+        //----getting Ids of those users who like me
+        final mylikes_UserIds = (likedResponse as List<dynamic>)
+            .where(
+              (e) => e['liked_userId'] == LocalDataStorage.currentUserId.value,
+            )
+            .map((item) => item['liked_by_userId'])
+            .toList();
+
+        //----getting Data of those users who like me
+        for (final userId in mylikes_UserIds) {
+          final userData = (userResponse as List<dynamic>).firstWhere(
+            (e) => e['id'] == userId,
+          );
+
+          homeModel data = homeModel.fromMap(userData);
+          likesMeList.add(data);
+        }
+
+        print('GetLikeUsers 👌✅');
+        print({
+          'myLikesList': myLikesList.length,
+          'likesMeList': likesMeList.length
+        });
+      }
+      return {'myLikesList': myLikesList, 'likesMeList': likesMeList};
+    } catch (e) {
+      print('GetAllUser Error: $e');
+      return {'myLikesList': [], 'likesMeList': []};
+    }
+  }
+
   likeApi(BuildContext context, int userId) async {
     try {
       var data = await Supabase.instance.client.from('like_table').insert([
