@@ -8,6 +8,8 @@ import 'package:soldiers_friends/view/edit_profile/edit_profile_controller.dart'
 import 'package:soldiers_friends/view/edit_profile/edit_profile_view.dart';
 import 'package:soldiers_friends/view/likes/likes_controller.dart';
 import 'package:soldiers_friends/view/likes/likes_view.dart';
+import 'package:soldiers_friends/view/profile/profile_controller.dart';
+import 'package:soldiers_friends/view/profile/profile_view.dart';
 
 class NavbarController extends GetxController {
   @override
@@ -20,7 +22,8 @@ class NavbarController extends GetxController {
     const HomeView(),
     const LikesView(),
     const ChatView(),
-    EditProfileView(),
+    const ProfileView()
+    // EditProfileView(),
   ];
   int selectedIndex = 0;
 
@@ -36,7 +39,8 @@ class NavbarController extends GetxController {
       case 2:
         return await Get.put<ChatViewController>(ChatViewController());
       case 3:
-        return await Get.put<EditProfileController>(EditProfileController());
+      return await Get.put<ProfileController>(ProfileController());
+        // return await Get.put<EditProfileController>(EditProfileController());
       //For Profile
 
       default:

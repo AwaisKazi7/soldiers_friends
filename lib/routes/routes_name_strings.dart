@@ -2,7 +2,7 @@ class RoutesName {
   static String getstartedPage = "/getstarted";
   static String usephonepage = "/usephonepage";
   static String editprofile = "/editprofile";
-  static String profilePage = "/profile";
+  static String profilepage = "/profilepage";
   static String loginPage = "/login";
   static String signuppage = "/signuppage";
   static String forgotpasswordpage = "/forgotpasswordpage";
@@ -14,5 +14,6 @@ class RoutesName {
   static String subscribtion = "/subscribtion";
   static String settingview = "/settingview";
   static String deleteview = "/deleteview";
+  static String changepasswordview = "/changepasswordview";
 
 }

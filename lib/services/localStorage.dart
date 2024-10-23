@@ -29,6 +29,7 @@ class LocalDataStorage extends GetxController {
     await prefs.setString('bio', userData.bio);
     await prefs.setString('DOB', userData.DOB);
     await prefs.setString('country', userData.country);
+    await prefs.setString('profile', userData.images[0]);
 
     username.value = userData.name;
     userPhone.value = userData.phonenumber;
@@ -36,6 +37,7 @@ class LocalDataStorage extends GetxController {
     userBio.value = userData.bio;
     userDOB.value = userData.DOB;
     usercountry.value = userData.country;
+    userImage.value = userData.images[0];
     currentUserId.value = userData.id.toString();
   }
 
@@ -72,6 +74,7 @@ class LocalDataStorage extends GetxController {
     userBio.value = prefs?.getString('bio') ?? "";
     userDOB.value = prefs?.getString('DOB') ?? "";
     usercountry.value = prefs?.getString('country') ?? "";
+    userImage.value = prefs?.getString('profile') ?? "";
   }
 
   logout() async {

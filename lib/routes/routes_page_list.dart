@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:soldiers_friends/view/bottomnavbar/bottomnavbar_binding.dart';
 import 'package:soldiers_friends/view/bottomnavbar/bottomnavbar_view.dart';
+import 'package:soldiers_friends/view/changePassword/changepassword_binding.dart';
+import 'package:soldiers_friends/view/changePassword/changepassword_view.dart';
 import 'package:soldiers_friends/view/chat/chat_binding.dart';
 import 'package:soldiers_friends/view/chat/chat_view.dart';
 import 'package:soldiers_friends/view/chatopen/chatopen_binding.dart';
@@ -54,7 +56,7 @@ class RoutesPageList {
         page: () => UsePhoneView(),
         binding: CountryCodeBinding()),
     GetPage(
-        name: RoutesName.profilePage,
+        name: RoutesName.profilepage,
         page: () => const ProfileView(),
         binding: ProfileBinding()),
     GetPage(
@@ -88,11 +90,14 @@ class RoutesPageList {
     GetPage(
         name: RoutesName.settingview,
         page: () => const SettingView(),
-        
         binding: SettingBinding()),
     GetPage(
         name: RoutesName.deleteview,
         page: () => const DeleteAccountView(),
         binding: DeleteAccountBinding()),
+    GetPage(
+        name: RoutesName.changepasswordview,
+        page: () =>  changePasswordView(),
+        binding: ChangePasswordBinding()),
   ];
 }

@@ -10,7 +10,7 @@ class UserModel {
   final int isApprove;
   final int isDelete;
   final DateTime createdAt;
-
+  final List<String> images;
   UserModel({
     required this.id,
     required this.name,
@@ -23,21 +23,24 @@ class UserModel {
     required this.isApprove,
     required this.isDelete,
     required this.createdAt,
+    required this.images,
   });
 
   factory UserModel.fromMap(Map<String, dynamic> json) {
     return UserModel(
       id: json['id'],
-      name: json['name']??'',
-      email: json['email']??'',
-      password: json['password']??'',
-      phonenumber: json['phonenumber']??'',
+      name: json['name'] ?? '',
+      email: json['email'] ?? '',
+      password: json['password'] ?? '',
+      phonenumber: json['phonenumber'] ?? '',
       DOB: json['DOB'] ?? '',
       bio: json['bio'] ?? '',
       country: json['country'] ?? '',
       isApprove: json['isApprove'],
       isDelete: json['isDelete'],
       createdAt: DateTime.parse(json['created_at']),
+      images: List<String>.from(
+          json['profilepicture_table'].map((e) => e['imageUrl']??'')),
     );
   }
 
@@ -54,6 +57,7 @@ class UserModel {
       'isApprove': isApprove,
       'isDelete': isDelete,
       'createdAt': createdAt.toIso8601String(),
+      'images': images
     };
   }
 }

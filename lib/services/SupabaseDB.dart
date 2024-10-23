@@ -26,8 +26,9 @@ class supabse_DB {
     try {
       var userdata = await Supabase.instance.client
           .from('users_table')
-          .select("*")
+          .select('*,profilepicture_table(*)')
           .eq('email', email);
+
       if (userdata.isNotEmpty) {
         UserModel User = UserModel.fromMap(userdata.first);
         if (User.password == Password) {
@@ -59,14 +60,19 @@ class supabse_DB {
   registerUser(BuildContext context, String fullname, String phonenumber,
       String email, String Password) async {
     try {
-      var data = await Supabase.instance.client.from('users_table').insert([
-        {
-          'name': fullname,
-          'phonenumber': phonenumber,
-          'email': email,
-          'password': Password,
-        }
-      ]).select('*');
+      var data = await Supabase.instance.client
+          .from('users_table')
+          .insert([
+            {
+              'name': fullname,
+              'phonenumber': phonenumber,
+              'email': email,
+              'password': Password,
+            }
+          ])
+          .eq('email', email)
+          .select('*,profilepicture_table(*)');
+
       print("registerUser 👌✅");
       print(data);
       UserModel User = UserModel.fromMap(data.last);
@@ -91,7 +97,7 @@ class supabse_DB {
     try {
       var userdata = await Supabase.instance.client
           .from('users_table')
-          .select("*")
+          .select('*, profilepicture_table(*)')
           .eq('id', LocalDataStorage.currentUserId.value);
 
       UserModel User = UserModel.fromMap(userdata.first);
@@ -135,6 +141,52 @@ class supabse_DB {
     }
   }
 
+  ChangePassword(
+      BuildContext context, String OldPassword, String NewPassword) async {
+    try {
+      var userdata = await Supabase.instance.client
+          .from('users_table')
+          .select('*, profilepicture_table(*)')
+          .eq('id', LocalDataStorage.currentUserId.value);
+
+      UserModel User = UserModel.fromMap(userdata.first);
+
+      if (User.password == OldPassword) {
+        var data = await Supabase.instance.client
+            .from('users_table')
+            .update({'password': NewPassword}).eq(
+                'id', LocalDataStorage.currentUserId.value);
+        print("ChangePassword 👌✅");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Your Password has been updated successfully.'),
+            backgroundColor: Colors.green,
+          ),
+        );
+
+        return true;
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Old Password is invalid"),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return false;
+      }
+    } catch (e) {
+      print('ChangePassword Error: $e');
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to updated Password'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return false;
+    }
+  }
+
   editProfile(BuildContext context, String fullname, String phonenumber,
       String Bio, String DOB, String country, List<File?> images) async {
     try {
@@ -152,7 +204,7 @@ class supabse_DB {
           .from('users_table')
           .update(updatedData)
           .eq('id', LocalDataStorage.currentUserId.value)
-          .select('*');
+          .select('*, profilepicture_table(*)');
 
       print("editProfile 👌✅");
       print(data);

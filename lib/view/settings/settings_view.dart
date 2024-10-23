@@ -73,7 +73,7 @@ class SettingView extends StatelessWidget {
               buildAccountItemSettings(
                 text: 'Change Password',
                 onPressed: () {
-                  Get.toNamed(RoutesName.forgotpasswordpage);
+                  Get.toNamed(RoutesName.changepasswordview);
                 },
               ),
               const SizedBox(height: 10),

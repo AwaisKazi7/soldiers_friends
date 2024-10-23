@@ -42,8 +42,8 @@ class HomeController extends GetxController {
     if (!likedUsers.contains(user)) {
       likedUsers.add(user);
     }
-    UsersList.remove(user); // Remove the user from the card stack after liking
-    update(); // Notify listeners
+    // UsersList.remove(user); // Remove the user from the card stack after liking
+    // update(); // Notify listeners
   }
 
   // Method to dislike a user (swipe left)
@@ -51,8 +51,8 @@ class HomeController extends GetxController {
     if (!dislikedUsers.contains(user)) {
       dislikedUsers.add(user);
     }
-    UsersList.remove(user);
-    update();
+    // UsersList.remove(user);
+    // update();
   }
 
   // Method to change bottom navigation index

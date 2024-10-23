@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:soldiers_friends/common/common_colors.dart';
-import 'package:soldiers_friends/common/common_text.dart'; // Ensure this path is correct
+import 'package:soldiers_friends/common/common_text.dart';
+import 'package:soldiers_friends/common/imagewidget.dart';
+import 'package:soldiers_friends/services/localStorage.dart'; // Ensure this path is correct
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String centerText;
@@ -54,13 +56,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
               child: ClipOval(
                 child: FittedBox(
-                  fit: firstImageFit,
-                  child: Image(
-                    image: firstImage!,
-                    width: imageSize,
-                    height: imageSize,
-                  ),
-                ),
+                    fit: firstImageFit,
+                    child: ImageWidget(
+                      imageUrl: LocalDataStorage.userImage.value != ''
+                          ? LocalDataStorage.userImage.value
+                          : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
+                      boxfit: BoxFit.cover,
+                      width: imageSize,
+                      height: imageSize,
+                    )),
               ),
             ),
           CommonText(

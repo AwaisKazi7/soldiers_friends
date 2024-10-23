@@ -10,7 +10,6 @@ class UserCard extends StatelessWidget {
   final homeModel user;
 
   const UserCard({super.key, required this.user});
-
   @override
   Widget build(BuildContext context) {
     return Card(
