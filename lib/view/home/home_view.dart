@@ -111,7 +111,7 @@ class HomeView extends StatelessWidget {
                                             controller.dislikeUser(user);
                                           } else if (orientation ==
                                               CardSwipeOrientation.RIGHT) {
-                                            controller.likeUser(user);
+                                            controller.likeUser(context, user);
                                           }
                                         },
                                       ),
@@ -146,6 +146,7 @@ class HomeView extends StatelessWidget {
                                       heroTag: null,
                                       onPressed: () {
                                         controller.cardController.swipeRight();
+                                        // controller.likeUser(user);
                                       },
                                       backgroundColor:
                                           CommonColors.gradientEndColor,

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_tinder_swipe/flutter_tinder_swipe.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/common/common_assets.dart';
@@ -17,6 +18,7 @@ class HomeController extends GetxController {
 
   RxList<homeModel> UsersList = <homeModel>[].obs;
   RxBool loadingHome = false.obs;
+
   getHomeData() async {
     loadingHome.value = true;
     var data = await supabse_DB.getInstance.GetAllUser(); // Await the Future
@@ -37,13 +39,18 @@ class HomeController extends GetxController {
   RxList<homeModel> likedUsers = <homeModel>[].obs;
   RxList<homeModel> dislikedUsers = <homeModel>[].obs;
 
-  // Method to like a user (swipe right)
-  void likeUser(homeModel user) {
-    if (!likedUsers.contains(user)) {
-      likedUsers.add(user);
+  likeUser(BuildContext context, homeModel user) async {
+    var data = await supabse_DB.getInstance
+        .likeApi(context, user.id); // Await the Future
+
+    if (data) {
+      if (!likedUsers.contains(user)) {
+        likedUsers.add(user);
+      }
+      return true;
+    } else {
+      return false;
     }
-    // UsersList.remove(user); // Remove the user from the card stack after liking
-    // update(); // Notify listeners
   }
 
   // Method to dislike a user (swipe left)

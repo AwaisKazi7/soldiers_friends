@@ -282,4 +282,28 @@ class supabse_DB {
       return [];
     }
   }
+
+  likeApi(BuildContext context, int userId) async {
+    try {
+      var data = await Supabase.instance.client.from('like_table').insert([
+        {
+          'liked_userId': userId,
+          'liked_by_userId': LocalDataStorage.currentUserId.value,
+        }
+      ]);
+
+      print("likeApi 👌✅");
+
+      return true;
+    } catch (e) {
+      print('insert_userDetails Error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("ERROR: $e"),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return false;
+    }
+  }
 }
