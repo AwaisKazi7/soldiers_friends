@@ -5,6 +5,7 @@ import 'package:soldiers_friends/firebase_options.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/services/SupabaseDB.dart';
 import 'routes/routes_page_list.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,15 +19,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'A Soldiers Friends',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      getPages: RoutesPageList.routList,
-      initialRoute: RoutesName.getstartedPage,
+    return ScreenUtilInit(
+      designSize:
+          const Size(375, 812), // Set your base design size (width, height)
+      minTextAdapt: true, // Ensures text scales properly
+      splitScreenMode: true,
+      builder: (context, child) {
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'A Soldiers Friends',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          getPages: RoutesPageList.routList,
+          initialRoute: RoutesName.getstartedPage,
+        );
+      },
     );
   }
 }

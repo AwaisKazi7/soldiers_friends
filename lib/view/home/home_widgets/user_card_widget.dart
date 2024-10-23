@@ -17,7 +17,7 @@ class UserCard extends StatelessWidget {
       child: Stack(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(10),
             child: ImageWidget(
               imageUrl: user.images[0],
               height: double.infinity,

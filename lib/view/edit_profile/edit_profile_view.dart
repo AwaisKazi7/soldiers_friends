@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/common/common_assets.dart';
 import 'package:soldiers_friends/common/common_buttons.dart';
@@ -49,18 +50,31 @@ class _EditProfileViewState extends State<EditProfileView> {
                 .copyWith(fontSize: 24, fontWeight: FontWeight.w500),
           ),
           centerTitle: true,
-          leading: SizedBox(),
-          actions: [
-            GestureDetector(
-              onTap: () {
-                Get.toNamed(RoutesName.settingview);
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Icon(Icons.settings),
-              ),
-            )
-          ],
+          leading: GestureDetector(
+            onTap: () {
+              Get.back();
+            },
+            child: Padding(
+              padding: EdgeInsets.all(10.sp),
+              child: CircleAvatar(
+                  backgroundColor: CommonColors.lightGray,
+                  child: Icon(
+                    Icons.arrow_back_rounded,
+                    color: Colors.black,
+                  )),
+            ),
+          ),
+          // actions: [
+          //   GestureDetector(
+          //     onTap: () {
+          //       Get.toNamed(RoutesName.settingview);
+          //     },
+          //     child: Padding(
+          //       padding: const EdgeInsets.all(8.0),
+          //       child: Icon(Icons.settings),
+          //     ),
+          //   )
+          // ],
         ),
         body: SingleChildScrollView(
           child: Container(
