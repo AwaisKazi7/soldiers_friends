@@ -36,115 +36,146 @@ class LikesView extends StatelessWidget {
                   )),
                   const SizedBox(height: 20),
                   Container(
-                    height: 50,
+                    height: 40,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(24),
                       color: CommonColors.lightGray,
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                          child: CommonButton(
-                            // width: 180,
-                            text: 'Likes Me',
-                            textStyle: CommonTextStyle.splashheadline1.copyWith(
-                                fontSize: 16, fontWeight: FontWeight.w600),
-                            borderRadius: 24,
-                            onPressed: () {
-                              controller.toggleLikes(true);
-                            },
-                            boxShadow: const [],
-                            gradient: controller.showLikesMe
-                                ? CommonColors.buttonGradient
-                                : null,
-                            backgroundColor: controller.showLikesMe
-                                ? Colors.transparent
-                                : CommonColors.lightGray,
-                            textColor: controller.showLikesMe
-                                ? Colors.white
-                                : Colors.black,
+                    child: Obx(
+                      () => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(
+                            child: CommonButton(
+                              // width: 180,
+                              text: 'My Likes',
+                              textStyle: CommonTextStyle.splashheadline1
+                                  .copyWith(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600),
+                              borderRadius: 24,
+                              onPressed: () {
+                                controller.toggleLikes(0);
+                              },
+                              boxShadow: const [],
+                              gradient: controller.Likestab_Index == 0
+                                  ? CommonColors.buttonGradient
+                                  : null,
+                              backgroundColor: controller.Likestab_Index == 0
+                                  ? Colors.transparent
+                                  : CommonColors.lightGray,
+                              textColor: controller.Likestab_Index == 0
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: CommonButton(
-                            // width: 180,
-                            text: 'My Likes',
-                            textStyle: CommonTextStyle.splashheadline1.copyWith(
-                                fontSize: 16, fontWeight: FontWeight.w600),
-                            borderRadius: 24,
-                            onPressed: () {
-                              controller.toggleLikes(false);
-                            },
-                            boxShadow: const [],
-                            gradient: !controller.showLikesMe
-                                ? CommonColors.buttonGradient
-                                : null,
-                            backgroundColor: !controller.showLikesMe
-                                ? Colors.transparent
-                                : CommonColors.lightGray,
-                            textColor: !controller.showLikesMe
-                                ? Colors.white
-                                : Colors.black,
+                          Expanded(
+                            child: CommonButton(
+                              // width: 180,
+                              text: 'Likes Me',
+                              textStyle: CommonTextStyle.splashheadline1
+                                  .copyWith(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600),
+                              borderRadius: 24,
+                              onPressed: () {
+                                controller.toggleLikes(1);
+                              },
+                              boxShadow: const [],
+                              gradient: controller.Likestab_Index == 1
+                                  ? CommonColors.buttonGradient
+                                  : null,
+                              backgroundColor: controller.Likestab_Index == 1
+                                  ? Colors.transparent
+                                  : CommonColors.lightGray,
+                              textColor: controller.Likestab_Index == 1
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
                   Expanded(
-                    child: 
-                    // controller.currentLikesList.isEmpty
-                    //     ? Center(
-                    //         child: CommonText(
-                    //           text: "No More Data",
-                    //           style: CommonTextStyle.splashheadline1.copyWith(
-                    //             fontSize: 18,
-                    //             fontWeight: FontWeight.w600,
-                    //             color: Colors.grey,
-                    //           ),
-                    //         ),
-                    //       )
-                    //     :
-                         Column(
-                            children: [
-                              Expanded(
-                                child: GridView.builder(
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    childAspectRatio: 0.65,
-                                    crossAxisSpacing: 10,
-                                    mainAxisSpacing: 10,
+                    child:
+                        // controller.currentLikesList.isEmpty
+                        //     ? Center(
+                        //         child: CommonText(
+                        //           text: "No More Data",
+                        //           style: CommonTextStyle.splashheadline1.copyWith(
+                        //             fontSize: 18,
+                        //             fontWeight: FontWeight.w600,
+                        //             color: Colors.grey,
+                        //           ),
+                        //         ),
+                        //       )
+                        //     :
+                        Column(
+                      children: [
+                        Obx(
+                          () => Expanded(
+                            child: controller.Likestab_Index == 0
+                                ? GridView.builder(
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      childAspectRatio: 0.65,
+                                      crossAxisSpacing: 10,
+                                      mainAxisSpacing: 10,
+                                    ),
+                                    itemCount: controller.myLikesList.length,
+                                    itemBuilder: (context, index) {
+                                      homeModel Data =
+                                          controller.myLikesList[index];
+                                      return LikeCard(
+                                        Data: Data,
+                                        onTap: () {
+                                          controller.navigateToDetail(Data);
+                                        },
+                                        verifiedIconPath:
+                                            CommonAssets.verifiedIcon,
+                                      );
+                                    },
+                                  )
+                                : GridView.builder(
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      childAspectRatio: 0.65,
+                                      crossAxisSpacing: 10,
+                                      mainAxisSpacing: 10,
+                                    ),
+                                    itemCount: controller.likesMeList.length,
+                                    itemBuilder: (context, index) {
+                                      homeModel Data =
+                                          controller.likesMeList[index];
+                                      return LikeCard(
+                                        Data: Data,
+                                        onTap: () {
+                                          controller.navigateToDetail(Data);
+                                        },
+                                        verifiedIconPath:
+                                            CommonAssets.verifiedIcon,
+                                      );
+                                    },
                                   ),
-                                  itemCount: controller.likesMeList.length,
-                                  itemBuilder: (context, index) {
-                                    homeModel Data =
-                                        controller.likesMeList[index];
-                                    return LikeCard(
-                                      Data: Data,
-                                      onTap: () {
-                                        // controller.navigateToDetail(like);
-                                      },
-                                      verifiedIconPath:
-                                          CommonAssets.verifiedIcon,
-                                    );
-                                  },
-                                ),
-                              ),
-                              const SizedBox(
-                                  height:
-                                      20), // Some space before "No More Data"
-                              CommonText(
-                                text: "No More Data",
-                                style: CommonTextStyle.splashheadline1.copyWith(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
                           ),
+                        ),
+                        // const SizedBox(
+                        //     height:
+                        //         20), // Some space before "No More Data"
+                        // CommonText(
+                        //   text: "No More Data",
+                        //   style: CommonTextStyle.splashheadline1.copyWith(
+                        //     fontSize: 18,
+                        //     fontWeight: FontWeight.w600,
+                        //     color: Colors.grey,
+                        //   ),
+                        // ),
+                      ],
+                    ),
                   ),
                 ],
               ),

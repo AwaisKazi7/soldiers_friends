@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
+import 'package:soldiers_friends/common/imagewidget.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/model/likes_model.dart';
 
@@ -31,9 +32,9 @@ class LikeCard extends StatelessWidget {
             Expanded(
               child: ClipRRect(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-                child: Image.asset(
-                  Data.images[0],
-                  fit: BoxFit.cover,
+                child: ImageWidget(
+                  imageUrl: Data.images[0],
+                  boxfit: BoxFit.cover,
                   width: double.infinity,
                 ),
               ),

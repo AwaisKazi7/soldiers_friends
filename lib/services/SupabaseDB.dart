@@ -290,20 +290,23 @@ class supabse_DB {
       // STEP 1:
 
       //Fetch the liked user IDs
-      final likedResponse =
+      var likedResponse =
           await Supabase.instance.client.from('like_table').select('*');
 
       //Fetch All users
-      final userResponse = await Supabase.instance.client
+      var userResponse = await Supabase.instance.client
           .from('users_table')
           .select('*,profilepicture_table(*)');
 
       if (likedResponse.isNotEmpty) {
         //----getting Ids of those users whom i like
-        final likedUserIds = (likedResponse as List<dynamic>)
+        // List<int> likedUserIds = [];
+
+        var likedUserIds = (likedResponse as List)
             .where(
               (e) =>
-                  e['liked_by_userId'] == LocalDataStorage.currentUserId.value,
+                  e['liked_by_userId'] ==
+                  int.parse(LocalDataStorage.currentUserId.value),
             )
             .map((item) => item['liked_userId'])
             .toList();
@@ -318,9 +321,11 @@ class supabse_DB {
         }
 
         //----getting Ids of those users who like me
-        final mylikes_UserIds = (likedResponse as List<dynamic>)
+        var mylikes_UserIds = (likedResponse as List<dynamic>)
             .where(
-              (e) => e['liked_userId'] == LocalDataStorage.currentUserId.value,
+              (e) =>
+                  e['liked_userId'] ==
+                  int.parse(LocalDataStorage.currentUserId.value),
             )
             .map((item) => item['liked_by_userId'])
             .toList();
@@ -361,7 +366,7 @@ class supabse_DB {
 
       return true;
     } catch (e) {
-      print('insert_userDetails Error: $e');
+      print('likeApi Error: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("ERROR: $e"),
@@ -369,6 +374,69 @@ class supabse_DB {
         ),
       );
       return false;
+    }
+  }
+
+  AddFriendApi(BuildContext context, int userId) async {
+    try {
+      var data = await Supabase.instance.client.from('friends_table').insert([
+        {
+          'friend_userId': userId,
+          'userId': LocalDataStorage.currentUserId.value,
+        }
+      ]);
+
+      print("AddFriendApi 👌✅");
+
+      return true;
+    } catch (e) {
+      print('AddFriendApi Error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("ERROR: $e"),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return false;
+    }
+  }
+
+  GetfriendsList() async {
+    try {
+      List<homeModel> FriendList = [];
+
+      // STEP 1:
+
+      //Fetch the liked user IDs
+      var FriendResponse = await Supabase.instance.client
+          .from('friends_table')
+          .select('friend_userId')
+          .eq('userId', int.parse(LocalDataStorage.currentUserId.value));
+
+      //Fetch All users
+      var userResponse = await Supabase.instance.client
+          .from('users_table')
+          .select('*,profilepicture_table(*)');
+
+      if (FriendResponse.isNotEmpty) {
+        
+        for (final userId in FriendResponse) {
+          final userData = (userResponse as List<dynamic>).firstWhere(
+            (e) => e['id'] == userId,
+          );
+          homeModel data = homeModel.fromMap(userData);
+          FriendList.add(data);
+        }
+
+        print('GetLikeUsers 👌✅');
+        print({
+          'FriendList': FriendList.length,
+        });
+      }
+      return FriendList;
+    } catch (e) {
+      print('GetAllUser Error: $e');
+      return [];
     }
   }
 }

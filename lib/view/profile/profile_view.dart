@@ -62,42 +62,42 @@ class ProfileView extends StatelessWidget {
                           // Row(
                           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           //   children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Get.toNamed(RoutesName.editprofile);
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.all(10.sp),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: CircleAvatar(
-                                        backgroundColor: CommonColors.lightGray,
-                                        child: Icon(
-                                          Icons.edit,
-                                          color: Colors.black,
-                                        )),
-                                  ),
-                                ),
+                          GestureDetector(
+                            onTap: () {
+                              Get.toNamed(RoutesName.editprofile);
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.all(10.sp),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: CircleAvatar(
+                                    backgroundColor: CommonColors.lightGray,
+                                    child: Icon(
+                                      Icons.edit,
+                                      color: Colors.black,
+                                    )),
                               ),
-                              // GestureDetector(
-                              //   onTap: () {
-                              //     Get.toNamed(RoutesName.settingview);
-                              //   },
-                              //   child: Padding(
-                              //     padding: EdgeInsets.all(10.sp),
-                              //     child: CircleAvatar(
-                              //       backgroundColor: CommonColors.lightGray,
-                              //       child: ClipOval(
-                              //         child: Image(
-                              //           image: AssetImage(
-                              //               CommonAssets.threedotsIcon)!,
-                              //           fit: BoxFit.cover,
-                              //         ),
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                            
+                            ),
+                          ),
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     Get.toNamed(RoutesName.settingview);
+                          //   },
+                          //   child: Padding(
+                          //     padding: EdgeInsets.all(10.sp),
+                          //     child: CircleAvatar(
+                          //       backgroundColor: CommonColors.lightGray,
+                          //       child: ClipOval(
+                          //         child: Image(
+                          //           image: AssetImage(
+                          //               CommonAssets.threedotsIcon)!,
+                          //           fit: BoxFit.cover,
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+
                           SizedBox(
                             height: 10.sp,
                           ),
@@ -135,7 +135,9 @@ class ProfileView extends StatelessWidget {
                           CommonButton(
                             width: 100.sp,
                             text: 'Friends List',
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed(RoutesName.friendlistview);
+                            },
                           ),
                           SizedBox(
                             height: 20.sp,

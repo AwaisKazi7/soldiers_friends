@@ -2,14 +2,14 @@ import 'package:get/get.dart';
 import 'package:soldiers_friends/common/common_assets.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/model/likes_model.dart';
+import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/services/SupabaseDB.dart';
 
 class LikesController extends GetxController {
   RxList<homeModel> likesMeList = <homeModel>[].obs;
-
   List<homeModel> myLikesList = <homeModel>[].obs;
 
-  bool showLikesMe = true;
+  RxInt Likestab_Index = 0.obs;
 
   @override
   Future<void> onReady() async {
@@ -17,23 +17,21 @@ class LikesController extends GetxController {
     await GetlikeUser();
   }
 
-  void toggleLikes(bool isLikesMe) {
-    showLikesMe = isLikesMe;
-    update();
+  void toggleLikes(int index) {
+    Likestab_Index.value = index;
   }
-
-  // List<LikeModel> get currentLikesList =>
-  //     showLikesMe ? likesMeList : myLikesList;
 
   GetlikeUser() async {
     var Data = await supabse_DB.getInstance.GetLikeUsers();
-
-    likesMeList.add(Data['likesMeList']);
-    myLikesList.add(Data['myLikesList']);
+    if (Data['likesMeList'].length != 0) {
+      likesMeList.addAll(Data['likesMeList']);
+    }
+    if (Data['myLikesList'].length != 0) {
+      myLikesList.addAll(Data['myLikesList']);
+    }
   }
 
-  void navigateToDetail(LikeModel like) {
-    // Pass the selected person to the detail screen via Get.to
-    // Get.toNamed('/detail', arguments: like);
+  void navigateToDetail(homeModel data) {
+    Get.toNamed(RoutesName.userdetailview, arguments: data);
   }
 }

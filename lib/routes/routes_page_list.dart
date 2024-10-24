@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import 'package:soldiers_friends/model/homeData_model.dart';
+import 'package:soldiers_friends/view/FriendList/friendList_view.dart';
+import 'package:soldiers_friends/view/FriendList/friendlist_binding.dart';
 import 'package:soldiers_friends/view/bottomnavbar/bottomnavbar_binding.dart';
 import 'package:soldiers_friends/view/bottomnavbar/bottomnavbar_view.dart';
 import 'package:soldiers_friends/view/changePassword/changepassword_binding.dart';
@@ -32,6 +35,8 @@ import 'package:soldiers_friends/view/subscribtion/subscribtio_screens/subscribt
 import 'package:soldiers_friends/view/subscribtion/subscribtion_binding.dart';
 import 'package:soldiers_friends/view/use_phoneNo/use_phone_binding.dart';
 import 'package:soldiers_friends/view/use_phoneNo/use_phone_view.dart';
+import 'package:soldiers_friends/view/user%20details/userDetails_bindings.dart';
+import 'package:soldiers_friends/view/user%20details/userDetails_view.dart';
 
 class RoutesPageList {
   static List<GetPage> routList = [
@@ -97,7 +102,18 @@ class RoutesPageList {
         binding: DeleteAccountBinding()),
     GetPage(
         name: RoutesName.changepasswordview,
-        page: () =>  changePasswordView(),
+        page: () => changePasswordView(),
         binding: ChangePasswordBinding()),
+    GetPage(
+        arguments: homeModel,
+        name: RoutesName.userdetailview,
+        page: () => UserDetailView(
+              data: Get.arguments,
+            ),
+        binding: UserDetailsBinding()),
+    GetPage(
+        name: RoutesName.friendlistview,
+        page: () => FriendListView(),
+        binding: FriendListBinding()),
   ];
 }
