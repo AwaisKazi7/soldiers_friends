@@ -12,7 +12,20 @@
           "package_name": "com.example.soldiers_friends"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "177377617100-8d6lsvqo63gijp7mmcv4gn8js14k9bko.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.soldiers_friends",
+            "certificate_hash": "bd767116c405d29f80d2f2996bce5a668a24b6c3"
+          }
+        },
+        {
+          "client_id": "177377617100-1k6v2736da1juge0hcq6v6qmpn4oevee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDttuEX877jGA5Guvv-w6vfc7zBaBA-8_g"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "177377617100-1k6v2736da1juge0hcq6v6qmpn4oevee.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

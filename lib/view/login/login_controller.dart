@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:soldiers_friends/services/SupabaseDB.dart';
+import 'package:soldiers_friends/view/sign_up/signup_controller.dart';
 
 import '../../routes/routes_name_strings.dart';
 
@@ -14,11 +15,8 @@ class LoginController extends GetxController {
   RxBool apihitting = false.obs;
   RxBool google_signin = false.obs;
   final FirebaseAuth auth = FirebaseAuth.instance;
-
+  final SignUpcontroller = Get.put(SignUpController());
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-
-
-
 
   @override
   void onReady() {
@@ -79,12 +77,8 @@ class LoginController extends GetxController {
     return null;
   }
 
-
-
-
-
 //----------------------Sign Up WITH Google----------------
- Future<void> signUpWithGoogle(BuildContext context) async {
+  Future<void> signUpWithGoogle(BuildContext context) async {
     try {
       google_signin.value = true;
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
@@ -94,35 +88,20 @@ class LoginController extends GetxController {
         print('User canceled the sign-in process');
         return;
       }
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      final String? accessToken = googleAuth.accessToken;
-      final String? idToken = googleAuth.idToken;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final String accessToken = googleAuth.accessToken ?? 'open12345#';
 
-      // Ensure that both tokens are available
-      if (accessToken == null || idToken == null) {
-        print('Missing access token or id token.');
-        return;
-      }
+      final String email = googleUser.email;
+      final String name = googleUser.displayName ?? '';
 
-      // Get the user's details
-      final String? email = googleUser.email;
-      final String? name = googleUser.displayName;
       final String? imageUrl = googleUser.photoUrl;
 
-      // Log the user info
       print('User signed in with Google: $name');
       print('Email: $email');
       print('Profile image: $imageUrl');
-
-      // If you need to send the tokens to your backend, do so here.
-      // Example: Sending the tokens to your backend for further processing
-      if (email != null && name != null) {
-        print("${email}");
-        google_signin.value = false;
-      } else {
-        print('Email or Name is missing. Unable to proceed.');
-        google_signin.value = false;
-      }
+      await supabse_DB.getInstance.Sociallogin(context, email, name);
+      google_signin.value = false;
     } catch (e) {
       // Handle any errors
       print('Error during Google sign-in: $e');

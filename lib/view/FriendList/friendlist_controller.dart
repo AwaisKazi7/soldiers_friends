@@ -1,13 +1,9 @@
 import 'package:get/get.dart';
-import 'package:soldiers_friends/common/common_assets.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
-import 'package:soldiers_friends/model/likes_model.dart';
-import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/services/SupabaseDB.dart';
 
 class FriendListController extends GetxController {
   RxList<homeModel> FriendsList = <homeModel>[].obs;
-  
 
   RxInt Likestab_Index = 0.obs;
 

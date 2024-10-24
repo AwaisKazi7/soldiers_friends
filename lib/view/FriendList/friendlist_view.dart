@@ -18,6 +18,16 @@ class FriendListView extends StatelessWidget {
       builder: (controller) {
         return Scaffold(
           backgroundColor: CommonColors.backgroundColor,
+          appBar: AppBar(
+            backgroundColor: CommonColors.backgroundColor,
+            surfaceTintColor: CommonColors.backgroundColor,
+            title: CommonText(
+              text: 'Friend List',
+              style: CommonTextStyle.splashheadline1
+                  .copyWith(fontSize: 28, fontWeight: FontWeight.w600),
+            ),
+            centerTitle: true,
+          ),
           body: Container(
             margin: const EdgeInsets.all(18.0),
             height: context.height,
@@ -27,48 +37,37 @@ class FriendListView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 20),
-                  Center(
-                      child: CommonText(
-                    text: 'Friend List',
-                    style: CommonTextStyle.splashheadline1
-                        .copyWith(fontSize: 28, fontWeight: FontWeight.w600),
-                  )),
                   const SizedBox(height: 20),
-                  Column(
-                    children: [
-                      Obx(
-                        () => Expanded(
-                            child: controller.FriendsList.isEmpty
-                                ? Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Center(
-                                        child: Text('No Friends Added Yet..'),
-                                      )
-                                    ],
+                  Obx(
+                    () => Expanded(
+                        child: controller.FriendsList.isEmpty
+                            ? Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Center(
+                                    child: Text('No Friends Added Yet..'),
                                   )
-                                : GridView.builder(
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      childAspectRatio: 0.65,
-                                      crossAxisSpacing: 10,
-                                      mainAxisSpacing: 10,
-                                    ),
-                                    itemCount: controller.FriendsList.length,
-                                    itemBuilder: (context, index) {
-                                      homeModel Data =
-                                          controller.FriendsList[index];
-                                      return LikeCard(
-                                        Data: Data,
-                                        onTap: () {},
-                                        verifiedIconPath:
-                                            CommonAssets.verifiedIcon,
-                                      );
-                                    },
-                                  )),
-                      ),
-                    ],
+                                ],
+                              )
+                            : GridView.builder(
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 0.65,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10,
+                                ),
+                                itemCount: controller.FriendsList.length,
+                                itemBuilder: (context, index) {
+                                  homeModel Data =
+                                      controller.FriendsList[index];
+                                  return LikeCard(
+                                    Data: Data,
+                                    onTap: () {},
+                                    verifiedIconPath: CommonAssets.verifiedIcon,
+                                  );
+                                },
+                              )),
                   ),
                 ],
               ),

@@ -22,6 +22,54 @@ class supabse_DB {
     print('Supabase successfully connected 🤑');
   }
 
+  Sociallogin(BuildContext context, String email, String name) async {
+    try {
+      var userdata = await Supabase.instance.client
+          .from('users_table')
+          .select('*,profilepicture_table(*)')
+          .eq('email', email);
+
+      if (userdata.isNotEmpty) {
+        UserModel User = UserModel.fromMap(userdata.first);
+        print("Sociallogin 👌✅");
+        print(User);
+        await LocalDataStorage.getInstance.insertUserData(User);
+        print('UserId : ${User.id}');
+        print('User email : ${User.email}');
+        Get.offAllNamed(RoutesName.bottomnavbar);
+      } else {
+        var data = await Supabase.instance.client
+            .from('users_table')
+            .insert([
+              {
+                'name': name,
+                'phonenumber': '',
+                'email': email,
+                'password': 'open1234#',
+              }
+            ])
+            .eq('email', email)
+            .select('*,profilepicture_table(*)');
+
+        print("SocialregisterUser 👌✅");
+        print(data);
+        UserModel User = UserModel.fromMap(data.last);
+        await LocalDataStorage.getInstance.insertUserData(User);
+        print('UserId : ${User.id}');
+        print('User email : ${User.email}');
+        Get.offAllNamed(RoutesName.bottomnavbar);
+      }
+    } catch (e) {
+      print('Sociallogin Error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("ERROR: $e"),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
   login(BuildContext context, String email, String Password) async {
     try {
       var userdata = await Supabase.instance.client
@@ -54,7 +102,15 @@ class supabse_DB {
           ),
         );
       }
-    } catch (e) {}
+    } catch (e) {
+      print('login Error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("ERROR: $e"),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   registerUser(BuildContext context, String fullname, String phonenumber,
@@ -419,16 +475,15 @@ class supabse_DB {
           .select('*,profilepicture_table(*)');
 
       if (FriendResponse.isNotEmpty) {
-        
         for (final userId in FriendResponse) {
           final userData = (userResponse as List<dynamic>).firstWhere(
-            (e) => e['id'] == userId,
+            (e) => e['id'] == userId['friend_userId'],
           );
           homeModel data = homeModel.fromMap(userData);
           FriendList.add(data);
         }
 
-        print('GetLikeUsers 👌✅');
+        print('GetfriendsList 👌✅');
         print({
           'FriendList': FriendList.length,
         });
