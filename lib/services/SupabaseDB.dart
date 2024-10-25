@@ -277,13 +277,7 @@ class supabse_DB {
         print('Updated UserId: ${user.id}');
         print('Updated User email: ${user.email}');
 
-        // final List<String> fileUrls = await Future.wait(images.map((e) async {
-        //   String fileName =
-        //       'userProfile/${DateTime.now().millisecondsSinceEpoch}-${e}';
-
-        //   final response = await Supabase.instance.client.storage
-        //       .from('soliderbucket')
-        //       .upload(fileName, e.);
+        
 
         //   return Supabase.instance.client.storage
         //       .from('soliderbucket')
@@ -311,6 +305,14 @@ class supabse_DB {
       );
       return false;
     }
+  }
+
+  Future<void> uploadImage(File imageFile) async {
+    final response = await Supabase.instance.client.storage
+        .from('soliderbucket') // Replace with your storage bucket name
+        .upload('path/to/upload/${imageFile.path.split('/').last}', imageFile)
+        .whenComplete(() => print('Image uploaded successfully'));
+        
   }
 
   GetAllUser() async {
