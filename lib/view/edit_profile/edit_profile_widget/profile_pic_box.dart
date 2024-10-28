@@ -85,7 +85,7 @@ class _ProfilePictureRowState extends State<ProfilePictureRow> {
   Widget build(BuildContext context) {
     return GetBuilder<EditProfileController>(builder: (controller) {
       List<Widget> pictureBoxes = _profilePictures.map((image) {
-        // controller.imagesList.add(image);
+        controller.imagesList.add(image);
         return _buildProfilePictureBox(image);
       }).toList();
 

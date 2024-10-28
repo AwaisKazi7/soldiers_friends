@@ -6,6 +6,7 @@ class FriendListController extends GetxController {
   RxList<homeModel> FriendsList = <homeModel>[].obs;
 
   RxInt Likestab_Index = 0.obs;
+  RxBool friendloading = false.obs;
 
   @override
   Future<void> onReady() async {
@@ -14,9 +15,18 @@ class FriendListController extends GetxController {
   }
 
   GetfriendsList() async {
-    var Data = await supabse_DB.getInstance.GetfriendsList();
-    if (Data.length != 0) {
-      FriendsList.addAll(Data);
+    try {
+      friendloading.value = true;
+      var Data = await supabse_DB.getInstance.GetfriendsList();
+
+      if (Data.length != 0) {
+        FriendsList.clear();
+        FriendsList.addAll(Data);
+      }
+      friendloading.value = false;
+    } catch (e) {
+      print("Error in GetfriendsList:${e}");
+      friendloading.value = false;
     }
   }
 

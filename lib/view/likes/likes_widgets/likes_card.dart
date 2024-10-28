@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/common/imagewidget.dart';
+import 'package:soldiers_friends/main.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/model/likes_model.dart';
 
@@ -43,11 +45,18 @@ class LikeCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CommonText(
-                  text: Data.name,
-                  style: CommonTextStyle.splashheadline1.copyWith(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                SizedBox(
+                  width: 100.sp,
+                  child: Center(
+                    child: CommonText(
+                      text: Data.name,
+                      maxLines: 1,
+                      style: CommonTextStyle.splashheadline1.copyWith(
+                        overflow: TextOverflow.ellipsis,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8),

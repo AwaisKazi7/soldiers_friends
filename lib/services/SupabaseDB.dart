@@ -276,8 +276,9 @@ class supabse_DB {
 
         print('Updated UserId: ${user.id}');
         print('Updated User email: ${user.email}');
-
-        
+        for (var element in images) {
+          await uploadImage(element!);
+        }
 
         //   return Supabase.instance.client.storage
         //       .from('soliderbucket')
@@ -308,11 +309,14 @@ class supabse_DB {
   }
 
   Future<void> uploadImage(File imageFile) async {
-    final response = await Supabase.instance.client.storage
-        .from('soliderbucket') // Replace with your storage bucket name
-        .upload('path/to/upload/${imageFile.path.split('/').last}', imageFile)
-        .whenComplete(() => print('Image uploaded successfully'));
-        
+    try {
+      final response = await Supabase.instance.client.storage
+          .from('soliderbucket') // Replace with your storage bucket name
+          .upload('path/to/upload/${imageFile.path.split('/').last}', imageFile)
+          .whenComplete(() => print('Image uploaded successfully'));
+    } catch (e) {
+      print("Error In uploadImage: ${e}");
+    }
   }
 
   GetAllUser() async {

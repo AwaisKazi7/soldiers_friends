@@ -5,6 +5,7 @@ import 'package:soldiers_friends/common/common_buttons.dart';
 import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
+import 'package:soldiers_friends/common/smallloader.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/view/FriendList/friendlist_controller.dart';
 import 'package:soldiers_friends/view/likes/likes_widgets/likes_card.dart';
@@ -40,34 +41,37 @@ class FriendListView extends StatelessWidget {
                   const SizedBox(height: 20),
                   Obx(
                     () => Expanded(
-                        child: controller.FriendsList.isEmpty
-                            ? Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Center(
-                                    child: Text('No Friends Added Yet..'),
+                        child: controller.friendloading.value
+                            ? SmallLoader()
+                            : controller.FriendsList.isEmpty
+                                ? Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Center(
+                                        child: Text('No Friends Added Yet..'),
+                                      )
+                                    ],
                                   )
-                                ],
-                              )
-                            : GridView.builder(
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  childAspectRatio: 0.65,
-                                  crossAxisSpacing: 10,
-                                  mainAxisSpacing: 10,
-                                ),
-                                itemCount: controller.FriendsList.length,
-                                itemBuilder: (context, index) {
-                                  homeModel Data =
-                                      controller.FriendsList[index];
-                                  return LikeCard(
-                                    Data: Data,
-                                    onTap: () {},
-                                    verifiedIconPath: CommonAssets.verifiedIcon,
-                                  );
-                                },
-                              )),
+                                : GridView.builder(
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      childAspectRatio: 0.65,
+                                      crossAxisSpacing: 10,
+                                      mainAxisSpacing: 10,
+                                    ),
+                                    itemCount: controller.FriendsList.length,
+                                    itemBuilder: (context, index) {
+                                      homeModel Data =
+                                          controller.FriendsList[index];
+                                      return LikeCard(
+                                        Data: Data,
+                                        onTap: () {},
+                                        verifiedIconPath:
+                                            CommonAssets.verifiedIcon,
+                                      );
+                                    },
+                                  )),
                   ),
                 ],
               ),

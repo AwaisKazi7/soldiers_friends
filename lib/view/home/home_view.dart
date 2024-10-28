@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_tinder_swipe/flutter_tinder_swipe.dart';
+
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:soldiers_friends/Common/common_assets.dart';
 import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
@@ -64,58 +65,42 @@ class HomeView extends StatelessWidget {
                                 child: Center(
                                   child: Container(
                                     margin: const EdgeInsets.only(top: 0),
-                                    child: Obx(
-                                      () => SwipeCard(
-                                        swipeEdgeVertical: 3.0,
-                                        animDuration: 300,
-                                        totalNum: controller.UsersList.length,
-                                        stackNum: 2,
-                                        swipeEdge: 0.5,
-                                        allowVerticalMovement: false,
-                                        maxWidth:
-                                            MediaQuery.of(context).size.width *
-                                                1,
-                                        minWidth:
-                                            MediaQuery.of(context).size.width *
-                                                0.8,
-                                        minHeight:
-                                            MediaQuery.of(context).size.width +
-                                                130 * 0.9,
-                                        maxHeight:
-                                            MediaQuery.of(context).size.width +
-                                                120 * 0.99,
-                                        cardBuilder: (context, index) {
-                                          final user =
-                                              controller.UsersList[index];
-                                          return UserCard(user: user);
-                                        },
-                                        cardController:
-                                            controller.cardController,
-                                        swipeUpdateCallback:
-                                            (DragUpdateDetails details,
-                                                Alignment align) {
-                                          // Get swiping card's alignment
-                                          if (align.x > 0) {
-                                            // Card is LEFT swiping
-                                          } else if (align.x > 0) {
-                                            // Card is RIGHT swiping
-                                          }
-                                        },
-                                        swipeCompleteCallback:
-                                            (CardSwipeOrientation orientation,
-                                                int index) {
-                                          final user =
-                                              controller.UsersList[index];
-                                          if (orientation ==
-                                              CardSwipeOrientation.LEFT) {
-                                            controller.dislikeUser(user);
-                                          } else if (orientation ==
-                                              CardSwipeOrientation.RIGHT) {
-                                            controller.likeUser(context, user);
-                                          }
-                                        },
-                                      ),
-                                    ),
+                                    child: Obx(() => CardSwiper(
+                                          numberOfCardsDisplayed: 3,
+                                          cardsCount:
+                                              controller.UsersList.length,
+                                          controller: controller.cardController,
+                                          onSwipe: (previousIndex, currentIndex,
+                                              direction) {
+                                            if (currentIndex != null &&
+                                                currentIndex <
+                                                    controller
+                                                        .UsersList.length) {
+                                              final user = controller
+                                                  .UsersList[currentIndex];
+                                              if (direction ==
+                                                  CardSwiperDirection.left) {
+                                                controller.dislikeUser(user);
+                                              } else if (direction ==
+                                                  CardSwiperDirection.right) {
+                                                controller.likeUser(
+                                                    context, user);
+                                              }
+                                            }
+                                            return true;
+                                          },
+                                          cardBuilder: (context,
+                                              index,
+                                              percentThresholdX,
+                                              percentThresholdY) {
+                                            return index <
+                                                    controller.UsersList.length
+                                                ? UserCard(
+                                                    user: controller
+                                                        .UsersList[index])
+                                                : SizedBox.shrink();
+                                          },
+                                        )),
                                   ),
                                 ),
                               ),
@@ -129,7 +114,9 @@ class HomeView extends StatelessWidget {
                                         elevation: 0.6,
                                         heroTag: null,
                                         onPressed: () {
-                                          controller.cardController.swipeLeft();
+                                          // controller.cardController.moveTo(index);
+                                          controller.cardController
+                                              .swipe(CardSwiperDirection.left);
                                         },
                                         backgroundColor:
                                             CommonColors.gradientStartColor,
@@ -145,7 +132,8 @@ class HomeView extends StatelessWidget {
                                       elevation: 0.6,
                                       heroTag: null,
                                       onPressed: () {
-                                        controller.cardController.swipeRight();
+                                        controller.cardController
+                                            .swipe(CardSwiperDirection.right);
                                         // controller.likeUser(user);
                                       },
                                       backgroundColor:

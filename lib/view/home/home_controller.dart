@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tinder_swipe/flutter_tinder_swipe.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/common/common_assets.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
@@ -31,7 +31,7 @@ class HomeController extends GetxController {
     }
   }
 
-  CardController cardController = CardController();
+  CardSwiperController cardController = CardSwiperController();
 
   // Index for the BottomNavigationBar
   int selectedIndex = 0;
