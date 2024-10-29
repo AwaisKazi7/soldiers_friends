@@ -14,7 +14,7 @@ import 'package:soldiers_friends/view/use_phoneNo/use_phone_widget/country_dropd
 class UsePhoneView extends StatelessWidget {
   final ValueNotifier<String?> countryCodeNotifier =
       ValueNotifier<String?>(null);
-  final TextEditingController phoneNumberController = TextEditingController();
+
   UsePhoneView({super.key});
 
   @override
@@ -101,7 +101,7 @@ class UsePhoneView extends StatelessWidget {
                                       .copyWith(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500),
-                                  controller: phoneNumberController,
+                                  controller: controller.phoneNumberController,
                                   fillColor: CommonColors.backgroundColor,
                                   borderColor: CommonColors.backgroundColor,
                                 ),
@@ -113,15 +113,18 @@ class UsePhoneView extends StatelessWidget {
                           height: 18,
                         ),
                         CommonButton(
-                          height: 50.98,
-                          width: 345.59,
-                          text: 'Confirm',
-                          textStyle: CommonTextStyle.splashheadline1.copyWith(
-                              fontSize: 16, fontWeight: FontWeight.w500),
-                          borderRadius: 5,
-                          boxShadow: const [],
-                          onPressed: () => Get.to(() => OtpVerification()),
-                        ),
+                            height: 50.98,
+                            width: 345.59,
+                            text: 'Confirm',
+                            textStyle: CommonTextStyle.splashheadline1.copyWith(
+                                fontSize: 16, fontWeight: FontWeight.w500),
+                            borderRadius: 5,
+                            boxShadow: const [],
+                            onPressed: () {
+                              controller.mobileotp_Send(context,
+                                  controller.phoneNumberController.text);
+// Get.to(() => OtpVerification()
+                            }),
                         const SizedBox(
                           height: 18,
                         ),

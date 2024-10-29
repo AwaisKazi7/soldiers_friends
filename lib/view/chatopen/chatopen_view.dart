@@ -150,7 +150,7 @@ class ChatOpenScreen extends StatelessWidget {
                             : Icon(Icons.send),
                         onPressed: () async {
                           // Send the message
-                          await controller.sendMessage(userData.id, 'text');
+                          await controller.sendMessage(userData.id, 0);
                           await controller.GetMessage();
                         },
                       ),

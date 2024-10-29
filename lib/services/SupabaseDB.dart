@@ -28,7 +28,9 @@ class supabse_DB {
       var userdata = await Supabase.instance.client
           .from('users_table')
           .select('*,profilepicture_table(*)')
-          .eq('email', email);
+          .eq('email', email)
+          .eq('isDelete', 0);
+      
 
       if (userdata.isNotEmpty) {
         UserModel User = UserModel.fromMap(userdata.first);
@@ -76,7 +78,8 @@ class supabse_DB {
       var userdata = await Supabase.instance.client
           .from('users_table')
           .select('*,profilepicture_table(*)')
-          .eq('email', email);
+          .eq('email', email)
+          .eq('isDelete', 0);
 
       if (userdata.isNotEmpty) {
         UserModel User = UserModel.fromMap(userdata.first);
@@ -160,10 +163,8 @@ class supabse_DB {
       UserModel User = UserModel.fromMap(userdata.first);
 
       if (User.password == Password) {
-        var data = await Supabase.instance.client
-            .from('users_table')
-            .delete()
-            .eq('id', LocalDataStorage.currentUserId.value);
+        var data = await Supabase.instance.client.from('users_table').update(
+            {'isDelete': 1}).eq('id', LocalDataStorage.currentUserId.value);
 
         print("Delete_user 👌✅");
 
@@ -345,9 +346,9 @@ class supabse_DB {
     }
   }
 
-  sendMessage(int userId, String message, String mediaType) async {
+  sendMessage(int userId, String message, int mediaType) async {
     try {
-      if (mediaType == 'text') {
+      if (mediaType == 0) {
         await Supabase.instance.client.from('chat_table').insert({
           'sender_id': int.parse(LocalDataStorage.currentUserId.value),
           'reciver_id': userId,

@@ -18,12 +18,12 @@ class ChatDetailController extends GetxController {
     // navigate();
   }
 
-  sendMessage(int UserId, String mediiatype) async {
+  sendMessage(int UserId, int mediiatype) async {
     try {
       apihitting.value = true;
       var data = await supabse_DB.getInstance
           .sendMessage(UserId, messagecontroller.text, mediiatype);
-
+      messagecontroller.clear();
       apihitting.value = false;
     } catch (e) {
       print("Error sendMessage:${e}");
