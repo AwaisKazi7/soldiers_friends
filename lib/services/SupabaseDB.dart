@@ -310,12 +310,49 @@ class supabse_DB {
 
   Future<void> uploadImage(File imageFile) async {
     try {
+      bool Upload = false;
+
       final response = await Supabase.instance.client.storage
           .from('soliderbucket') // Replace with your storage bucket name
-          .upload('path/to/upload/${imageFile.path.split('/').last}', imageFile)
-          .whenComplete(() => print('Image uploaded successfully'));
+          .upload('userProfile/${imageFile.path.split('/').last}', imageFile)
+          .whenComplete(() {
+        print('Image uploaded successfully');
+        Upload = true;
+      });
+
+      if (Upload) {
+        //-----getting image link from Storage
+        final publicUrl = Supabase.instance.client.storage
+            .from('soliderbucket')
+            .getPublicUrl('userProfile/${imageFile.path.split('/').last}');
+
+        print('Image uploaded successfully. URL: ${publicUrl}');
+
+        //-----inserting image in database
+        var data =
+            await Supabase.instance.client.from('profilepicture_table').insert([
+          {
+            'imageUrl': publicUrl,
+            'userId': LocalDataStorage.currentUserId.value,
+          }
+        ]);
+      } else {
+        print("Upload error: ${response}");
+      }
     } catch (e) {
       print("Error In uploadImage: ${e}");
+    }
+  }
+
+  Future<void> sendMessage(String userId, String message) async {
+    try {
+      await Supabase.instance.client.from('messages').insert({
+        'sender_id': LocalDataStorage.currentUserId.value,
+        'reciver_id': userId,
+        'message_text': message
+      });
+    } catch (e) {
+      print("Error In sendMessage: ${e}");
     }
   }
 

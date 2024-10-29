@@ -20,7 +20,7 @@ class UserCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             child: ImageWidget(
               imageUrl: user.images.isNotEmpty
-                  ? user.images[0]
+                  ? user.images.last
                   : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
               height: double.infinity,
               width: double.infinity,

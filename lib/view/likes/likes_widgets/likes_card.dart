@@ -35,7 +35,9 @@ class LikeCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
                 child: ImageWidget(
-                  imageUrl: Data.images[0],
+                  imageUrl: Data.images.isNotEmpty
+                      ? Data.images.last
+                      : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
                   boxfit: BoxFit.cover,
                   width: double.infinity,
                 ),

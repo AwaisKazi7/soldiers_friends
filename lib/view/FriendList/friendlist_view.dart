@@ -7,6 +7,7 @@ import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/common/smallloader.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
+import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/FriendList/friendlist_controller.dart';
 import 'package:soldiers_friends/view/likes/likes_widgets/likes_card.dart';
 
@@ -66,7 +67,10 @@ class FriendListView extends StatelessWidget {
                                           controller.FriendsList[index];
                                       return LikeCard(
                                         Data: Data,
-                                        onTap: () {},
+                                        onTap: () {
+                                          Get.toNamed(RoutesName.userdetailview,
+                                              arguments: Data);
+                                        },
                                         verifiedIconPath:
                                             CommonAssets.verifiedIcon,
                                       );

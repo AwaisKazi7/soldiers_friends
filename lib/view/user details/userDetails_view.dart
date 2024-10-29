@@ -11,6 +11,7 @@ import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/imagewidget.dart';
 import 'package:soldiers_friends/main.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
+import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/user%20details/userDetails_controller.dart';
 import 'package:list_wheel_scroll_view_nls/list_wheel_scroll_view_nls.dart';
 
@@ -170,9 +171,11 @@ class UserDetailView extends StatelessWidget {
                         () => Visibility(
                           visible: controller.showmessageBox.value == false,
                           replacement: CommonButton(
-                            text: 'start Chatting',
+                            text: 'Start Chatting',
                             gradient: CommonColors.buttonGradient,
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed(RoutesName.chatdetails);
+                            },
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -202,7 +205,9 @@ class UserDetailView extends StatelessWidget {
                                       ? SizedBox(
                                           height: 20.sp,
                                           width: 20.sp,
-                                          child: CircularProgressIndicator(color: Colors.white,),
+                                          child: CircularProgressIndicator(
+                                            color: Colors.white,
+                                          ),
                                         )
                                       : Icon(
                                           Icons.check,

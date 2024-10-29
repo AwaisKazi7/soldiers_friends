@@ -30,7 +30,7 @@ class LocalDataStorage extends GetxController {
     await prefs.setString('DOB', userData.DOB ?? '');
     await prefs.setString('country', userData.country ?? '');
     if (userData.images.isNotEmpty) {
-      await prefs.setString('profile', userData.images[0]);
+      await prefs.setString('profile', userData.images.last);
     }
 
     username.value = userData.name;
@@ -40,7 +40,7 @@ class LocalDataStorage extends GetxController {
     userDOB.value = userData.DOB;
     usercountry.value = userData.country;
     if (userData.images.isNotEmpty) {
-      userImage.value = userData.images[0];
+      userImage.value = userData.images.last;
     }
     currentUserId.value = userData.id.toString();
   }
