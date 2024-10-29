@@ -15,6 +15,9 @@ import 'package:soldiers_friends/view/delete_account/deleteAccount_view.dart';
 import 'package:soldiers_friends/view/edit_profile/edit_profile_view.dart';
 import 'package:soldiers_friends/view/forgot_password/forgot_password_binding.dart';
 import 'package:soldiers_friends/view/forgot_password/forgot_password_view.dart';
+import 'package:soldiers_friends/view/friend%20detail/friendDetails_bindings.dart';
+import 'package:soldiers_friends/view/friend%20detail/friendDetails_controller.dart';
+import 'package:soldiers_friends/view/friend%20detail/friendDetails_view.dart';
 import 'package:soldiers_friends/view/get_started/get_started_binding.dart';
 import 'package:soldiers_friends/view/get_started/get_started_view.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
@@ -85,8 +88,11 @@ class RoutesPageList {
         page: () => const ChatView(),
         binding: ChatBinding()),
     GetPage(
+        arguments: homeModel,
         name: RoutesName.chatdetails,
-        page: () => ChatOpenScreen(),
+        page: () => ChatOpenScreen(
+              userData: Get.arguments,
+            ),
         binding: ChatDetailBinding()),
     GetPage(
         name: RoutesName.subscribtion,
@@ -115,5 +121,12 @@ class RoutesPageList {
         name: RoutesName.friendlistview,
         page: () => FriendListView(),
         binding: FriendListBinding()),
+    GetPage(
+        arguments: homeModel,
+        name: RoutesName.frienddetailview,
+        page: () => FriendDetailView(
+              data: Get.arguments,
+            ),
+        binding: FriendDetailsBinding()),
   ];
 }

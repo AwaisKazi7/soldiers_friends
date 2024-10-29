@@ -1,21 +1,49 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:soldiers_friends/model/messageModel.dart';
+import 'package:soldiers_friends/services/SupabaseDB.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ChatDetailController extends GetxController {
   final String chatName = "John Doe";
+  final TextEditingController messagecontroller = TextEditingController();
+  RxBool apihitting = false.obs;
 
-  final List<Map<String, dynamic>> messages = [
-    {"text": "Hello", "image": null},
-    {"text": "Check this out!", "image": "https://via.placeholder.com/150"},
-    {"text": "How are you?", "image": null},
-    {"text": "I'm doing great, thanks!", "image": null},
-    {"text": "What about you?", "image": "https://via.placeholder.com/150"},
-    {"text": "I'm fine too. Let's catch up soon!", "image": null}
-  ];
+  RxList<MessageModel> messagesList = <MessageModel>[].obs;
+
   @override
   void onReady() {
     super.onReady();
     // Uncomment if you want to navigate when the controller is ready
     // navigate();
+  }
+
+  sendMessage(int UserId, String mediiatype) async {
+    try {
+      apihitting.value = true;
+      var data = await supabse_DB.getInstance
+          .sendMessage(UserId, messagecontroller.text, mediiatype);
+
+      apihitting.value = false;
+    } catch (e) {
+      print("Error sendMessage:${e}");
+    }
+  }
+
+  GetMessage() async {
+    try {
+      var data = await supabse_DB.getInstance.GetMessage();
+
+      if (data != null) {
+        messagesList.addAll(data);
+        return messagesList;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      print("Error GetMessage:${e}");
+      return [];
+    }
   }
 
   // Future<void> navigate() async {

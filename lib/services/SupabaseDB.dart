@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
+import 'package:soldiers_friends/model/messageModel.dart';
 import 'package:soldiers_friends/model/users_model.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/services/localStorage.dart';
@@ -344,15 +345,48 @@ class supabse_DB {
     }
   }
 
-  Future<void> sendMessage(String userId, String message) async {
+  sendMessage(int userId, String message, String mediaType) async {
     try {
-      await Supabase.instance.client.from('messages').insert({
-        'sender_id': LocalDataStorage.currentUserId.value,
-        'reciver_id': userId,
-        'message_text': message
-      });
+      if (mediaType == 'text') {
+        await Supabase.instance.client.from('chat_table').insert({
+          'sender_id': int.parse(LocalDataStorage.currentUserId.value),
+          'reciver_id': userId,
+          'content': message,
+          'media_type': mediaType
+        });
+
+        print("sendMessage 👌✅");
+      } else {}
+
+      return true;
     } catch (e) {
       print("Error In sendMessage: ${e}");
+      return false;
+    }
+  }
+
+  GetMessage() async {
+    try {
+      var response =
+          await Supabase.instance.client.from('chat_table').select('*');
+
+      print("GetMessage 👌✅");
+      print(response);
+      if (response != null) {
+        var dataList = (response as List)
+            .map(
+              (e) => MessageModel.fromJson(e),
+            )
+            .toList();
+        return dataList;
+      } else {
+        print("Not Message found");
+
+        return [];
+      }
+    } catch (e) {
+      print("Error In sendMessage: ${e}");
+      return [];
     }
   }
 

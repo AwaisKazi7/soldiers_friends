@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
-import 'package:soldiers_friends/common/common_text_style.dart'; // Ensure this path is correct
+import 'package:soldiers_friends/common/common_text_style.dart';
+import 'package:soldiers_friends/common/imagewidget.dart'; // Ensure this path is correct
 
 class ChatDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
   final ImageProvider? backIcon;
-  final ImageProvider? userImage;
+  final String userImage;
   final String username;
   final String subtitle;
   final ImageProvider? threeDotIcon;
@@ -13,7 +14,7 @@ class ChatDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ChatDetailAppBar({
     super.key,
     this.backIcon,
-    this.userImage,
+    required this.userImage,
     required this.username,
     required this.subtitle,
     this.threeDotIcon,
@@ -58,7 +59,13 @@ class ChatDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
               child: CircleAvatar(
-                backgroundImage: userImage,
+                child: ClipOval(
+                    child: ImageWidget(
+                  imageUrl: userImage,
+                  boxfit: BoxFit.cover,
+                  height: 50,
+                  width: 50,
+                )),
               ),
             ),
           const SizedBox(width: 10),

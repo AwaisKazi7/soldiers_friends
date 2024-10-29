@@ -17,6 +17,5 @@ class RoutesName {
   static String changepasswordview = "/changepasswordview";
   static String userdetailview = "/userdetailview";
   static String friendlistview = "/friendlistview";
-
-
+  static String frienddetailview = "/frienddetailview";
 }

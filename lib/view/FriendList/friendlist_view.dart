@@ -68,7 +68,8 @@ class FriendListView extends StatelessWidget {
                                       return LikeCard(
                                         Data: Data,
                                         onTap: () {
-                                          Get.toNamed(RoutesName.userdetailview,
+                                          Get.toNamed(
+                                              RoutesName.frienddetailview,
                                               arguments: Data);
                                         },
                                         verifiedIconPath:
