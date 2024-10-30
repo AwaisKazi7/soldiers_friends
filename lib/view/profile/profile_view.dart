@@ -108,7 +108,11 @@ class ProfileView extends StatelessWidget {
                                 radius: 80.sp,
                                 child: ClipOval(
                                   child: ImageWidget(
-                                    imageUrl: LocalDataStorage.userImage.value,
+                                    imageUrl: LocalDataStorage
+                                                .userImage.value ==
+                                            ''
+                                        ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+                                        : LocalDataStorage.userImage.value,
                                     height: 200.sp,
                                     width: 200.sp,
                                   ),

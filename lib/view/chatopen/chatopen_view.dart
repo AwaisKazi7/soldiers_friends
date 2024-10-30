@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:lottie/lottie.dart';
 import 'package:soldiers_friends/common/common_assets.dart';
+import 'package:soldiers_friends/common/common_buttons.dart';
 import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/commonwidgets/chatdetails_appbar.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
+import 'package:soldiers_friends/services/localStorage.dart';
 import 'package:soldiers_friends/view/chatopen/chatopen_cotroller.dart';
 
 class ChatOpenScreen extends StatelessWidget {
@@ -30,56 +32,93 @@ class ChatOpenScreen extends StatelessWidget {
         ),
         body: Column(
           children: [
-            const SizedBox(
-              height: 6,
-            ),
-            Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: CommonColors.lightGray,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CommonText(
-                    text: '${userData.name} is waiting for a message',
-                    style: CommonTextStyle.splashheadline1,
-                  ),
-                  SizedBox(height: 8),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      CommonText(
-                        text: 'from you!',
-                        textAlign: TextAlign.center,
-                        style: CommonTextStyle.splashheadline1,
+            Visibility(
+              visible: true,
+              //  controller.messagesList.isNotEmpty,
+              replacement: Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 6,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: CommonColors.lightGray,
+                        borderRadius: BorderRadius.circular(15),
                       ),
-                      Icon(
-                        Icons.favorite,
-                        color: Colors.red,
-                        size: 24,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          CommonText(
+                            text: '${userData.name} is waiting for a message',
+                            style: CommonTextStyle.splashheadline1,
+                          ),
+                          SizedBox(height: 8),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CommonText(
+                                text: 'from you!',
+                                textAlign: TextAlign.center,
+                                style: CommonTextStyle.splashheadline1,
+                              ),
+                              Icon(
+                                Icons.favorite,
+                                color: Colors.red,
+                                size: 24,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                    SizedBox(
+                      height: 20.sp,
+                    ),
+                    Container(
+                      height: 100.sp,
+                      width: 100.sp,
+                      decoration: BoxDecoration(),
+                      child: Image.asset(
+                        'assets/images/wave.png',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.sp,
+                    ),
+                    CommonButton(
+                      text: 'Say Hi',
+                      onPressed: () {},
+                      gradient: CommonColors.buttonGradient,
+                      width: 100.sp,
+                    )
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: Obx(
-                () => ListView(
-                  reverse: true,
-                  padding: EdgeInsets.symmetric(vertical: 16.0),
-                  children: controller.messagesList
-                      .map(
-                        (element) => ChatBubble(
-                          text: element.content,
-                          isSentByUser: false,
-                          time: '8:41 AM',
-                          isSeen: true,
-                        ),
-                      )
-                      .toList(),
+              child: Expanded(
+                child: StreamBuilder<List<Map<String, dynamic>>>(
+                  stream: controller.getMessages(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) return CircularProgressIndicator();
+                    final messages = snapshot.data!;
+                    return ListView.builder(
+                      itemCount: messages.length,
+                      itemBuilder: (context, index) {
+                        final message = messages[index];
+                        return ChatBubble(
+                            text: message['content'],
+                            isSentByUser: message['sender_id'] ==
+                                    LocalDataStorage.currentUserId.value
+                                ? true
+                                : false,
+                            time: '08:10 pm',
+                            isSeen: true);
+                      },
+                    );
+                  },
                 ),
               ),
             ),
@@ -151,7 +190,7 @@ class ChatOpenScreen extends StatelessWidget {
                         onPressed: () async {
                           // Send the message
                           await controller.sendMessage(userData.id, 0);
-                          await controller.GetMessage();
+                          // await controller.GetMessage();
                         },
                       ),
                     ),

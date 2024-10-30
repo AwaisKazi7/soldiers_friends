@@ -3,7 +3,7 @@ class MessageModel {
   final int senderId;
   final int receiverId;
   final String content;
-  final String? mediaType;
+  final int mediaType;
   final String? imageUrl;
   final DateTime? updatedAt;
   final DateTime createdAt;
@@ -14,7 +14,7 @@ class MessageModel {
     required this.senderId,
     required this.receiverId,
     required this.content,
-    this.mediaType,
+    required this.mediaType,
     this.imageUrl,
     this.updatedAt,
     required this.createdAt,

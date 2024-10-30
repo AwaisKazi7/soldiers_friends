@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:soldiers_friends/common/common_buttons.dart';
 import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/imagewidget.dart';
-import 'package:soldiers_friends/main.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/user%20details/userDetails_controller.dart';
@@ -19,8 +14,10 @@ class UserDetailView extends StatelessWidget {
   UserDetailView({
     super.key,
     required this.data,
+    required this.isMylike,
   });
   final homeModel data;
+  final int isMylike;
 
   @override
   Widget build(BuildContext context) {
@@ -167,56 +164,76 @@ class UserDetailView extends StatelessWidget {
                       SizedBox(
                         height: 20.sp,
                       ),
-                      Obx(
-                        () => Visibility(
-                          visible: controller.showmessageBox.value == false,
-                          replacement: CommonButton(
-                            text: 'Start Chatting',
-                            gradient: CommonColors.buttonGradient,
-                            onPressed: () {
-                              Get.toNamed(RoutesName.chatdetails);
-                            },
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CircleAvatar(
-                                  backgroundColor:
-                                      CommonColors.gradientStartColor,
-                                  radius: 30.sp,
-                                  child: Icon(
-                                    Icons.cancel_sharp,
-                                    size: 30,
-                                    color: Colors.white,
-                                  )),
-                              SizedBox(
-                                width: 20.sp,
-                              ),
-                              GestureDetector(
-                                onTap: () async {
-                                  await controller.AddFriendApi(
-                                      context, data.id);
-                                },
-                                child: CircleAvatar(
-                                  backgroundColor:
-                                      CommonColors.gradientEndColor,
-                                  radius: 30.sp,
-                                  child: controller.AddFriendloading.value
-                                      ? SizedBox(
-                                          height: 20.sp,
-                                          width: 20.sp,
-                                          child: CircularProgressIndicator(
-                                            color: Colors.white,
-                                          ),
-                                        )
-                                      : Icon(
-                                          Icons.check,
-                                          color: Colors.white,
-                                          // CommonAssets.handphoneImage,
-                                        ),
+                      Visibility(
+                        visible: isMylike == 1,
+                        replacement: Column(
+                          children: [
+                            Center(
+                              child: Container(
+                                padding: EdgeInsets.all(20.sp),
+                                decoration: BoxDecoration(
+                                    gradient: CommonColors.buttonGradient,
+                                    borderRadius: BorderRadius.circular(20.sp)),
+                                child: Text(
+                                  'Your request is in pending',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 14.sp),
                                 ),
                               ),
-                            ],
+                            )
+                          ],
+                        ),
+                        child: Obx(
+                          () => Visibility(
+                            visible: controller.showmessageBox.value == false,
+                            replacement: CommonButton(
+                              text: 'Start Chatting',
+                              gradient: CommonColors.buttonGradient,
+                              onPressed: () {
+                                Get.toNamed(RoutesName.chatdetails);
+                              },
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CircleAvatar(
+                                    backgroundColor:
+                                        CommonColors.gradientStartColor,
+                                    radius: 30.sp,
+                                    child: Icon(
+                                      Icons.cancel_sharp,
+                                      size: 30,
+                                      color: Colors.white,
+                                    )),
+                                SizedBox(
+                                  width: 20.sp,
+                                ),
+                                GestureDetector(
+                                  onTap: () async {
+                                    await controller.AddFriendApi(
+                                        context, data);
+                                  },
+                                  child: CircleAvatar(
+                                    backgroundColor:
+                                        CommonColors.gradientEndColor,
+                                    radius: 30.sp,
+                                    child: controller.AddFriendloading.value
+                                        ? SizedBox(
+                                            height: 20.sp,
+                                            width: 20.sp,
+                                            child: CircularProgressIndicator(
+                                              color: Colors.white,
+                                            ),
+                                          )
+                                        : Icon(
+                                            Icons.check,
+                                            color: Colors.white,
+                                            // CommonAssets.handphoneImage,
+                                          ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       )

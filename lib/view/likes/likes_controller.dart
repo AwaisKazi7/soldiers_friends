@@ -31,7 +31,15 @@ class LikesController extends GetxController {
     }
   }
 
-  void navigateToDetail(homeModel data) {
-    Get.toNamed(RoutesName.userdetailview, arguments: data);
+  ///isMylike = 1 for add friend screen
+//////isMylike = 0 for pending screen
+  void navigateToDetail(homeModel data, int isMylike) {
+    Get.toNamed(
+      RoutesName.userdetailview,
+      arguments: {
+        'data': data,
+        'isMylike': isMylike,
+      },
+    );
   }
 }

@@ -111,10 +111,14 @@ class RoutesPageList {
         page: () => changePasswordView(),
         binding: ChangePasswordBinding()),
     GetPage(
-        arguments: homeModel,
+        arguments: {
+          'data': homeModel,
+          'isMylike': int,
+        },
         name: RoutesName.userdetailview,
         page: () => UserDetailView(
-              data: Get.arguments,
+              data: Get.arguments['data'],
+              isMylike: Get.arguments['isMylike'],
             ),
         binding: UserDetailsBinding()),
     GetPage(

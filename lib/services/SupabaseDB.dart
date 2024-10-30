@@ -30,7 +30,6 @@ class supabse_DB {
           .select('*,profilepicture_table(*)')
           .eq('email', email)
           .eq('isDelete', 0);
-      
 
       if (userdata.isNotEmpty) {
         UserModel User = UserModel.fromMap(userdata.first);
@@ -368,17 +367,21 @@ class supabse_DB {
 
   GetMessage() async {
     try {
-      var response =
-          await Supabase.instance.client.from('chat_table').select('*');
+      List<MessageModel> dataList = [];
+
+      var response = await Supabase.instance.client
+          .from('chat_table')
+          .stream(primaryKey: ['id']).listen(
+        (event) {
+          for (var message in event) {
+            dataList.add(MessageModel.fromJson(message));
+          }
+        },
+      );
 
       print("GetMessage 👌✅");
-      print(response);
-      if (response != null) {
-        var dataList = (response as List)
-            .map(
-              (e) => MessageModel.fromJson(e),
-            )
-            .toList();
+      print(dataList);
+      if (dataList != null) {
         return dataList;
       } else {
         print("Not Message found");
@@ -395,7 +398,8 @@ class supabse_DB {
     try {
       var data = await Supabase.instance.client
           .from('users_table')
-          .select('*, profilepicture_table(*)');
+          .select('*, profilepicture_table(*)')
+          .neq('id', LocalDataStorage.currentUserId.value);
 
       print("GetAllUser 👌✅");
       print(data);
@@ -424,8 +428,10 @@ class supabse_DB {
       // STEP 1:
 
       //Fetch the liked user IDs
-      var likedResponse =
-          await Supabase.instance.client.from('like_table').select('*');
+      var likedResponse = await Supabase.instance.client
+          .from('like_table')
+          .select('*')
+          .eq('IsMatched', 0);
 
       //Fetch All users
       var userResponse = await Supabase.instance.client
@@ -513,7 +519,8 @@ class supabse_DB {
 
   AddFriendApi(BuildContext context, int userId) async {
     try {
-      var data = await Supabase.instance.client.from('friends_table').insert([
+      var addfrined =
+          await Supabase.instance.client.from('friends_table').insert([
         {
           'friend_userId': userId,
           'userId': LocalDataStorage.currentUserId.value,
@@ -521,6 +528,17 @@ class supabse_DB {
       ]);
 
       print("AddFriendApi 👌✅");
+
+      var addconversation =
+          await Supabase.instance.client.from('Conversation_table').insert([
+        {
+          'second_userId': userId,
+          'first_userId': LocalDataStorage.currentUserId.value,
+          'last_message': 'say Hi to your new friend'
+        }
+      ]);
+
+      print("addconversation 👌✅");
 
       return true;
     } catch (e) {

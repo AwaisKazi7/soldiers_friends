@@ -30,21 +30,26 @@ class ChatDetailController extends GetxController {
     }
   }
 
-  GetMessage() async {
-    try {
-      var data = await supabse_DB.getInstance.GetMessage();
-
-      if (data != null) {
-        messagesList.addAll(data);
-        return messagesList;
-      } else {
-        return [];
-      }
-    } catch (e) {
-      print("Error GetMessage:${e}");
-      return [];
-    }
+  Stream<List<Map<String, dynamic>>> getMessages() {
+    return Supabase.instance.client
+        .from('chat_table')
+        .stream(primaryKey: ['id']).order('created_at', ascending: true);
   }
+  // GetMessage() async {
+  //   try {
+  //     var data = await supabse_DB.getInstance.GetMessage();
+
+  //     if (data != null) {
+  //       messagesList.addAll(data);
+  //       return messagesList;
+  //     } else {
+  //       return [];
+  //     }
+  //   } catch (e) {
+  //     print("Error GetMessage:${e}");
+  //     return [];
+  //   }
+  // }
 
   // Future<void> navigate() async {
   //   await Future.delayed(const Duration(seconds: 2));

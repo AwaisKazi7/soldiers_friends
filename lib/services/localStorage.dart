@@ -91,5 +91,6 @@ class LocalDataStorage extends GetxController {
     userBio.value = "";
     userDOB.value = "";
     usercountry.value = "";
+    userImage.value = "";
   }
 }
