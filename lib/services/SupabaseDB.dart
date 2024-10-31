@@ -519,18 +519,22 @@ class supabse_DB {
 
   AddFriendApi(BuildContext context, int userId) async {
     try {
-      var addfrined =
-          await Supabase.instance.client.from('friends_table').insert([
+      await Supabase.instance.client.from('like_table').update({
+        'IsMatched': 1
+      }).or(
+          'liked_userId.eq.${LocalDataStorage.currentUserId.value},liked_by_userId.eq.${LocalDataStorage.currentUserId.value}');
+
+      //-------add Friend
+      await Supabase.instance.client.from('friends_table').insert([
         {
           'friend_userId': userId,
           'userId': LocalDataStorage.currentUserId.value,
         }
       ]);
 
-      print("AddFriendApi 👌✅");
-
-      var addconversation =
-          await Supabase.instance.client.from('Conversation_table').insert([
+      print("AddFriend 👌✅");
+      //-------add conversation
+      await Supabase.instance.client.from('Conversation_table').insert([
         {
           'second_userId': userId,
           'first_userId': LocalDataStorage.currentUserId.value,
@@ -556,24 +560,44 @@ class supabse_DB {
   GetfriendsList() async {
     try {
       List<homeModel> FriendList = [];
+      List<int> List_of_ids = [];
 
       // STEP 1:
 
       //Fetch the liked user IDs
-      var FriendResponse = await Supabase.instance.client
+      var FirstFriendResponse = await Supabase.instance.client
           .from('friends_table')
           .select('friend_userId')
           .eq('userId', int.parse(LocalDataStorage.currentUserId.value));
+
+      var SecondFriendResponse = await Supabase.instance.client
+          .from('friends_table')
+          .select('userId')
+          .eq('friend_userId', int.parse(LocalDataStorage.currentUserId.value));
 
       //Fetch All users
       var userResponse = await Supabase.instance.client
           .from('users_table')
           .select('*,profilepicture_table(*)');
 
-      if (FriendResponse.isNotEmpty) {
-        for (final userId in FriendResponse) {
+      if (FirstFriendResponse.isNotEmpty) {
+        for (final userId in FirstFriendResponse) {
+          List_of_ids.add(userId['friend_userId']);
+        }
+      }
+      print('friend_userId count:${List_of_ids.length}');
+      if (SecondFriendResponse.isNotEmpty) {
+        for (final userId in SecondFriendResponse) {
+          List_of_ids.add(userId['userId']);
+        }
+      }
+
+      print('userId count:${List_of_ids.length}');
+
+      if (List_of_ids.isNotEmpty) {
+        for (final userId in List_of_ids) {
           final userData = (userResponse as List<dynamic>).firstWhere(
-            (e) => e['id'] == userId['friend_userId'],
+            (e) => e['id'] == userId,
           );
           homeModel data = homeModel.fromMap(userData);
           FriendList.add(data);

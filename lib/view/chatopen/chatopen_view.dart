@@ -7,6 +7,7 @@ import 'package:soldiers_friends/common/common_buttons.dart';
 import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
+import 'package:soldiers_friends/common/smallloader.dart';
 import 'package:soldiers_friends/commonwidgets/chatdetails_appbar.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/services/localStorage.dart';
@@ -102,7 +103,7 @@ class ChatOpenScreen extends StatelessWidget {
                 child: StreamBuilder<List<Map<String, dynamic>>>(
                   stream: controller.getMessages(),
                   builder: (context, snapshot) {
-                    if (!snapshot.hasData) return CircularProgressIndicator();
+                    if (!snapshot.hasData) return SmallLoader();
                     final messages = snapshot.data!;
                     return ListView.builder(
                       itemCount: messages.length,
@@ -111,7 +112,8 @@ class ChatOpenScreen extends StatelessWidget {
                         return ChatBubble(
                             text: message['content'],
                             isSentByUser: message['sender_id'] ==
-                                    LocalDataStorage.currentUserId.value
+                                    int.parse(
+                                        LocalDataStorage.currentUserId.value)
                                 ? true
                                 : false,
                             time: '08:10 pm',
@@ -188,8 +190,10 @@ class ChatOpenScreen extends StatelessWidget {
                                 child: CircularProgressIndicator())
                             : Icon(Icons.send),
                         onPressed: () async {
-                          // Send the message
-                          await controller.sendMessage(userData.id, 0);
+                          if (controller.messagecontroller.text != '') {
+                            await controller.sendMessage(userData.id, 0);
+                          } else {}
+
                           // await controller.GetMessage();
                         },
                       ),
