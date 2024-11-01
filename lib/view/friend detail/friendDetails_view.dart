@@ -43,68 +43,130 @@ class FriendDetailView extends StatelessWidget {
                       child: Column(
                         children: [
                           Expanded(
-                            child: ListWheelScrollViewX(
-                              itemExtent: 400.sp,
-                              scrollDirection: Axis.horizontal,
-                              children: data.images
-                                  .map(
-                                    (e) => Hero(
-                                      tag: 'product-image${data.id}',
-                                      child: Stack(
-                                        children: [
-                                          Container(
-                                            height: 600.sp,
+                            child: data.images.isEmpty
+                                ? Hero(
+                                    tag: 'product-image${data.id}',
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                          height: 600.sp,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.sp)),
+                                          width: double.infinity,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(20.sp),
+                                            child: ImageWidget(
+                                                imageUrl:
+                                                    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          bottom: 10.sp,
+                                          right: 30.sp,
+                                          child: Container(
                                             decoration: BoxDecoration(
+                                                color: Colors.white,
                                                 borderRadius:
                                                     BorderRadius.circular(
-                                                        20.sp)),
-                                            width: double.infinity,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(20.sp),
-                                              child: ImageWidget(imageUrl: e),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            bottom: 10.sp,
-                                            right: 30.sp,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.sp)),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.image_outlined,
-                                                      size: 15.sp,
-                                                      color: Colors.black
-                                                          .withOpacity(0.4),
-                                                    ),
-                                                    Text(
-                                                      data.images.length
-                                                          .toString(),
-                                                      style: TextStyle(
-                                                          fontSize: 8.sp,
-                                                          color: Colors.black
-                                                              .withOpacity(
-                                                                  0.4)),
-                                                    )
-                                                  ],
-                                                ),
+                                                        10.sp)),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.image_outlined,
+                                                    size: 15.sp,
+                                                    color: Colors.black
+                                                        .withOpacity(0.4),
+                                                  ),
+                                                  Text(
+                                                    data.images.length
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        fontSize: 8.sp,
+                                                        color: Colors.black
+                                                            .withOpacity(0.4)),
+                                                  )
+                                                ],
                                               ),
                                             ),
-                                          )
-                                        ],
-                                      ),
+                                          ),
+                                        )
+                                      ],
                                     ),
                                   )
-                                  .toList(),
-                            ),
+                                : ListWheelScrollViewX(
+                                    itemExtent: 400.sp,
+                                    scrollDirection: Axis.horizontal,
+                                    children: data.images
+                                        .map(
+                                          (e) => Hero(
+                                            tag: 'product-image${data.id}',
+                                            child: Stack(
+                                              children: [
+                                                Container(
+                                                  height: 600.sp,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20.sp)),
+                                                  width: double.infinity,
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20.sp),
+                                                    child: ImageWidget(
+                                                        imageUrl: e),
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                  bottom: 10.sp,
+                                                  right: 30.sp,
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                    10.sp)),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(
+                                                            Icons
+                                                                .image_outlined,
+                                                            size: 15.sp,
+                                                            color: Colors.black
+                                                                .withOpacity(
+                                                                    0.4),
+                                                          ),
+                                                          Text(
+                                                            data.images.length
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                                fontSize: 8.sp,
+                                                                color: Colors
+                                                                    .black
+                                                                    .withOpacity(
+                                                                        0.4)),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                        .toList(),
+                                  ),
                           ),
                         ],
                       ),

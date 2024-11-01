@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/model/messageModel.dart';
 import 'package:soldiers_friends/services/SupabaseDB.dart';
+import 'package:soldiers_friends/services/getx_helper.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ChatDetailController extends GetxController {
+  
+final controllersProvider = Get.put(GetxControllersProvider());
   final String chatName = "John Doe";
   final TextEditingController messagecontroller = TextEditingController();
   RxBool apihitting = false.obs;

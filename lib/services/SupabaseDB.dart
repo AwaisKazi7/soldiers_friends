@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:soldiers_friends/model/friendModel.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/model/messageModel.dart';
 import 'package:soldiers_friends/model/users_model.dart';
@@ -495,15 +496,30 @@ class supabse_DB {
 
   likeApi(BuildContext context, int userId) async {
     try {
-      var data = await Supabase.instance.client.from('like_table').insert([
-        {
-          'liked_userId': userId,
-          'liked_by_userId': LocalDataStorage.currentUserId.value,
-        }
-      ]);
+      var data = await Supabase.instance.client
+          .from('like_table')
+          .select('*')
+          .eq('liked_userId', userId)
+          .eq('liked_by_userId',
+              int.parse(LocalDataStorage.currentUserId.value));
 
-      print("likeApi 👌✅");
+      if (data.isEmpty) {
+        await Supabase.instance.client.from('like_table').insert([
+          {
+            'liked_userId': userId,
+            'liked_by_userId': LocalDataStorage.currentUserId.value,
+          }
+        ]);
 
+        print("likeApi 👌✅");
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("This user is already in your likes list"),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
       return true;
     } catch (e) {
       print('likeApi Error: $e');
@@ -519,32 +535,54 @@ class supabse_DB {
 
   AddFriendApi(BuildContext context, int userId) async {
     try {
-      await Supabase.instance.client.from('like_table').update({
-        'IsMatched': 1
-      }).or(
-          'liked_userId.eq.${LocalDataStorage.currentUserId.value},liked_by_userId.eq.${LocalDataStorage.currentUserId.value}');
+      var isexistcheck2 = await Supabase.instance.client
+          .from('friends_table')
+          .select('*')
+          .eq('friend_userId', userId)
+          .eq('userId', int.parse(LocalDataStorage.currentUserId.value));
 
-      //-------add Friend
-      await Supabase.instance.client.from('friends_table').insert([
-        {
-          'friend_userId': userId,
-          'userId': LocalDataStorage.currentUserId.value,
-        }
-      ]);
+      var isexistcheck1 = await Supabase.instance.client
+          .from('friends_table')
+          .select('*')
+          .eq('userId', userId)
+          .eq('friend_userId', int.parse(LocalDataStorage.currentUserId.value));
 
-      print("AddFriend 👌✅");
-      //-------add conversation
-      await Supabase.instance.client.from('Conversation_table').insert([
-        {
-          'second_userId': userId,
-          'first_userId': LocalDataStorage.currentUserId.value,
-          'last_message': 'say Hi to your new friend'
-        }
-      ]);
+      if (isexistcheck2.isEmpty && isexistcheck1.isEmpty) {
+        //---update like status
+        await Supabase.instance.client.from('like_table').update({
+          'IsMatched': 1
+        }).or(
+            'liked_userId.eq.${LocalDataStorage.currentUserId.value},liked_by_userId.eq.${LocalDataStorage.currentUserId.value}');
 
-      print("addconversation 👌✅");
+        //-------add Friend
+        await Supabase.instance.client.from('friends_table').insert([
+          {
+            'friend_userId': userId,
+            'userId': LocalDataStorage.currentUserId.value,
+          }
+        ]);
 
-      return true;
+        print("AddFriend 👌✅");
+        //-------add conversation
+        await Supabase.instance.client.from('Conversation_table').insert([
+          {
+            'second_userId': userId,
+            'first_userId': LocalDataStorage.currentUserId.value,
+            'last_message': 'say Hi to your new friend'
+          }
+        ]);
+
+        print("addconversation 👌✅");
+
+        return true;
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("This user is already in your friends list"),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     } catch (e) {
       print('AddFriendApi Error: $e');
       ScaffoldMessenger.of(context).showSnackBar(
@@ -559,21 +597,21 @@ class supabse_DB {
 
   GetfriendsList() async {
     try {
-      List<homeModel> FriendList = [];
-      List<int> List_of_ids = [];
+      List<FriendsModel> FriendList = [];
+      List<Map<String, dynamic>> List_of_ids = [];
 
       // STEP 1:
 
       //Fetch the liked user IDs
       var FirstFriendResponse = await Supabase.instance.client
-          .from('friends_table')
-          .select('friend_userId')
-          .eq('userId', int.parse(LocalDataStorage.currentUserId.value));
+          .from('Conversation_table')
+          .select('first_userId,id')
+          .eq('second_userId', int.parse(LocalDataStorage.currentUserId.value));
 
       var SecondFriendResponse = await Supabase.instance.client
-          .from('friends_table')
-          .select('userId')
-          .eq('friend_userId', int.parse(LocalDataStorage.currentUserId.value));
+          .from('Conversation_table')
+          .select('second_userId,id')
+          .eq('first_userId', int.parse(LocalDataStorage.currentUserId.value));
 
       //Fetch All users
       var userResponse = await Supabase.instance.client
@@ -581,25 +619,27 @@ class supabse_DB {
           .select('*,profilepicture_table(*)');
 
       if (FirstFriendResponse.isNotEmpty) {
-        for (final userId in FirstFriendResponse) {
-          List_of_ids.add(userId['friend_userId']);
+        for (final data in FirstFriendResponse) {
+          List_of_ids.add(
+              {'userid': data['first_userId'], 'chatid': data['id']});
         }
       }
       print('friend_userId count:${List_of_ids.length}');
       if (SecondFriendResponse.isNotEmpty) {
-        for (final userId in SecondFriendResponse) {
-          List_of_ids.add(userId['userId']);
+        for (final data in SecondFriendResponse) {
+          List_of_ids.add(
+              {'userid': data['second_userId'], 'chatid': data['id']});
         }
       }
 
       print('userId count:${List_of_ids.length}');
 
       if (List_of_ids.isNotEmpty) {
-        for (final userId in List_of_ids) {
+        for (final Data in List_of_ids) {
           final userData = (userResponse as List<dynamic>).firstWhere(
-            (e) => e['id'] == userId,
+            (e) => e['id'] == Data['userid'],
           );
-          homeModel data = homeModel.fromMap(userData);
+          FriendsModel data = FriendsModel.fromMap(userData, Data['chatid']);
           FriendList.add(data);
         }
 

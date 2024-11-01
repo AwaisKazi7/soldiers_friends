@@ -6,8 +6,10 @@ import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/common/smallloader.dart';
+import 'package:soldiers_friends/model/friendModel.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
+import 'package:soldiers_friends/view/FriendList/friend_widget/friend_card.dart';
 import 'package:soldiers_friends/view/FriendList/friendlist_controller.dart';
 import 'package:soldiers_friends/view/likes/likes_widgets/likes_card.dart';
 
@@ -63,9 +65,9 @@ class FriendListView extends StatelessWidget {
                                     ),
                                     itemCount: controller.FriendsList.length,
                                     itemBuilder: (context, index) {
-                                      homeModel Data =
+                                      FriendsModel Data =
                                           controller.FriendsList[index];
-                                      return LikeCard(
+                                      return FriendCard(
                                         Data: Data,
                                         onTap: () {
                                           Get.toNamed(

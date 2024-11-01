@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -7,6 +9,7 @@ import 'package:soldiers_friends/common/common_buttons.dart';
 import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
+import 'package:soldiers_friends/common/imagepicker_bottomSheet.dart';
 import 'package:soldiers_friends/common/smallloader.dart';
 import 'package:soldiers_friends/commonwidgets/chatdetails_appbar.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
@@ -128,50 +131,77 @@ class ChatOpenScreen extends StatelessWidget {
               padding: EdgeInsets.all(16.0),
               child: Row(
                 children: [
-                  Expanded(
-                    child: TextField(
-                      controller: controller.messagecontroller,
-                      decoration: InputDecoration(
-                        suffixIcon: SizedBox(
-                          width: 100,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              IconButton(
-                                iconSize: 20,
-                                icon: Icon(
-                                  Icons.camera_alt,
-                                  color: Colors.grey, // Set icon color to grey
-                                ),
-                                onPressed: () {
-                                  // Handle camera functionality
-                                },
+                    // Visibility(
+                    //   visible:
+                    //       controller.controllersProvider.imagePath.value == '',
+                      // replacement: Expanded(
+                      //   child: Container(
+                      //     decoration: BoxDecoration(
+                      //         color: Colors.white,
+                      //         border: Border.all(color: Colors.black, width: 1.sp),
+                      //         borderRadius: BorderRadius.circular(20.sp)),
+                      //     child: Padding(
+                      //       padding: EdgeInsets.symmetric(
+                      //           horizontal: 10.sp, vertical: 10.sp),
+                      //       child: Container(
+                      //         height: 80.sp,
+                      //         width: 100.sp,
+                      //         decoration: BoxDecoration(
+                      //           color: Colors.white,
+                      //           border:
+                      //               Border.all(color: Colors.black, width: 1.sp),
+                      //           borderRadius: BorderRadius.circular(20.sp),
+                      //           image: DecorationImage(
+                      //             alignment: Alignment.topLeft,
+                      //             fit: BoxFit.cover,
+                      //             image: FileImage(
+                      //               File(controller
+                      //                   .controllersProvider.imagePath.value),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      // child:
+                       Expanded(
+                        child: TextField(
+                          controller: controller.messagecontroller,
+                          decoration: InputDecoration(
+                            suffixIcon: SizedBox(
+                              width: 100,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButton(
+                                    iconSize: 20,
+                                    icon: Icon(
+                                      Icons.image,
+                                      color:
+                                          Colors.grey, // Set icon color to grey
+                                    ),
+                                    onPressed: () {
+                                      ImagePickerBottomSheet.show(context);
+                                    },
+                                  ),
+                                ],
                               ),
-                              IconButton(
-                                iconSize: 20,
-                                icon: Icon(
-                                  Icons.image,
-                                  color: Colors.grey, // Set icon color to grey
-                                ),
-                                onPressed: () {
-                                  // Handle image selection
-                                },
+                            ),
+                            hintText: 'Write your message here',
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey
+                                    .withOpacity(0.5), // Set border color to grey
+                                width: 2,
                               ),
-                            ],
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
                           ),
-                        ),
-                        hintText: 'Write your message here',
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.grey
-                                .withOpacity(0.5), // Set border color to grey
-                            width: 2,
-                          ),
-                          borderRadius: BorderRadius.circular(16.0),
                         ),
                       ),
-                    ),
-                  ),
+                    // ),
+                  
                   SizedBox(width: 8.0),
                   Container(
                     decoration: BoxDecoration(

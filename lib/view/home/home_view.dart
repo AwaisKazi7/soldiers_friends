@@ -77,7 +77,7 @@ class HomeView extends StatelessWidget {
                                                     controller
                                                         .UsersList.length) {
                                               final user = controller
-                                                  .UsersList[currentIndex];
+                                                  .UsersList[previousIndex];
                                               if (direction ==
                                                   CardSwiperDirection.left) {
                                                 controller.dislikeUser(user);
@@ -93,12 +93,9 @@ class HomeView extends StatelessWidget {
                                               index,
                                               percentThresholdX,
                                               percentThresholdY) {
-                                            return index <
-                                                    controller.UsersList.length
-                                                ? UserCard(
-                                                    user: controller
-                                                        .UsersList[index])
-                                                : SizedBox.shrink();
+                                            return UserCard(
+                                                user: controller
+                                                    .UsersList[index]);
                                           },
                                         )),
                                   ),
