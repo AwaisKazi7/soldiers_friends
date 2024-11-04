@@ -1,5 +1,5 @@
 //made by salman lodhi
-class homeModel {
+class ConversationModel {
   final int id;
   final String name;
   final String email;
@@ -12,8 +12,10 @@ class homeModel {
   final int isDelete;
   final DateTime createdAt;
   final List<String> images;
+  final int chatId;
+  final String lastMessage;
 
-  homeModel({
+  ConversationModel({
     required this.id,
     required this.name,
     required this.email,
@@ -26,10 +28,13 @@ class homeModel {
     required this.isDelete,
     required this.createdAt,
     required this.images,
+    required this.chatId,
+    required this.lastMessage,
   });
 
-  factory homeModel.fromMap(Map<String, dynamic> json) {
-    return homeModel(
+  factory ConversationModel.fromMap(
+      Map<String, dynamic> json, int chatid, String lastMessage) {
+    return ConversationModel(
       id: json['id'],
       name: json['name'] ?? '',
       email: json['email'] ?? '',
@@ -43,22 +48,8 @@ class homeModel {
       createdAt: DateTime.parse(json['created_at']),
       images: List<String>.from(
           json['profilepicture_table'].map((e) => e['imageUrl'])),
+      chatId: chatid,
+      lastMessage: lastMessage,
     );
-  }
-
-  // Method to convert User to a map (e.g., for JSON serialization)
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      'email': email,
-      'password': password,
-      'DOB': DOB,
-      'bio': bio,
-      'country': country,
-      'isApprove': isApprove,
-      'isDelete': isDelete,
-      'createdAt': createdAt.toIso8601String(),
-    };
   }
 }

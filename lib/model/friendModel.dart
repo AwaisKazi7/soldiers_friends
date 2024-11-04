@@ -1,3 +1,4 @@
+//made by salman lodhi
 class FriendsModel {
   final int id;
   final String name;

@@ -10,8 +10,10 @@ import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/common/imagepicker_bottomSheet.dart';
+import 'package:soldiers_friends/common/imagewidget.dart';
 import 'package:soldiers_friends/common/smallloader.dart';
 import 'package:soldiers_friends/commonwidgets/chatdetails_appbar.dart';
+import 'package:soldiers_friends/model/friendModel.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/services/localStorage.dart';
 import 'package:soldiers_friends/view/chatopen/chatopen_cotroller.dart';
@@ -19,7 +21,7 @@ import 'package:soldiers_friends/view/chatopen/chatopen_cotroller.dart';
 class ChatOpenScreen extends StatelessWidget {
   const ChatOpenScreen({super.key, required this.userData});
 
-  final homeModel userData;
+  final FriendsModel userData;
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +106,7 @@ class ChatOpenScreen extends StatelessWidget {
               ),
               child: Expanded(
                 child: StreamBuilder<List<Map<String, dynamic>>>(
-                  stream: controller.getMessages(),
+                  stream: controller.getMessages(userData.chatId),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) return SmallLoader();
                     final messages = snapshot.data!;
@@ -113,6 +115,9 @@ class ChatOpenScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final message = messages[index];
                         return ChatBubble(
+                            Userimage: userData.images.isNotEmpty
+                                ? userData.images.last
+                                : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
                             text: message['content'],
                             isSentByUser: message['sender_id'] ==
                                     int.parse(
@@ -131,77 +136,78 @@ class ChatOpenScreen extends StatelessWidget {
               padding: EdgeInsets.all(16.0),
               child: Row(
                 children: [
-                    // Visibility(
-                    //   visible:
-                    //       controller.controllersProvider.imagePath.value == '',
-                      // replacement: Expanded(
-                      //   child: Container(
-                      //     decoration: BoxDecoration(
-                      //         color: Colors.white,
-                      //         border: Border.all(color: Colors.black, width: 1.sp),
-                      //         borderRadius: BorderRadius.circular(20.sp)),
-                      //     child: Padding(
-                      //       padding: EdgeInsets.symmetric(
-                      //           horizontal: 10.sp, vertical: 10.sp),
-                      //       child: Container(
-                      //         height: 80.sp,
-                      //         width: 100.sp,
-                      //         decoration: BoxDecoration(
-                      //           color: Colors.white,
-                      //           border:
-                      //               Border.all(color: Colors.black, width: 1.sp),
-                      //           borderRadius: BorderRadius.circular(20.sp),
-                      //           image: DecorationImage(
-                      //             alignment: Alignment.topLeft,
-                      //             fit: BoxFit.cover,
-                      //             image: FileImage(
-                      //               File(controller
-                      //                   .controllersProvider.imagePath.value),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      // child:
-                       Expanded(
-                        child: TextField(
-                          controller: controller.messagecontroller,
-                          decoration: InputDecoration(
-                            suffixIcon: SizedBox(
-                              width: 100,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  IconButton(
-                                    iconSize: 20,
-                                    icon: Icon(
-                                      Icons.image,
-                                      color:
-                                          Colors.grey, // Set icon color to grey
-                                    ),
-                                    onPressed: () {
-                                      ImagePickerBottomSheet.show(context);
-                                    },
-                                  ),
-                                ],
+                  // Visibility(
+                  //   visible:
+                  //       controller.controllersProvider.imagePath.value == '',
+                  // replacement: Expanded(
+                  //   child: Container(
+                  //     decoration: BoxDecoration(
+                  //         color: Colors.white,
+                  //         border: Border.all(color: Colors.black, width: 1.sp),
+                  //         borderRadius: BorderRadius.circular(20.sp)),
+                  //     child: Padding(
+                  //       padding: EdgeInsets.symmetric(
+                  //           horizontal: 10.sp, vertical: 10.sp),
+                  //       child: Container(
+                  //         height: 80.sp,
+                  //         width: 100.sp,
+                  //         decoration: BoxDecoration(
+                  //           color: Colors.white,
+                  //           border:
+                  //               Border.all(color: Colors.black, width: 1.sp),
+                  //           borderRadius: BorderRadius.circular(20.sp),
+                  //           image: DecorationImage(
+                  //             alignment: Alignment.topLeft,
+                  //             fit: BoxFit.cover,
+                  //             image: FileImage(
+                  //               File(controller
+                  //                   .controllersProvider.imagePath.value),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  // child:
+                  Expanded(
+                    child: TextField(
+                      controller: controller.messagecontroller,
+                      decoration: InputDecoration(
+                        suffixIcon: SizedBox(
+                          width: 100,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(
+                                iconSize: 20,
+                                icon: Icon(
+                                  Icons.image,
+                                  color: Colors.grey, // Set icon color to grey
+                                ),
+                                onPressed: () {
+                                  ImagePickerBottomSheet.show(context);
+                                },
                               ),
-                            ),
-                            hintText: 'Write your message here',
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey
-                                    .withOpacity(0.5), // Set border color to grey
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(16.0),
-                            ),
+                            ],
                           ),
                         ),
+                        hintText: 'Write your message here',
+                        hintStyle:
+                            TextStyle(color: Colors.black.withOpacity(0.4)),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.grey
+                                .withOpacity(0.5), // Set border color to grey
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
                       ),
-                    // ),
-                  
+                    ),
+                  ),
+                  // ),
+
                   SizedBox(width: 8.0),
                   Container(
                     decoration: BoxDecoration(
@@ -221,7 +227,8 @@ class ChatOpenScreen extends StatelessWidget {
                             : Icon(Icons.send),
                         onPressed: () async {
                           if (controller.messagecontroller.text != '') {
-                            await controller.sendMessage(userData.id, 0);
+                            await controller.sendMessage(
+                                userData.id, 0, userData.chatId);
                           } else {}
 
                           // await controller.GetMessage();
@@ -244,12 +251,14 @@ class ChatBubble extends StatelessWidget {
   final bool isSentByUser;
   final String time;
   final bool isSeen;
+  final String Userimage;
 
   ChatBubble({
     required this.text,
     required this.isSentByUser,
     required this.time,
     required this.isSeen,
+    required this.Userimage,
   });
 
   @override
@@ -257,67 +266,81 @@ class ChatBubble extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment:
             isSentByUser ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           if (!isSentByUser)
             CircleAvatar(
-              backgroundImage: AssetImage(
-                  CommonAssets.chatuserImage), // Replace with actual image
+              child: ClipOval(
+                  child: ImageWidget(
+                imageUrl: Userimage,
+                height: 100.sp,
+                width: 100.sp,
+              )),
             ),
           SizedBox(width: 8.0),
-          Container(
-            padding: EdgeInsets.all(10.0),
-            decoration: BoxDecoration(
-              // gradient: !isSentByUser
-              //     ? LinearGradient(
-              //         colors: [
-              //           CommonColors.gradientStartColor,
-              //           CommonColors.gradientEndColor
-              //         ],
-              //         begin: Alignment.topLeft,
-              //         end: Alignment.bottomRight,
-              //       )
-              //     : null,
-              color: !isSentByUser
-                  ? CommonColors.gradientStartColor
-                  : CommonColors.gradientEndColor,
-              borderRadius: BorderRadius.only(
-                topLeft:
-                    isSentByUser ? Radius.circular(16.0) : Radius.circular(0.0),
-                topRight:
-                    isSentByUser ? Radius.circular(0.0) : Radius.circular(16.0),
-                bottomLeft: Radius.circular(16.0),
-                bottomRight: Radius.circular(16.0),
+          Column(
+            children: [
+              SizedBox(
+                height: 5.sp,
               ),
-            ),
-            child: Column(
-              crossAxisAlignment: isSentByUser
-                  ? CrossAxisAlignment.end
-                  : CrossAxisAlignment.start,
-              children: [
-                Text(
-                  text,
-                  style: TextStyle(
-                    color: isSentByUser ? Colors.white : Colors.white,
+              Container(
+                padding: EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  // gradient: !isSentByUser
+                  //     ? LinearGradient(
+                  //         colors: [
+                  //           CommonColors.gradientStartColor,
+                  //           CommonColors.gradientEndColor
+                  //         ],
+                  //         begin: Alignment.topLeft,
+                  //         end: Alignment.bottomRight,
+                  //       )
+                  //     : null,
+                  color: !isSentByUser
+                      ? CommonColors.gradientStartColor
+                      : CommonColors.gradientEndColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: isSentByUser
+                        ? Radius.circular(16.0)
+                        : Radius.circular(0.0),
+                    topRight: isSentByUser
+                        ? Radius.circular(0.0)
+                        : Radius.circular(16.0),
+                    bottomLeft: Radius.circular(16.0),
+                    bottomRight: Radius.circular(16.0),
                   ),
                 ),
-                SizedBox(height: 4.0),
-                Text(
-                  time,
-                  style: TextStyle(
-                    color: Colors.black.withOpacity(0.5),
-                    fontSize: 12.0,
-                  ),
+                child: Column(
+                  crossAxisAlignment: isSentByUser
+                      ? CrossAxisAlignment.end
+                      : CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      text,
+                      style: TextStyle(
+                        color: isSentByUser ? Colors.white : Colors.white,
+                      ),
+                    ),
+                    SizedBox(height: 4.0),
+                    Text(
+                      time,
+                      style: TextStyle(
+                        color: Colors.black.withOpacity(0.5),
+                        fontSize: 12.0,
+                      ),
+                    ),
+                    if (!isSentByUser && isSeen)
+                      Icon(
+                        Icons.done_all,
+                        color: Colors.blue,
+                        size: 16.0,
+                      )
+                  ],
                 ),
-                if (!isSentByUser && isSeen)
-                  Icon(
-                    Icons.done_all,
-                    color: Colors.blue,
-                    size: 16.0,
-                  )
-              ],
-            ),
+              ),
+            ],
           ),
           if (isSentByUser) SizedBox(width: 8.0),
         ],

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:soldiers_friends/model/friendModel.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/view/FriendList/friendList_view.dart';
 import 'package:soldiers_friends/view/FriendList/friendlist_binding.dart';
@@ -88,7 +89,7 @@ class RoutesPageList {
         page: () => const ChatView(),
         binding: ChatBinding()),
     GetPage(
-        arguments: homeModel,
+        arguments: FriendsModel,
         name: RoutesName.chatdetails,
         page: () => ChatOpenScreen(
               userData: Get.arguments,
@@ -126,7 +127,7 @@ class RoutesPageList {
         page: () => FriendListView(),
         binding: FriendListBinding()),
     GetPage(
-        arguments: homeModel,
+        arguments: FriendsModel,
         name: RoutesName.frienddetailview,
         page: () => FriendDetailView(
               data: Get.arguments,

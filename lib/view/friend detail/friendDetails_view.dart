@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:soldiers_friends/common/common_buttons.dart';
 import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/imagewidget.dart';
+import 'package:soldiers_friends/model/friendModel.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/friend%20detail/friendDetails_controller.dart';
@@ -16,7 +17,7 @@ class FriendDetailView extends StatelessWidget {
     super.key,
     required this.data,
   });
-  final homeModel data;
+  final FriendsModel data;
 
   @override
   Widget build(BuildContext context) {

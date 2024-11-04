@@ -6,8 +6,7 @@ import 'package:soldiers_friends/services/getx_helper.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ChatDetailController extends GetxController {
-  
-final controllersProvider = Get.put(GetxControllersProvider());
+  final controllersProvider = Get.put(GetxControllersProvider());
   final String chatName = "John Doe";
   final TextEditingController messagecontroller = TextEditingController();
   RxBool apihitting = false.obs;
@@ -21,11 +20,11 @@ final controllersProvider = Get.put(GetxControllersProvider());
     // navigate();
   }
 
-  sendMessage(int UserId, int mediiatype) async {
+  sendMessage(int UserId, int mediiatype, int chatid) async {
     try {
       apihitting.value = true;
       var data = await supabse_DB.getInstance
-          .sendMessage(UserId, messagecontroller.text, mediiatype);
+          .sendMessage(UserId, messagecontroller.text, mediiatype, chatid);
       messagecontroller.clear();
       apihitting.value = false;
     } catch (e) {
@@ -33,10 +32,12 @@ final controllersProvider = Get.put(GetxControllersProvider());
     }
   }
 
-  Stream<List<Map<String, dynamic>>> getMessages() {
+  Stream<List<Map<String, dynamic>>> getMessages(int chat_id) {
     return Supabase.instance.client
         .from('chat_table')
-        .stream(primaryKey: ['id']).order('created_at', ascending: true);
+        .stream(primaryKey: ['id'])
+        .eq('chat_id', chat_id)
+        .order('created_at', ascending: true);
   }
   // GetMessage() async {
   //   try {

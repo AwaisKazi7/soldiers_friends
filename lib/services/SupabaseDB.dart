@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:soldiers_friends/model/conversationModel.dart';
 import 'package:soldiers_friends/model/friendModel.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/model/messageModel.dart';
@@ -346,14 +347,15 @@ class supabse_DB {
     }
   }
 
-  sendMessage(int userId, String message, int mediaType) async {
+  sendMessage(int userId, String message, int mediaType, int chatId) async {
     try {
       if (mediaType == 0) {
         await Supabase.instance.client.from('chat_table').insert({
           'sender_id': int.parse(LocalDataStorage.currentUserId.value),
           'reciver_id': userId,
           'content': message,
-          'media_type': mediaType
+          'media_type': mediaType,
+          'chat_id': chatId
         });
 
         print("sendMessage 👌✅");
@@ -597,7 +599,7 @@ class supabse_DB {
 
   GetfriendsList() async {
     try {
-      List<FriendsModel> FriendList = [];
+      List<FriendsModel> FriendsList = [];
       List<Map<String, dynamic>> List_of_ids = [];
 
       // STEP 1:
@@ -640,17 +642,86 @@ class supabse_DB {
             (e) => e['id'] == Data['userid'],
           );
           FriendsModel data = FriendsModel.fromMap(userData, Data['chatid']);
-          FriendList.add(data);
+          FriendsList.add(data);
         }
 
         print('GetfriendsList 👌✅');
         print({
-          'FriendList': FriendList.length,
+          'friendsList': FriendsList.length,
         });
       }
-      return FriendList;
+      return FriendsList;
     } catch (e) {
-      print('GetAllUser Error: $e');
+      print('GetfriendsList Error: $e');
+      return [];
+    }
+  }
+
+  GetconversationList() async {
+    try {
+      List<ConversationModel> ConversationList = [];
+      List<Map<String, dynamic>> List_of_ids = [];
+
+      // STEP 1:
+
+      //Fetch the liked user IDs
+      var FirstFriendResponse = await Supabase.instance.client
+          .from('Conversation_table')
+          .select('first_userId,id,last_message')
+          .eq('second_userId', int.parse(LocalDataStorage.currentUserId.value));
+
+      var SecondFriendResponse = await Supabase.instance.client
+          .from('Conversation_table')
+          .select('second_userId,id,last_message')
+          .eq('first_userId', int.parse(LocalDataStorage.currentUserId.value));
+
+      //Fetch All users
+      var userResponse = await Supabase.instance.client
+          .from('users_table')
+          .select('*,profilepicture_table(*)');
+
+      if (FirstFriendResponse.isNotEmpty) {
+        for (final data in FirstFriendResponse) {
+          List_of_ids.add({
+            'userid': data['first_userId'],
+            'chatid': data['id'],
+            'last_message': data['last_message']
+          });
+        }
+      }
+
+      print('friend_userId count:${List_of_ids.length}');
+
+      if (SecondFriendResponse.isNotEmpty) {
+        for (final data in SecondFriendResponse) {
+          List_of_ids.add({
+            'userid': data['second_userId'],
+            'chatid': data['id'],
+            'last_message': data['last_message']
+          });
+        }
+      }
+
+      print('userId count:${List_of_ids.length}');
+
+      if (List_of_ids.isNotEmpty) {
+        for (final Data in List_of_ids) {
+          final userData = (userResponse as List<dynamic>).firstWhere(
+            (e) => e['id'] == Data['userid'],
+          );
+          ConversationModel data = ConversationModel.fromMap(
+              userData, Data['chatid'], Data['last_message']);
+          ConversationList.add(data);
+        }
+
+        print('GetconversationList 👌✅');
+        print({
+          'ConversationList': ConversationList.length,
+        });
+      }
+      return ConversationList;
+    } catch (e) {
+      print('GetconversationList Error: $e');
       return [];
     }
   }
