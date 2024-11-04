@@ -13,6 +13,7 @@ class FriendsModel {
   final DateTime createdAt;
   final List<String> images;
   final int chatId;
+  final String lastMessage;
 
   FriendsModel({
     required this.id,
@@ -28,24 +29,28 @@ class FriendsModel {
     required this.createdAt,
     required this.images,
     required this.chatId,
+    required this.lastMessage,
   });
 
-  factory FriendsModel.fromMap(Map<String, dynamic> json, int chatid) {
+  factory FriendsModel.fromMap(
+      Map<String, dynamic> json, int chatid, String lastMessage) {
     return FriendsModel(
-        id: json['id'],
-        name: json['name'] ?? '',
-        email: json['email'] ?? '',
-        password: json['password'] ?? '',
-        phonenumber: json['phonenumber'] ?? '',
-        DOB: json['DOB'] ?? '',
-        bio: json['bio'] ?? '',
-        country: json['country'] ?? '',
-        isApprove: json['isApprove'],
-        isDelete: json['isDelete'],
-        createdAt: DateTime.parse(json['created_at']),
-        images: List<String>.from(
-            json['profilepicture_table'].map((e) => e['imageUrl'])),
-        chatId: chatid);
+      id: json['id'],
+      name: json['name'] ?? '',
+      email: json['email'] ?? '',
+      password: json['password'] ?? '',
+      phonenumber: json['phonenumber'] ?? '',
+      DOB: json['DOB'] ?? '',
+      bio: json['bio'] ?? '',
+      country: json['country'] ?? '',
+      isApprove: json['isApprove'],
+      isDelete: json['isDelete'],
+      createdAt: DateTime.parse(json['created_at']),
+      images: List<String>.from(
+          json['profilepicture_table'].map((e) => e['imageUrl'])),
+      chatId: chatid,
+      lastMessage: lastMessage,
+    );
   }
 
   // Method to convert FriendsModel to a map (e.g., for JSON serialization)

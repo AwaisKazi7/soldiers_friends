@@ -1,83 +1,31 @@
 import 'package:get/get.dart';
-import 'package:soldiers_friends/model/chat_model.dart';
+import 'package:soldiers_friends/model/friendModel.dart';
+import 'package:soldiers_friends/services/SupabaseDB.dart';
 
 class ChatViewController extends GetxController {
-  List<ChatModel> chats = [
-    ChatModel(
-      name: 'Jennifer',
-      lastMessage: 'How are you doing? How are you doing?',
-      messageCount: 1,
-      isOnline: true,
-    ),
-    ChatModel(
-      name: 'Jennifer',
-      lastMessage: 'How are you doing? How are you doing?',
-      messageCount: 1,
-      isOnline: true,
-    ),
-    ChatModel(
-      name: 'Jennifer',
-      lastMessage: 'How are you doing? How are you doing?',
-      messageCount: 1,
-      isOnline: true,
-    ),
-    ChatModel(
-      name: 'Jennifer',
-      lastMessage: 'How are you doing? How are you doing?',
-      messageCount: 1,
-      isOnline: true,
-    ),
-    ChatModel(
-      name: 'Jennifer',
-      lastMessage: 'How are you doing? How are you doing?',
-      messageCount: 1,
-      isOnline: true,
-    ),
-    ChatModel(
-      name: 'Jennifer',
-      lastMessage: 'How are you doing? How are you doing?',
-      messageCount: 1,
-      isOnline: true,
-    ),
-    ChatModel(
-      name: 'Jennifer',
-      lastMessage: 'How are you doing? How are you doing?',
-      messageCount: 1,
-      isOnline: true,
-    ),
-    ChatModel(
-      name: 'Jennifer',
-      lastMessage: 'How are you doing? How are you doing?',
-      messageCount: 1,
-      isOnline: true,
-    ),
-    ChatModel(
-      name: 'Jennifer',
-      lastMessage: 'How are you doing? How are you doing?',
-      messageCount: 1,
-      isOnline: true,
-    ),
-    ChatModel(
-      name: 'Jennifer',
-      lastMessage: 'How are you doing? How are you doing?',
-      messageCount: 1,
-      isOnline: true,
-    ),
-  ];
+  RxList<FriendsModel> conversationList = <FriendsModel>[].obs;
 
-  void updateChats() {
-    update();
-  }
+  RxBool friendloading = false.obs;
 
   @override
-  void onReady() {
+  Future<void> onReady() async {
     super.onReady();
-    // Uncomment if you want to navigate when the controller is ready
-    // navigate();
+    await GetconversationList();
   }
 
-  // Future<void> navigate() async {
-  //   await Future.delayed(const Duration(seconds: 2));
-  //   Get.offAndToNamed(RoutesName.getstartedPage);
-  // }
+  GetconversationList() async {
+    try {
+      friendloading.value = true;
+      var Data = await supabse_DB.getInstance.GetconversationList();
+
+      if (Data.length != 0) {
+        conversationList.clear();
+        conversationList.addAll(Data);
+      }
+      friendloading.value = false;
+    } catch (e) {
+      print("Error in GetconversationList:${e}");
+      friendloading.value = false;
+    }
+  }
 }

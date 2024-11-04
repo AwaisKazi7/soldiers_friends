@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:soldiers_friends/model/conversationModel.dart';
 import 'package:soldiers_friends/model/friendModel.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/model/messageModel.dart';
@@ -641,7 +640,8 @@ class supabse_DB {
           final userData = (userResponse as List<dynamic>).firstWhere(
             (e) => e['id'] == Data['userid'],
           );
-          FriendsModel data = FriendsModel.fromMap(userData, Data['chatid']);
+          FriendsModel data =
+              FriendsModel.fromMap(userData, Data['chatid'], '');
           FriendsList.add(data);
         }
 
@@ -659,7 +659,7 @@ class supabse_DB {
 
   GetconversationList() async {
     try {
-      List<ConversationModel> ConversationList = [];
+      List<FriendsModel> ConversationList = [];
       List<Map<String, dynamic>> List_of_ids = [];
 
       // STEP 1:
@@ -709,7 +709,7 @@ class supabse_DB {
           final userData = (userResponse as List<dynamic>).firstWhere(
             (e) => e['id'] == Data['userid'],
           );
-          ConversationModel data = ConversationModel.fromMap(
+          FriendsModel data = FriendsModel.fromMap(
               userData, Data['chatid'], Data['last_message']);
           ConversationList.add(data);
         }

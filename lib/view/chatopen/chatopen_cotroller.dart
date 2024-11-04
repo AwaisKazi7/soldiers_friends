@@ -33,12 +33,18 @@ class ChatDetailController extends GetxController {
   }
 
   Stream<List<Map<String, dynamic>>> getMessages(int chat_id) {
-    return Supabase.instance.client
-        .from('chat_table')
-        .stream(primaryKey: ['id'])
-        .eq('chat_id', chat_id)
-        .order('created_at', ascending: true);
+    try {
+      return Supabase.instance.client
+          .from('chat_table')
+          .stream(primaryKey: ['id'])
+          .eq('chat_id', chat_id)
+          .order('created_at', ascending: true);
+    } catch (e) {
+      print('error getMessages: $e');
+      return const Stream.empty(); // Return an empty stream on error
+    }
   }
+
   // GetMessage() async {
   //   try {
   //     var data = await supabse_DB.getInstance.GetMessage();
