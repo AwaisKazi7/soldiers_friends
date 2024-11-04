@@ -9,7 +9,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp(options: androidFirebaseOptions);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await supabse_DB.getInstance.supabase_init();
   runApp(const MyApp());
 }
