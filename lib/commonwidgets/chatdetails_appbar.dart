@@ -88,14 +88,39 @@ class ChatDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           const SizedBox(width: 10),
           if (threeDotIcon != null)
-            CircleAvatar(
-              backgroundColor: CommonColors.lightGray,
-              child: ClipOval(
-                child: Image(
-                  image: threeDotIcon!,
-                  fit: BoxFit.cover,
+            PopupMenuButton<String>(
+              icon: CircleAvatar(
+                backgroundColor: CommonColors.lightGray,
+                child: ClipOval(
+                  child: Image(
+                    image: threeDotIcon!,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
+              onSelected: (value) {
+                // Handle menu item selection
+                switch (value) {
+                  case 'Block':
+                    // Handle Option 1
+                    break;
+                  case 'Report':
+                    // Handle Option 2
+                    break;
+                }
+              },
+              itemBuilder: (BuildContext context) {
+                return [
+                  PopupMenuItem<String>(
+                    value: 'Block User',
+                    child: Text('Block User'),
+                  ),
+                  PopupMenuItem<String>(
+                    value: 'Report',
+                    child: Text('Report'),
+                  ),
+                ];
+              },
             ),
         ],
       ),

@@ -20,8 +20,8 @@ class CommonTextform extends StatelessWidget {
   final VoidCallback? onSuffixIconTap;
   final bool centerText;
   final bool isUnderline;
-
-  const CommonTextform({
+  Function(String)? onChanged;
+  CommonTextform({
     super.key,
     required this.hintText,
     this.prefixIcon,
@@ -42,6 +42,7 @@ class CommonTextform extends StatelessWidget {
     this.onSuffixIconTap,
     this.centerText = false,
     this.isUnderline = true,
+    this.onChanged = null,
   });
 
   Widget? _buildPrefix() {
@@ -79,8 +80,7 @@ class CommonTextform extends StatelessWidget {
       return UnderlineInputBorder(
         borderSide: BorderSide(color: borderColor ?? Colors.grey),
       );
-    }
-    else {
+    } else {
       return OutlineInputBorder(
         borderRadius: BorderRadius.circular(borderRadius),
         borderSide: BorderSide(color: borderColor ?? Colors.grey),
@@ -94,6 +94,7 @@ class CommonTextform extends StatelessWidget {
       controller: controller,
       validator: validator,
       obscureText: obscureText,
+      onChanged: onChanged ?? (value) {},
       keyboardType: textInputType,
       textInputAction: textInputAction,
       textAlign: centerText ? TextAlign.center : TextAlign.start,

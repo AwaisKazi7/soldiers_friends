@@ -138,17 +138,17 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         Row(
                           children: [
-                            Checkbox(
-                              value: false,
-                              onChanged: (value) {},
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                            ),
-                            const CommonText(
-                              text: "Remember me",
-                              style: CommonTextStyle.splashheadline1,
-                            ),
+                            // Checkbox(
+                            //   value: false,
+                            //   onChanged: (value) {},
+                            //   shape: RoundedRectangleBorder(
+                            //     borderRadius: BorderRadius.circular(5.0),
+                            //   ),
+                            // ),
+                            // const CommonText(
+                            //   text: "Remember me",
+                            //   style: CommonTextStyle.splashheadline1,
+                            // ),
                             const Spacer(),
                             InkWell(
                               hoverColor: Colors.transparent,

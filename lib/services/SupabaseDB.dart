@@ -401,6 +401,7 @@ class supabse_DB {
       var data = await Supabase.instance.client
           .from('users_table')
           .select('*, profilepicture_table(*)')
+          .eq('isDelete', 0)
           .neq('id', LocalDataStorage.currentUserId.value);
 
       print("GetAllUser 👌✅");
@@ -617,7 +618,8 @@ class supabse_DB {
       //Fetch All users
       var userResponse = await Supabase.instance.client
           .from('users_table')
-          .select('*,profilepicture_table(*)');
+          .select('*,profilepicture_table(*)')
+          ;
 
       if (FirstFriendResponse.isNotEmpty) {
         for (final data in FirstFriendResponse) {

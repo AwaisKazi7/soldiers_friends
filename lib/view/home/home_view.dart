@@ -66,7 +66,10 @@ class HomeView extends StatelessWidget {
                                   child: Container(
                                     margin: const EdgeInsets.only(top: 0),
                                     child: Obx(() => CardSwiper(
-                                          numberOfCardsDisplayed: 2,
+                                          numberOfCardsDisplayed:
+                                              controller.UsersList.length == 1
+                                                  ? 1
+                                                  : 2,
                                           cardsCount:
                                               controller.UsersList.length,
                                           controller: controller.cardController,

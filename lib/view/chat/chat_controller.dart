@@ -1,12 +1,15 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/model/friendModel.dart';
 import 'package:soldiers_friends/services/SupabaseDB.dart';
 
 class ChatViewController extends GetxController {
   RxList<FriendsModel> conversationList = <FriendsModel>[].obs;
-
+  RxList<FriendsModel> filteredList = <FriendsModel>[].obs;
+  
+  final TextEditingController saerchController = TextEditingController();
   RxBool friendloading = false.obs;
-
+  RxBool showsearch = false.obs;
   @override
   Future<void> onReady() async {
     super.onReady();
@@ -26,6 +29,18 @@ class ChatViewController extends GetxController {
     } catch (e) {
       print("Error in GetconversationList:${e}");
       friendloading.value = false;
+    }
+  }
+
+
+
+  void filterConversations(String query) {
+    if (query.isEmpty) {
+      filteredList.value = conversationList;
+    } else {
+      filteredList.value = conversationList.where((friend) {
+        return friend.name.toLowerCase().contains(query.toLowerCase());
+      }).toList();
     }
   }
 }
