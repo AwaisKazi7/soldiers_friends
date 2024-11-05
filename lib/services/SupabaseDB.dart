@@ -610,14 +610,14 @@ class supabse_DB {
       var FirstFriendResponse = await Supabase.instance.client
           .from('Conversation_table')
           .select('first_userId,id')
-          .eq('second_userId', int.parse(LocalDataStorage.currentUserId.value))
-          .eq('isblocked', 0);
+          .eq('second_userId', int.parse(LocalDataStorage.currentUserId.value));
+          // .eq('isblocked', 0);
 
       var SecondFriendResponse = await Supabase.instance.client
           .from('Conversation_table')
           .select('second_userId,id')
-          .eq('first_userId', int.parse(LocalDataStorage.currentUserId.value))
-          .eq('isblocked', 0);
+          .eq('first_userId', int.parse(LocalDataStorage.currentUserId.value));
+          // .eq('isblocked', 0);
 
       //Fetch All users
       var userResponse = await Supabase.instance.client
@@ -662,68 +662,68 @@ class supabse_DB {
     }
   }
 
-  GetBlockedFriendsList() async {
-    try {
-      List<FriendsModel> FriendsList = [];
-      List<Map<String, dynamic>> List_of_ids = [];
+  // GetBlockedFriendsList() async {
+  //   try {
+  //     List<FriendsModel> FriendsList = [];
+  //     List<Map<String, dynamic>> List_of_ids = [];
 
-      // STEP 1:
+  //     // STEP 1:
 
-      //Fetch the liked user IDs
-      var FirstFriendResponse = await Supabase.instance.client
-          .from('Conversation_table')
-          .select('first_userId,id')
-          .eq('second_userId', int.parse(LocalDataStorage.currentUserId.value))
-          .eq('isblocked', 1);
+  //     //Fetch the liked user IDs
+  //     var FirstFriendResponse = await Supabase.instance.client
+  //         .from('Conversation_table')
+  //         .select('first_userId,id')
+  //         .eq('second_userId', int.parse(LocalDataStorage.currentUserId.value))
+  //         .eq('isblocked', 1);
 
-      var SecondFriendResponse = await Supabase.instance.client
-          .from('Conversation_table')
-          .select('second_userId,id')
-          .eq('first_userId', int.parse(LocalDataStorage.currentUserId.value))
-          .eq('isblocked', 1);
+  //     var SecondFriendResponse = await Supabase.instance.client
+  //         .from('Conversation_table')
+  //         .select('second_userId,id')
+  //         .eq('first_userId', int.parse(LocalDataStorage.currentUserId.value))
+  //         .eq('isblocked', 1);
 
-      //Fetch All users
-      var userResponse = await Supabase.instance.client
-          .from('users_table')
-          .select('*,profilepicture_table(*)');
+  //     //Fetch All users
+  //     var userResponse = await Supabase.instance.client
+  //         .from('users_table')
+  //         .select('*,profilepicture_table(*)');
 
-      if (FirstFriendResponse.isNotEmpty) {
-        for (final data in FirstFriendResponse) {
-          List_of_ids.add(
-              {'userid': data['first_userId'], 'chatid': data['id']});
-        }
-      }
-      print('friend_userId count:${List_of_ids.length}');
-      if (SecondFriendResponse.isNotEmpty) {
-        for (final data in SecondFriendResponse) {
-          List_of_ids.add(
-              {'userid': data['second_userId'], 'chatid': data['id']});
-        }
-      }
+  //     if (FirstFriendResponse.isNotEmpty) {
+  //       for (final data in FirstFriendResponse) {
+  //         List_of_ids.add(
+  //             {'userid': data['first_userId'], 'chatid': data['id']});
+  //       }
+  //     }
+  //     print('friend_userId count:${List_of_ids.length}');
+  //     if (SecondFriendResponse.isNotEmpty) {
+  //       for (final data in SecondFriendResponse) {
+  //         List_of_ids.add(
+  //             {'userid': data['second_userId'], 'chatid': data['id']});
+  //       }
+  //     }
 
-      print('userId count:${List_of_ids.length}');
+  //     print('userId count:${List_of_ids.length}');
 
-      if (List_of_ids.isNotEmpty) {
-        for (final Data in List_of_ids) {
-          final userData = (userResponse as List<dynamic>).firstWhere(
-            (e) => e['id'] == Data['userid'],
-          );
-          FriendsModel data =
-              FriendsModel.fromMap(userData, Data['chatid'], '');
-          FriendsList.add(data);
-        }
+  //     if (List_of_ids.isNotEmpty) {
+  //       for (final Data in List_of_ids) {
+  //         final userData = (userResponse as List<dynamic>).firstWhere(
+  //           (e) => e['id'] == Data['userid'],
+  //         );
+  //         FriendsModel data =
+  //             FriendsModel.fromMap(userData, Data['chatid'], '');
+  //         FriendsList.add(data);
+  //       }
 
-        print('GetfriendsList 👌✅');
-        print({
-          'friendsList': FriendsList.length,
-        });
-      }
-      return FriendsList;
-    } catch (e) {
-      print('GetfriendsList Error: $e');
-      return [];
-    }
-  }
+  //       print('GetfriendsList 👌✅');
+  //       print({
+  //         'friendsList': FriendsList.length,
+  //       });
+  //     }
+  //     return FriendsList;
+  //   } catch (e) {
+  //     print('GetfriendsList Error: $e');
+  //     return [];
+  //   }
+  // }
 
   GetconversationList() async {
     try {
