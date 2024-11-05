@@ -7,19 +7,17 @@ import 'package:soldiers_friends/common/common_rich_text.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/common/common_textform.dart';
-import 'package:soldiers_friends/view/forgot_password/forgot_widgets.dart/otp_verification.dart';
-import 'package:soldiers_friends/view/use_phoneNo/use_phone_controller.dart';
-import 'package:soldiers_friends/view/use_phoneNo/use_phone_widget/country_dropdown.dart';
+import 'package:soldiers_friends/view/forgotPassword/forgot_controller.dart';
 
-class UsePhoneView extends StatelessWidget {
+class forgotPasswordView extends StatelessWidget {
   final ValueNotifier<String?> countryCodeNotifier =
       ValueNotifier<String?>(null);
 
-  UsePhoneView({super.key});
+  forgotPasswordView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CountryCodeController>(builder: (controller) {
+    return GetBuilder<ForgotPasswordController>(builder: (controller) {
       return Scaffold(
         backgroundColor: CommonColors.backgroundColor,
         body: SafeArea(
@@ -54,7 +52,7 @@ class UsePhoneView extends StatelessWidget {
                           height: 16,
                         ),
                         CommonText(
-                            text: 'Enter Mobile Number',
+                            text: 'Enter Your Email',
                             style: CommonTextStyle.splashheadline1.copyWith(
                                 fontSize: 32, fontWeight: FontWeight.w500)),
                         const SizedBox(
@@ -62,7 +60,7 @@ class UsePhoneView extends StatelessWidget {
                         ),
                         CommonText(
                             text:
-                                "Add your phone number. We'll send you a verification",
+                                "Add your email. We'll send you a verification",
                             style: CommonTextStyle.splashheadline1.copyWith(
                                 fontSize: 13, fontWeight: FontWeight.w400)),
                         CommonText(
@@ -72,43 +70,75 @@ class UsePhoneView extends StatelessWidget {
                         const SizedBox(
                           height: 14,
                         ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              child: CustomDropdown(
-                                height: 50.98,
-                                width: 86.5,
-                                dropdownIconPath: CommonAssets.dropdownIcon,
-                                hintText: 'Select\nCode',
+                        Container(
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: CommonColors.blackColor.withOpacity(0.2),
+                                blurRadius: 4,
+                                offset: const Offset(0, 0),
                               ),
-                            ),
-                            const SizedBox(
-                              width: 14,
-                            ),
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(boxShadow: [
-                                  BoxShadow(
-                                    color: CommonColors.blackColor
-                                        .withOpacity(0.2),
-                                    blurRadius: 4,
-                                    offset: const Offset(0, 0),
-                                  ),
-                                ], borderRadius: BorderRadius.circular(5)),
-                                child: CommonTextform(
-                                  hintText: '',
-                                  hintStyle: CommonTextStyle.splashheadline1
-                                      .copyWith(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500),
-                                  controller: controller.phoneNumberController,
-                                  fillColor: CommonColors.backgroundColor,
-                                  borderColor: CommonColors.backgroundColor,
-                                ),
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
+                          child: CommonTextform(
+                            textStyle: CommonTextStyle.splashheadline1,
+                            hintText: "Email",
+                            fillColor: CommonColors.backgroundColor,
+                            controller: controller.emailController,
+                            isUnderline: false,
+                            borderColor: CommonColors.backgroundColor,
+                            borderRadius: 5,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter an email address';
+                              }
+                              const emailPattern =
+                                  r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)*(\.[a-z]{2,4})$';
+                              if (!RegExp(emailPattern).hasMatch(value)) {
+                                return 'Please enter a valid email address';
+                              }
+                              return null;
+                            },
+                          ),
                         ),
+                        //--------Phone number feild
+                        // Row(
+                        //   children: [
+                        //     SizedBox(
+                        //       child: CustomDropdown(
+                        //         height: 50.98,
+                        //         width: 86.5,
+                        //         dropdownIconPath: CommonAssets.dropdownIcon,
+                        //         hintText: 'Select\nCode',
+                        //       ),
+                        //     ),
+                        //     const SizedBox(
+                        //       width: 14,
+                        //     ),
+                        //     Expanded(
+                        //       child: Container(
+                        //         decoration: BoxDecoration(boxShadow: [
+                        //           BoxShadow(
+                        //             color: CommonColors.blackColor
+                        //                 .withOpacity(0.2),
+                        //             blurRadius: 4,
+                        //             offset: const Offset(0, 0),
+                        //           ),
+                        //         ], borderRadius: BorderRadius.circular(5)),
+                        // child: CommonTextform(
+                        //   hintText: '',
+                        //   hintStyle: CommonTextStyle.splashheadline1
+                        //       .copyWith(
+                        //           fontSize: 16,
+                        //           fontWeight: FontWeight.w500),
+                        //   controller: controller.phoneNumberController,
+                        //   fillColor: CommonColors.backgroundColor,
+                        //   borderColor: CommonColors.backgroundColor,
+                        // ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                         const SizedBox(
                           height: 18,
                         ),
@@ -120,10 +150,13 @@ class UsePhoneView extends StatelessWidget {
                                 fontSize: 16, fontWeight: FontWeight.w500),
                             borderRadius: 5,
                             boxShadow: const [],
-                            onPressed: () {
-                              controller.mobileotp_Send(context,
-                                  controller.phoneNumberController.text);
-// Get.to(() => OtpVerification()
+                            onPressed: () async {
+                              print(controller.emailController.text);
+                              await controller
+                                  .sendEmail(controller.emailController.text);
+                              // controller.mobileotp_Send(context,
+                              //     controller.phoneNumberController.text);
+                              // Get.to(() => OtpVerification());
                             }),
                         const SizedBox(
                           height: 18,

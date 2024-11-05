@@ -16,6 +16,9 @@ class LikesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<LikesController>(
+      initState: (state) {
+        Get.find<LikesController>().onReady();
+      },
       builder: (controller) {
         return Scaffold(
           backgroundColor: CommonColors.backgroundColor,

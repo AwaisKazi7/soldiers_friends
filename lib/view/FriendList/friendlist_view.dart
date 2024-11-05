@@ -12,6 +12,7 @@ import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/FriendList/friend_widget/friend_card.dart';
 import 'package:soldiers_friends/view/FriendList/friendlist_controller.dart';
 import 'package:soldiers_friends/view/likes/likes_widgets/likes_card.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class FriendListView extends StatelessWidget {
   const FriendListView({Key? key}) : super(key: key);
@@ -70,9 +71,20 @@ class FriendListView extends StatelessWidget {
                                       return FriendCard(
                                         Data: Data,
                                         onTap: () {
-                                          Get.toNamed(
-                                              RoutesName.frienddetailview,
-                                              arguments: Data);
+                                          if (Data.isDelete == 0) {
+                                            Get.toNamed(
+                                                RoutesName.frienddetailview,
+                                                arguments: Data);
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                    "This user has been deleted"),
+                                                backgroundColor: Colors.red,
+                                              ),
+                                            );
+                                          }
                                         },
                                         verifiedIconPath:
                                             CommonAssets.verifiedIcon,

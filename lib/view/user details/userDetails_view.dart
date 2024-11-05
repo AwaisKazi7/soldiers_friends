@@ -249,10 +249,10 @@ class UserDetailView extends StatelessWidget {
                           () => Visibility(
                             visible: controller.showmessageBox.value == false,
                             replacement: CommonButton(
-                              text: 'Start Chatting',
+                              text: 'See Friend List',
                               gradient: CommonColors.buttonGradient,
                               onPressed: () {
-                                Get.toNamed(RoutesName.chatdetails);
+                                Get.toNamed(RoutesName.friendlistview);
                               },
                             ),
                             child: Row(

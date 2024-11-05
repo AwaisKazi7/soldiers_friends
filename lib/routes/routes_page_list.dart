@@ -14,8 +14,6 @@ import 'package:soldiers_friends/view/chatopen/chatopen_view.dart';
 import 'package:soldiers_friends/view/delete_account/deleteAccount_binding.dart';
 import 'package:soldiers_friends/view/delete_account/deleteAccount_view.dart';
 import 'package:soldiers_friends/view/edit_profile/edit_profile_view.dart';
-import 'package:soldiers_friends/view/forgot_password/forgot_password_binding.dart';
-import 'package:soldiers_friends/view/forgot_password/forgot_password_view.dart';
 import 'package:soldiers_friends/view/friend%20detail/friendDetails_bindings.dart';
 import 'package:soldiers_friends/view/friend%20detail/friendDetails_controller.dart';
 import 'package:soldiers_friends/view/friend%20detail/friendDetails_view.dart';
@@ -37,8 +35,8 @@ import 'package:soldiers_friends/view/home/home_binding.dart';
 import 'package:soldiers_friends/view/home/home_view.dart';
 import 'package:soldiers_friends/view/subscribtion/subscribtio_screens/subscribtion_view.dart';
 import 'package:soldiers_friends/view/subscribtion/subscribtion_binding.dart';
-import 'package:soldiers_friends/view/use_phoneNo/use_phone_binding.dart';
-import 'package:soldiers_friends/view/use_phoneNo/use_phone_view.dart';
+import 'package:soldiers_friends/view/forgotPassword/forgotPassword_binding.dart';
+import 'package:soldiers_friends/view/forgotPassword/forgotPassword_view.dart';
 import 'package:soldiers_friends/view/user%20details/userDetails_bindings.dart';
 import 'package:soldiers_friends/view/user%20details/userDetails_view.dart';
 
@@ -56,14 +54,11 @@ class RoutesPageList {
         name: RoutesName.signuppage,
         page: () => SignupPage(),
         binding: SignUpBinding()),
-    GetPage(
-        name: RoutesName.forgotpasswordpage,
-        page: () => const ForgotPasswordPage(),
-        binding: ForgotPasswordBinding()),
+    
     GetPage(
         name: RoutesName.usephonepage,
-        page: () => UsePhoneView(),
-        binding: CountryCodeBinding()),
+        page: () => forgotPasswordView(),
+        binding: ForgotPasswordBinding()),
     GetPage(
         name: RoutesName.profilepage,
         page: () => const ProfileView(),

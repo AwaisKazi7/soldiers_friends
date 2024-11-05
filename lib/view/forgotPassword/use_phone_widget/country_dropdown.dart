@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/model/country_code.dart';
-import 'package:soldiers_friends/view/use_phoneNo/use_phone_controller.dart';
+import 'package:soldiers_friends/view/forgotPassword/forgot_controller.dart';
 
 class CustomDropdown extends StatelessWidget {
   final double height;
@@ -26,8 +26,8 @@ class CustomDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CountryCodeController>(
-      init: CountryCodeController(), // Initialize the controller
+    return GetBuilder<ForgotPasswordController>(
+      init: ForgotPasswordController(), // Initialize the controller
       builder: (controller) {
         return Container(
           height: height,

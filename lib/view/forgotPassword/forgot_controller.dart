@@ -2,14 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/model/country_code.dart';
-import 'package:soldiers_friends/view/forgot_password/forgot_widgets.dart/otp_verification.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 
-class CountryCodeController extends GetxController {
+class ForgotPasswordController extends GetxController {
   // List of available country codes
 
   final loading = false.obs;
   final verifyotp = TextEditingController().obs;
   final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   final List<CountryCode> _countryCodes = [
@@ -50,8 +52,24 @@ class CountryCodeController extends GetxController {
     update(); // Notify listeners to rebuild
   }
 
-  Future<void> mobileotp_Send(
-      BuildContext context, var number) async {
+  sendEmail(String email) async {
+    final smtpServer =
+        gmail('admin@asolidersfriend.org', 'vldkgnqdsltyubpe'); // Or configure SMTP
+    final message = Message()
+      ..from = Address(email, 'Solider App User')
+      ..recipients.add('admin@asolidersfriend.org')
+      ..subject = 'Verification OTP by team Solider Friend : ${DateTime.now()}'
+      ..text = 'this is your verification OTP code: 2222';
+
+    try {
+      final sendReport = await send(message, smtpServer);
+      print('Email sent: ${sendReport.toString()}');
+    } on MailerException catch (e) {
+      print('Failed to send email: $e');
+    }
+  }
+
+  Future<void> mobileotp_Send(BuildContext context, var number) async {
     try {
       loading.value = true;
       auth.verifyPhoneNumber(
