@@ -149,7 +149,7 @@ class ChatDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
                                   // mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Obx(
-                                      () =>  CommonButton(
+                                      () => CommonButton(
                                           height: 30,
                                           width: 100,
                                           text: 'Yes',
@@ -165,9 +165,10 @@ class ChatDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
                                           borderRadius: 5,
                                           boxShadow: const [],
                                           onPressed: () async {
-                                            await Get.find<ChatDetailController>()
+                                            await Get.find<
+                                                    ChatDetailController>()
                                                 .blockAccount(
-                                                    context, user.chatId);
+                                                    context, user.chatId, 1);
                                           }),
                                     ),
                                     SizedBox(

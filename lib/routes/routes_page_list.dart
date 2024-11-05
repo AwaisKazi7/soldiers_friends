@@ -3,6 +3,8 @@ import 'package:soldiers_friends/model/friendModel.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/view/FriendList/friendList_view.dart';
 import 'package:soldiers_friends/view/FriendList/friendlist_binding.dart';
+import 'package:soldiers_friends/view/blocklist/blocklist_binding.dart';
+import 'package:soldiers_friends/view/blocklist/blocklist_view.dart';
 import 'package:soldiers_friends/view/bottomnavbar/bottomnavbar_binding.dart';
 import 'package:soldiers_friends/view/bottomnavbar/bottomnavbar_view.dart';
 import 'package:soldiers_friends/view/changePassword/changepassword_binding.dart';
@@ -54,7 +56,6 @@ class RoutesPageList {
         name: RoutesName.signuppage,
         page: () => SignupPage(),
         binding: SignUpBinding()),
-    
     GetPage(
         name: RoutesName.usephonepage,
         page: () => forgotPasswordView(),
@@ -128,5 +129,9 @@ class RoutesPageList {
               data: Get.arguments,
             ),
         binding: FriendDetailsBinding()),
+    GetPage(
+        name: RoutesName.blocklistview,
+        page: () => blockListView(),
+        binding: BlockListBinding()),
   ];
 }

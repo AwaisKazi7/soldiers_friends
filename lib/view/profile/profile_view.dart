@@ -174,7 +174,7 @@ class ProfileView extends StatelessWidget {
                               size: 16,
                             ),
                             onPressed: () {
-                              Get.toNamed(RoutesName.changepasswordview);
+                              Get.toNamed(RoutesName.blocklistview);
                             },
                           ),
                           const SizedBox(height: 10),

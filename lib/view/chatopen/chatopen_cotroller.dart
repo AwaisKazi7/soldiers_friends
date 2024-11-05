@@ -45,11 +45,13 @@ class ChatDetailController extends GetxController {
       return const Stream.empty(); // Return an empty stream on error
     }
   }
-
-  Future<void> blockAccount(BuildContext context, int chatid) async {
+/// action = 1 >> block
+/// action = 0 >> Unblock
+  Future<void> blockAccount(
+      BuildContext context, int chatid, int action) async {
     try {
       Blockloading.value = true;
-      await supabse_DB.getInstance.Block_user(context, chatid);
+      await supabse_DB.getInstance.Block_user(context, chatid, action);
       await Get.find<ChatViewController>().GetconversationList();
       Blockloading.value = false;
     } catch (e) {

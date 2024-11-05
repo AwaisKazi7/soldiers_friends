@@ -197,11 +197,11 @@ class supabse_DB {
     }
   }
 
-  Block_user(BuildContext context, int chatId) async {
+  Block_user(BuildContext context, int chatId,int Action) async {
     try {
       await Supabase.instance.client
           .from('Conversation_table')
-          .update({'isblocked': 1}).eq('id', chatId);
+          .update({'isblocked': Action}).eq('id', chatId);
 
       print("Block_user 👌✅");
 
