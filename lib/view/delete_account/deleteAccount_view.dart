@@ -127,23 +127,26 @@ class DeleteAccountView extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   // mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    CommonButton(
-                                        height: 30,
-                                        width: 100,
-                                        text: 'Yes',
-                                        textStyle: CommonTextStyle
-                                            .splashheadline1
-                                            .copyWith(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500),
-                                        borderRadius: 5,
-                                        boxShadow: const [],
-                                        onPressed: () async {
-                                          await controller.deleteAccount(
-                                              context,
-                                              controller
-                                                  .passowrdController.text);
-                                        }),
+                                    Obx(
+                                      () => CommonButton(
+                                          height: 30,
+                                          width: 100,
+                                          text: 'Yes',
+                                          isloading: controller.loading.value,
+                                          textStyle: CommonTextStyle
+                                              .splashheadline1
+                                              .copyWith(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500),
+                                          borderRadius: 5,
+                                          boxShadow: const [],
+                                          onPressed: () async {
+                                            await controller.deleteAccount(
+                                                context,
+                                                controller
+                                                    .passowrdController.text);
+                                          }),
+                                    ),
                                     SizedBox(
                                       width: 10,
                                     ),

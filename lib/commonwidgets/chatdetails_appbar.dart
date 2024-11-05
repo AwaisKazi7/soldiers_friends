@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:soldiers_friends/common/common_buttons.dart';
 import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
-import 'package:soldiers_friends/common/imagewidget.dart'; // Ensure this path is correct
+import 'package:soldiers_friends/common/imagewidget.dart';
+import 'package:soldiers_friends/model/friendModel.dart';
+import 'package:soldiers_friends/view/chatopen/chatopen_cotroller.dart'; // Ensure this path is correct
 
 class ChatDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
   final ImageProvider? backIcon;
@@ -10,6 +15,7 @@ class ChatDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String username;
   final String subtitle;
   final ImageProvider? threeDotIcon;
+  final FriendsModel user;
 
   const ChatDetailAppBar({
     super.key,
@@ -18,6 +24,7 @@ class ChatDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.username,
     required this.subtitle,
     this.threeDotIcon,
+    required this.user,
   });
 
   @override
@@ -102,7 +109,92 @@ class ChatDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
                 // Handle menu item selection
                 switch (value) {
                   case 'Block':
-                    // Handle Option 1
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Dialog(
+                          backgroundColor: CommonColors.backgroundColor,
+                          child: Container(
+                            height: 200,
+                            width: 300,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              child: Column(children: [
+                                SizedBox(
+                                  height: 50,
+                                ),
+                                Text(
+                                  'Block this User',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'Are you sure you want to block \nthis user?',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  // mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Obx(
+                                      () =>  CommonButton(
+                                          height: 30,
+                                          width: 100,
+                                          text: 'Yes',
+                                          isloading:
+                                              Get.find<ChatDetailController>()
+                                                  .Blockloading
+                                                  .value,
+                                          textStyle: CommonTextStyle
+                                              .splashheadline1
+                                              .copyWith(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500),
+                                          borderRadius: 5,
+                                          boxShadow: const [],
+                                          onPressed: () async {
+                                            await Get.find<ChatDetailController>()
+                                                .blockAccount(
+                                                    context, user.chatId);
+                                          }),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    CommonButton(
+                                        height: 30,
+                                        width: 100,
+                                        text: 'No',
+                                        textStyle: CommonTextStyle
+                                            .splashheadline1
+                                            .copyWith(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500),
+                                        borderRadius: 5,
+                                        boxShadow: const [],
+                                        onPressed: () {
+                                          Get.back();
+                                        }),
+                                  ],
+                                )
+                              ]),
+                            ),
+                          ),
+                        );
+                      },
+                    );
                     break;
                   case 'Report':
                     // Handle Option 2
@@ -112,7 +204,7 @@ class ChatDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
               itemBuilder: (BuildContext context) {
                 return [
                   PopupMenuItem<String>(
-                    value: 'Block User',
+                    value: 'Block',
                     child: Text('Block User'),
                   ),
                   PopupMenuItem<String>(

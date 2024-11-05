@@ -163,6 +163,20 @@ class ProfileView extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
+                          buildAccountItemSettings(
+                            text: 'Block Users',
+                            textStyle: TextStyle(
+                              color: Colors.red,
+                            ),
+                            icon: Icon(
+                              Icons.block,
+                              color: Colors.red,
+                              size: 16,
+                            ),
+                            onPressed: () {
+                              Get.toNamed(RoutesName.changepasswordview);
+                            },
+                          ),
                           const SizedBox(height: 10),
                           buildAccountItemSettings(
                             text: 'Change Password',

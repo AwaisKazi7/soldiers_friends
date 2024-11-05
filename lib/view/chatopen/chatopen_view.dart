@@ -29,6 +29,7 @@ class ChatOpenScreen extends StatelessWidget {
       return Scaffold(
         appBar: ChatDetailAppBar(
           backIcon: AssetImage(CommonAssets.backarrowIcon),
+          user: userData,
           userImage: userData.images.isNotEmpty
               ? userData.images.last
               : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',

@@ -5,9 +5,9 @@ import 'package:soldiers_friends/common/common_buttons.dart';
 import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
+import 'package:soldiers_friends/common/smallloader.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/view/likes/likes_controller.dart';
-import 'package:soldiers_friends/model/likes_model.dart';
 import 'package:soldiers_friends/view/likes/likes_widgets/likes_card.dart';
 
 class LikesView extends StatelessWidget {
@@ -118,73 +118,79 @@ class LikesView extends StatelessWidget {
                         Column(
                       children: [
                         Obx(
-                          () => Expanded(
-                            child: controller.Likestab_Index == 0
-                                ? controller.myLikesList.isEmpty
-                                    ? Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Center(child: Text('No likes users '))
-                                        ],
-                                      )
-                                    : GridView.builder(
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 2,
-                                          childAspectRatio: 0.65,
-                                          crossAxisSpacing: 10,
-                                          mainAxisSpacing: 10,
-                                        ),
-                                        itemCount:
-                                            controller.myLikesList.length,
-                                        itemBuilder: (context, index) {
-                                          homeModel Data =
-                                              controller.myLikesList[index];
-                                          return LikeCard(
-                                            Data: Data,
-                                            onTap: () {
-                                              controller.navigateToDetail(
-                                                  Data, 0);
-                                            },
-                                            verifiedIconPath:
-                                                CommonAssets.verifiedIcon,
-                                          );
-                                        },
-                                      )
-                                : controller.likesMeList.isEmpty
-                                    ? Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Center(child: Text('No likes users '))
-                                        ],
-                                      )
-                                    : GridView.builder(
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 2,
-                                          childAspectRatio: 0.65,
-                                          crossAxisSpacing: 10,
-                                          mainAxisSpacing: 10,
-                                        ),
-                                        itemCount:
-                                            controller.likesMeList.length,
-                                        itemBuilder: (context, index) {
-                                          homeModel Data =
-                                              controller.likesMeList[index];
-                                          return LikeCard(
-                                            Data: Data,
-                                            onTap: () {
-                                              controller.navigateToDetail(
-                                                  Data, 1);
-                                            },
-                                            verifiedIconPath:
-                                                CommonAssets.verifiedIcon,
-                                          );
-                                        },
-                                      ),
-                          ),
+                          () => controller.loading.value
+                              ? SmallLoader()
+                              : Expanded(
+                                  child: controller.Likestab_Index == 0
+                                      ? controller.myLikesList.isEmpty
+                                          ? Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Center(
+                                                    child:
+                                                        Text('No likes users '))
+                                              ],
+                                            )
+                                          : GridView.builder(
+                                              gridDelegate:
+                                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount: 2,
+                                                childAspectRatio: 0.65,
+                                                crossAxisSpacing: 10,
+                                                mainAxisSpacing: 10,
+                                              ),
+                                              itemCount:
+                                                  controller.myLikesList.length,
+                                              itemBuilder: (context, index) {
+                                                homeModel Data = controller
+                                                    .myLikesList[index];
+                                                return LikeCard(
+                                                  Data: Data,
+                                                  onTap: () {
+                                                    controller.navigateToDetail(
+                                                        Data, 0);
+                                                  },
+                                                  verifiedIconPath:
+                                                      CommonAssets.verifiedIcon,
+                                                );
+                                              },
+                                            )
+                                      : controller.likesMeList.isEmpty
+                                          ? Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Center(
+                                                    child:
+                                                        Text('No likes users '))
+                                              ],
+                                            )
+                                          : GridView.builder(
+                                              gridDelegate:
+                                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount: 2,
+                                                childAspectRatio: 0.65,
+                                                crossAxisSpacing: 10,
+                                                mainAxisSpacing: 10,
+                                              ),
+                                              itemCount:
+                                                  controller.likesMeList.length,
+                                              itemBuilder: (context, index) {
+                                                homeModel Data = controller
+                                                    .likesMeList[index];
+                                                return LikeCard(
+                                                  Data: Data,
+                                                  onTap: () {
+                                                    controller.navigateToDetail(
+                                                        Data, 1);
+                                                  },
+                                                  verifiedIconPath:
+                                                      CommonAssets.verifiedIcon,
+                                                );
+                                              },
+                                            ),
+                                ),
                         ),
                         // const SizedBox(
                         //     height:

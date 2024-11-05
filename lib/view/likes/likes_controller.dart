@@ -8,7 +8,7 @@ import 'package:soldiers_friends/services/SupabaseDB.dart';
 class LikesController extends GetxController {
   RxList<homeModel> likesMeList = <homeModel>[].obs;
   List<homeModel> myLikesList = <homeModel>[].obs;
-
+  RxBool loading = false.obs;
   RxInt Likestab_Index = 0.obs;
 
   @override
@@ -22,13 +22,17 @@ class LikesController extends GetxController {
   }
 
   GetlikeUser() async {
+    loading.value = true;
     var Data = await supabse_DB.getInstance.GetLikeUsers();
     if (Data['likesMeList'].length != 0) {
+      likesMeList.clear();
       likesMeList.addAll(Data['likesMeList']);
     }
     if (Data['myLikesList'].length != 0) {
+      myLikesList.clear();
       myLikesList.addAll(Data['myLikesList']);
     }
+    loading.value = false;
   }
 
   ///isMylike = 1 for add friend screen

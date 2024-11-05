@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:soldiers_friends/model/messageModel.dart';
 import 'package:soldiers_friends/services/SupabaseDB.dart';
 import 'package:soldiers_friends/services/getx_helper.dart';
+import 'package:soldiers_friends/view/chat/chat_controller.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ChatDetailController extends GetxController {
@@ -10,7 +11,7 @@ class ChatDetailController extends GetxController {
   final String chatName = "John Doe";
   final TextEditingController messagecontroller = TextEditingController();
   RxBool apihitting = false.obs;
-
+  RxBool Blockloading = false.obs;
   RxList<MessageModel> messagesList = <MessageModel>[].obs;
 
   @override
@@ -42,6 +43,24 @@ class ChatDetailController extends GetxController {
     } catch (e) {
       print('error getMessages: $e');
       return const Stream.empty(); // Return an empty stream on error
+    }
+  }
+
+  Future<void> blockAccount(BuildContext context, int chatid) async {
+    try {
+      Blockloading.value = true;
+      await supabse_DB.getInstance.Block_user(context, chatid);
+      await Get.find<ChatViewController>().GetconversationList();
+      Blockloading.value = false;
+    } catch (e) {
+      Blockloading.value = false;
+      print('Error during account deletion: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('An unexpected error occurred. Please try again.'),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
