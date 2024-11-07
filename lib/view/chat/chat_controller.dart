@@ -6,7 +6,7 @@ import 'package:soldiers_friends/services/SupabaseDB.dart';
 class ChatViewController extends GetxController {
   RxList<FriendsModel> conversationList = <FriendsModel>[].obs;
   RxList<FriendsModel> filteredList = <FriendsModel>[].obs;
-  
+
   final TextEditingController saerchController = TextEditingController();
   RxBool friendloading = false.obs;
   RxBool showsearch = false.obs;
@@ -24,6 +24,8 @@ class ChatViewController extends GetxController {
       if (Data.length != 0) {
         conversationList.clear();
         conversationList.addAll(Data);
+      } else {
+        conversationList.clear();
       }
       friendloading.value = false;
     } catch (e) {
@@ -31,8 +33,6 @@ class ChatViewController extends GetxController {
       friendloading.value = false;
     }
   }
-
-
 
   void filterConversations(String query) {
     if (query.isEmpty) {

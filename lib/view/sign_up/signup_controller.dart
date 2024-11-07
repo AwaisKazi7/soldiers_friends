@@ -27,6 +27,8 @@ class SignUpController extends GetxController {
   final FocusNode PasswordFocusNode = FocusNode();
   final FocusNode ConfirmPasswordFocusNode = FocusNode();
 
+  RxBool showpassword = true.obs;
+  RxBool showConfirmpassword = true.obs;
   RxBool apihitting = false.obs;
 
   signUp(BuildContext context) async {

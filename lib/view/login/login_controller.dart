@@ -17,7 +17,7 @@ class LoginController extends GetxController {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final SignUpcontroller = Get.put(SignUpController());
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-
+  RxBool showpassword = true.obs;
   @override
   void onReady() {
     super.onReady();

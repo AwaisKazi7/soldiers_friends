@@ -194,17 +194,17 @@ class ChatOpenScreen extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                IconButton(
-                                  iconSize: 20,
-                                  icon: Icon(
-                                    Icons.image,
-                                    color:
-                                        Colors.grey, // Set icon color to grey
-                                  ),
-                                  onPressed: () {
-                                    ImagePickerBottomSheet.show(context);
-                                  },
-                                ),
+                                // IconButton(
+                                //   iconSize: 20,
+                                //   icon: Icon(
+                                //     Icons.image,
+                                //     color:
+                                //         Colors.grey, // Set icon color to grey
+                                //   ),
+                                //   onPressed: () {
+                                //     ImagePickerBottomSheet.show(context);
+                                //   },
+                                // ),
                               ],
                             ),
                           ),

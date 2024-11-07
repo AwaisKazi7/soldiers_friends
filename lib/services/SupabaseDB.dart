@@ -197,7 +197,7 @@ class supabse_DB {
     }
   }
 
-  Block_user(BuildContext context, int chatId,int Action) async {
+  Block_user(BuildContext context, int chatId, int Action) async {
     try {
       await Supabase.instance.client
           .from('Conversation_table')
@@ -303,7 +303,8 @@ class supabse_DB {
             phone: user.phonenumber,
             DOB: user.DOB,
             bio: user.bio,
-            Country: user.country);
+            Country: user.country,
+            image: user.images);
 
         print('Updated UserId: ${user.id}');
         print('Updated User email: ${user.email}');

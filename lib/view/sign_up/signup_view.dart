@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:soldiers_friends/Common/common_assets.dart';
 import 'package:soldiers_friends/common/common_buttons.dart';
 import 'package:soldiers_friends/common/common_colors.dart';
+import 'package:soldiers_friends/common/common_rich_text.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/common/common_textform.dart';
@@ -142,22 +143,35 @@ class SignupPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        child: CustomTextFieldWidget(
-                          enabled: true,
-                          label: '',
-                          controller: controller.PassowrdController,
-                          hintText: "Password",
-                          inputType: TextInputType.name,
-                          focusNode: controller.PasswordFocusNode,
-                          onchange: (value) {
-                            controller.apihitting.value = false;
-                          },
-                          onsubmit: () {},
-                          validator: (input) => input!.length < 3
-                              ? 'Please enter at least 3 characters'
-                              : input.length > 20
-                                  ? 'Please enter less then 20 characters'
-                                  : null,
+                        child: Obx(
+                          () => CustomTextFieldWidget(
+                            enabled: true,
+                            label: '',
+                            suffixIcon: GestureDetector(
+                                onTap: () {
+                                  controller.showpassword.value =
+                                      !controller.showpassword.value;
+                                },
+                                child: Icon(
+                                  controller.showpassword.value
+                                      ? Icons.visibility_outlined
+                                      : Icons.visibility_off_outlined,
+                                )),
+                            controller: controller.PassowrdController,
+                            hintText: "Password",
+                            obscureText: controller.showpassword.value,
+                            inputType: TextInputType.name,
+                            focusNode: controller.PasswordFocusNode,
+                            onchange: (value) {
+                              controller.apihitting.value = false;
+                            },
+                            onsubmit: () {},
+                            validator: (input) => input!.length < 3
+                                ? 'Please enter at least 3 characters'
+                                : input.length > 20
+                                    ? 'Please enter less then 20 characters'
+                                    : null,
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -173,22 +187,35 @@ class SignupPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        child: CustomTextFieldWidget(
-                          enabled: true,
-                          label: '',
-                          controller: controller.confirmPasswordController,
-                          hintText: "Confirm Password",
-                          inputType: TextInputType.name,
-                          focusNode: controller.ConfirmPasswordFocusNode,
-                          onchange: (value) {
-                            controller.apihitting.value = false;
-                          },
-                          onsubmit: () {},
-                          validator: (input) => input!.length < 3
-                              ? 'Please enter at least 3 characters'
-                              : input.length > 20
-                                  ? 'Please enter less then 20 characters'
-                                  : null,
+                        child: Obx(
+                          () => CustomTextFieldWidget(
+                            enabled: true,
+                            label: '',
+                            controller: controller.confirmPasswordController,
+                            hintText: "Confirm Password",
+                            suffixIcon: GestureDetector(
+                                onTap: () {
+                                  controller.showConfirmpassword.value =
+                                      !controller.showConfirmpassword.value;
+                                },
+                                child: Icon(
+                                  controller.showConfirmpassword.value
+                                      ? Icons.visibility_outlined
+                                      : Icons.visibility_off_outlined,
+                                )),
+                            inputType: TextInputType.name,
+                            focusNode: controller.ConfirmPasswordFocusNode,
+                            obscureText: controller.showConfirmpassword.value,
+                            onchange: (value) {
+                              controller.apihitting.value = false;
+                            },
+                            onsubmit: () {},
+                            validator: (input) => input!.length < 3
+                                ? 'Please enter at least 3 characters'
+                                : input.length > 20
+                                    ? 'Please enter less then 20 characters'
+                                    : null,
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -230,68 +257,63 @@ class SignupPage extends StatelessWidget {
                   height: 20,
                 ),
                 Expanded(
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const CommonText(
-                            text: 'Already have an account?',
-                            style: CommonTextStyle.splashheadline1,
+                  child: Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CommonRichText(
+                          text1: 'Already have an account?',
+                          style1: CommonTextStyle.splashheadline1,
+                          text2: ' Sign In',
+                          style2: CommonTextStyle.splashheadline1.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            decorationColor: CommonColors.blackColor,
+                            decorationThickness: 4.0,
                           ),
-                          InkWell(
-                            hoverColor: Colors.transparent,
-                            onTap: () => Get.to(() => LoginPage()),
-                            child: Align(
-                              child: CommonText(
-                                text: 'Sign In',
-                                style: CommonTextStyle.splashheadline1.copyWith(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700,
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: CommonColors.blackColor,
-                                  decorationThickness: 4.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Obx(
-                        () => CommonButton(
-                          height: 50.98,
-                          width: 345.59,
-                          text: 'Sign Up',
-                          textStyle: CommonTextStyle.splashheadline1.copyWith(
-                              fontSize: 16, fontWeight: FontWeight.w500),
-                          borderRadius: 5,
-                          isloading: controller.apihitting.value,
-                          boxShadow: const [],
-                          onPressed: () async {
-                            if (controller.formkey.currentState!.validate()) {
-                              if (controller.PassowrdController.text ==
-                                  controller.confirmPasswordController.text) {
-                                var result = await controller.signUp(context);
-                                if (result) {
-                                  Get.toNamed(RoutesName.bottomnavbar);
-                                }
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text("Password doesn't Match"),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
-                              }
-                            }
-                          },
+                          text3: '',
+                          style3: TextStyle(),
+                          text4: '',
+                          style4: TextStyle(),
+                          text5: '',
+                          style5: TextStyle(),
                         ),
-                      ),
-                      // ),
-                    ],
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Obx(
+                          () => CommonButton(
+                            height: 50.98,
+                            width: 345.59,
+                            text: 'Sign Up',
+                            textStyle: CommonTextStyle.splashheadline1.copyWith(
+                                fontSize: 16, fontWeight: FontWeight.w500),
+                            borderRadius: 5,
+                            isloading: controller.apihitting.value,
+                            boxShadow: const [],
+                            onPressed: () async {
+                              if (controller.formkey.currentState!.validate()) {
+                                if (controller.PassowrdController.text ==
+                                    controller.confirmPasswordController.text) {
+                                  var result = await controller.signUp(context);
+                                  if (result) {
+                                    Get.toNamed(RoutesName.subscribtion);
+                                  }
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text("Password doesn't Match"),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                }
+                              }
+                            },
+                          ),
+                        ),
+                        // ),
+                      ],
+                    ),
                   ),
                 )
               ],

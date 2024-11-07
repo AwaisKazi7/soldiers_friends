@@ -117,20 +117,29 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ],
                           ),
-                          child: CommonTextform(
-                            textStyle: CommonTextStyle.splashheadline1,
-                            hintText: "Password",
-                            fillColor: CommonColors.backgroundColor,
-                            suffixImage: CommonAssets.eyeSplashIcon,
-                            controller: controller.pwdController,
-                            isUnderline: false,
-                            borderColor: CommonColors.backgroundColor,
-                            borderRadius: 5,
-                            validator: (input) => input!.length < 3
-                                ? 'Please enter at least 3 characters'
-                                : input.length > 20
-                                    ? 'Please enter less then 20 characters'
-                                    : null,
+                          child: Obx(
+                            () => CommonTextform(
+                              textStyle: CommonTextStyle.splashheadline1,
+                              hintText: "Password",
+                              fillColor: CommonColors.backgroundColor,
+                              suffixIcon: controller.showpassword.value
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                              onSuffixIconTap: () {
+                                controller.showpassword.value =
+                                    !controller.showpassword.value;
+                              },
+                              controller: controller.pwdController,
+                              isUnderline: false,
+                              borderColor: CommonColors.backgroundColor,
+                              borderRadius: 5,
+                              obscureText: controller.showpassword.value,
+                              validator: (input) => input!.length < 3
+                                  ? 'Please enter at least 3 characters'
+                                  : input.length > 20
+                                      ? 'Please enter less then 20 characters'
+                                      : null,
+                            ),
                           ),
                         ),
                         const SizedBox(
@@ -152,7 +161,8 @@ class _LoginPageState extends State<LoginPage> {
                             const Spacer(),
                             InkWell(
                               hoverColor: Colors.transparent,
-                              onTap: () => Get.toNamed(RoutesName.forgotpasswordpage),
+                              onTap: () =>
+                                  Get.toNamed(RoutesName.forgotpasswordpage),
                               child: const CommonText(
                                 text: "Forgot Password?",
                                 style: CommonTextStyle.splashheadline1,
