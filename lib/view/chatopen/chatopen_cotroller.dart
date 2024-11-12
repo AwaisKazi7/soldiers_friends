@@ -42,9 +42,11 @@ class ChatDetailController extends GetxController {
           .order('created_at', ascending: true);
     } catch (e) {
       print('error getMessages: $e');
+      // return [];
       return const Stream.empty(); // Return an empty stream on error
     }
   }
+
 /// action = 1 >> block
 /// action = 0 >> Unblock
   Future<void> blockAccount(

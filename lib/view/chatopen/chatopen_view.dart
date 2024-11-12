@@ -109,32 +109,35 @@ class ChatOpenScreen extends StatelessWidget {
                 child: StreamBuilder<List<Map<String, dynamic>>>(
                   stream: controller.getMessages(userData.chatId),
                   builder: (context, snapshot) {
-                    if (!snapshot.hasData) return SmallLoader();
-                    final messages = snapshot.data!;
-                    return ListView.builder(
-                      itemCount: messages.length,
-                      itemBuilder: (context, index) {
-                        final message = messages[index];
-                        return ChatBubble(
-                            Userimage: userData.images.isNotEmpty
-                                ? userData.images.last
-                                : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
-                            text: message['content'],
-                            isSentByUser: message['sender_id'] ==
-                                    int.parse(
-                                        LocalDataStorage.currentUserId.value)
-                                ? true
-                                : false,
-                            time: '08:10 pm',
-                            isSeen: true);
-                      },
-                    );
+                    if (!snapshot.hasData) {
+                      return SmallLoader();
+                    } else {
+                      final messages = snapshot.data!;
+                      return ListView.builder(
+                        itemCount: messages.length,
+                        itemBuilder: (context, index) {
+                          final message = messages[index];
+                          return ChatBubble(
+                              Userimage: userData.images.isNotEmpty
+                                  ? userData.images.last
+                                  : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
+                              text: message['content'],
+                              isSentByUser: message['sender_id'] ==
+                                      int.parse(
+                                          LocalDataStorage.currentUserId.value)
+                                  ? true
+                                  : false,
+                              time: '08:10 pm',
+                              isSeen: true);
+                        },
+                      );
+                    }
                   },
                 ),
               ),
             ),
             Visibility(
-              visible: userData.isDelete == 0,
+              visible: userData.isblocked == 0,
               replacement: Padding(
                 padding: EdgeInsets.all(10.sp),
                 child: Container(
@@ -143,8 +146,7 @@ class ChatOpenScreen extends StatelessWidget {
                       color: Colors.grey.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(20.sp)),
                   padding: EdgeInsets.all(20.sp),
-                  child:
-                      Center(child: Text('This user has Deleted his account')),
+                  child: Center(child: Text('This user is blocked')),
                 ),
               ),
               child: Container(

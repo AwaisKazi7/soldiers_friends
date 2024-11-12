@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/common/common_buttons.dart';
 import 'package:soldiers_friends/view/settings/settings_controller.dart';
@@ -92,19 +93,33 @@ class SettingView extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 10),
-              buildAccountItemSettings(
-                text: 'Logout',
-                textStyle: TextStyle(
-                  color: Colors.red,
+              Obx(
+                () => buildAccountItemSettings(
+                  text: 'Logout',
+                  textStyle: TextStyle(
+                    color: Colors.red,
+                  ),
+                  isloading: controller.isloggingout.value,
+                  icon: controller.isloggingout.value
+                      ? SizedBox(
+                          height: 20.sp,
+                          width: 20.sp,
+                          child: CircularProgressIndicator(
+                            color: Colors.red,
+                          ))
+                      : Icon(
+                          Icons.logout,
+                          color: Colors.red,
+                          size: 16,
+                        ),
+                  onPressed: controller.isloggingout.value
+                      ? () {
+                          print('Disable btn');
+                        }
+                      : () async {
+                          await controller.Logout(context);
+                        },
                 ),
-                icon: Icon(
-                  Icons.logout,
-                  color: Colors.red,
-                  size: 16,
-                ),
-                onPressed: () async {
-                  await controller.Logout(context);
-                },
               ),
             ],
           ),

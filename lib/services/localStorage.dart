@@ -1,7 +1,9 @@
 import 'dart:developer';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:soldiers_friends/model/users_model.dart';
+import 'package:soldiers_friends/services/SupabaseDB.dart';
 
 class LocalDataStorage extends GetxController {
   static LocalDataStorage? _instance;
@@ -18,6 +20,8 @@ class LocalDataStorage extends GetxController {
   static RxString userBio = ''.obs;
   static RxString usercountry = ''.obs;
   static RxString currentUserId = ''.obs;
+  static RxString fcmToken = ''.obs;
+  static RxString DeviceID = ''.obs;
 
   Future<void> insertUserData(UserModel userData) async {
     final SharedPreferences prefs = await _prefs;
@@ -45,14 +49,14 @@ class LocalDataStorage extends GetxController {
     currentUserId.value = userData.id.toString();
   }
 
-  // insertDeviceAndFCMInformation({FcmToken, deviceID}) async {
-  //   final SharedPreferences? prefs = await _prefs;
-  //   await prefs?.setString('fcmToken', FcmToken);
-  //   await prefs?.setString('DeviceID', deviceID);
+  insertDeviceAndFCMInformation({FcmToken, deviceID}) async {
+    final SharedPreferences? prefs = await _prefs;
+    await prefs?.setString('fcmToken', FcmToken);
+    await prefs?.setString('DeviceID', deviceID);
 
-  //   fcmToken.value = FcmToken;
-  //   DeviceID.value = deviceID;
-  // }
+    fcmToken.value = FcmToken;
+    DeviceID.value = deviceID;
+  }
 
   updateUserData(
       {fullname, phone, bio, DOB, Country, required List<String> image}) async {
@@ -87,9 +91,10 @@ class LocalDataStorage extends GetxController {
     userImage.value = prefs?.getString('profile') ?? "";
   }
 
-  logout() async {
+  logout(BuildContext context) async {
     final SharedPreferences prefs = await _prefs;
     SharedPreferences preferences = await SharedPreferences.getInstance();
+    await supabse_DB.getInstance.DeleteFcmtoken(context);
     await preferences.clear();
     currentUserId.value = "";
     username.value = "";

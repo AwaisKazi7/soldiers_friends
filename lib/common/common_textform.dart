@@ -96,6 +96,7 @@ class CommonTextform extends StatelessWidget {
       obscureText: obscureText,
       onChanged: onChanged ?? (value) {},
       keyboardType: textInputType,
+      
       textInputAction: textInputAction,
       textAlign: centerText ? TextAlign.center : TextAlign.start,
       decoration: InputDecoration(

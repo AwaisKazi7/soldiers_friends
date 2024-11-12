@@ -9,7 +9,7 @@ import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/common/common_textform.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/edit_profile/edit_profile_controller.dart';
-import 'package:soldiers_friends/view/edit_profile/edit_profile_widget/dotted_box_widget.dart';
+import 'package:country_state_picker/country_state_picker.dart';
 import 'package:soldiers_friends/view/edit_profile/edit_profile_widget/profile_pic_box.dart';
 
 import '../../common/common_date_picker.dart';
@@ -108,101 +108,112 @@ class _EditProfileViewState extends State<EditProfileView> {
                     const SizedBox(
                       height: 34,
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: CommonColors.blackColor.withOpacity(0.2),
-                            blurRadius: 4,
-                            offset: const Offset(0, 0),
-                          ),
-                        ],
-                      ),
-                      child: DatePickerWidget(
-                        hintText: "Select Date of birth",
-                        controller: controller.DOBController,
-                        selectedDate: _selectedDate,
-                        onDateSelected:
-                            _handleDateSelected, // Pass the callback
-                        fillColor: Colors.white,
-                        borderColor: Colors.grey,
-                        textStyle: CommonTextStyle.splashheadline1.copyWith(
-                            fontSize: 15, fontWeight: FontWeight.w300),
-                      ),
+                    DatePickerWidget(
+                      isUnderline: false,
+                      hintText: "Select Date of birth",
+                      controller: controller.DOBController,
+                      selectedDate: _selectedDate,
+                      onDateSelected: _handleDateSelected, // Pass the callback
+                      fillColor: Colors.white,
+                      borderColor: Colors.grey,
+                      textStyle: CommonTextStyle.splashheadline1
+                          .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
                     ),
                     const SizedBox(
                       height: 14,
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: CommonColors.blackColor.withOpacity(0.2),
-                            blurRadius: 4,
-                            offset: const Offset(0, 0),
-                          ),
-                        ],
-                      ),
-                      child: CommonTextform(
-                        hintText: 'Name',
-                        textStyle: CommonTextStyle.splashheadline1.copyWith(
-                            fontSize: 15, fontWeight: FontWeight.w300),
-                        controller: controller.nameController,
-                        fillColor: CommonColors.backgroundColor,
-                        borderColor: CommonColors.lightGray,
-                        borderRadius: 5,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter fullname';
-                          }
-                          return null;
+                    CommonTextform(
+                      isUnderline: false,
+                      borderColor: Colors.grey,
+                      hintText: 'Name',
+                      textStyle: CommonTextStyle.splashheadline1
+                          .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
+                      controller: controller.nameController,
+                      fillColor: CommonColors.backgroundColor,
+                      borderRadius: 5.sp,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter fullname';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 14,
+                    ),
+                    CommonTextform(
+                      isUnderline: false,
+                      borderColor: Colors.grey,
+                      hintText: 'About',
+                      textStyle: CommonTextStyle.splashheadline1
+                          .copyWith(fontSize: 15, fontWeight: FontWeight.w300),
+                      controller: controller.BioController,
+                      fillColor: CommonColors.backgroundColor,
+                      borderRadius: 5,
+                    ),
+                    const SizedBox(
+                      height: 14,
+                    ),
+                    Obx(
+                      () => CountryStatePicker(
+                        countryHintText: controller.Selectcountry.value,
+                        hintTextStyle: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.black),
+                        onCountryChanged: (country) {
+                          controller.Selectcountry.value = country;
+
+                          controller.CountryController.text =
+                              '${controller.Selectcountry},${controller.SelectState.value}';
                         },
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 14,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: CommonColors.blackColor.withOpacity(0.2),
-                            blurRadius: 4,
-                            offset: const Offset(0, 0),
+                        // stateValidator: (value) {
+                        //   if (value == null || value.isEmpty) {
+                        //     return 'Please Select State';
+                        //   }
+                        //   return '';
+                        // },
+                        // countryValidator: (value) {
+                        //   if (value == null || value.isEmpty) {
+                        //     return 'Please Select country';
+                        //   }
+                        //   return '';
+                        // },
+                        countryLabel: SizedBox(),
+                        stateLabel: SizedBox(),
+                        inputDecoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                          hintText: 'Select Country',
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                        ],
-                      ),
-                      child: CommonTextform(
-                        hintText: 'About',
-                        textStyle: CommonTextStyle.splashheadline1.copyWith(
-                            fontSize: 15, fontWeight: FontWeight.w300),
-                        controller: controller.BioController,
-                        fillColor: CommonColors.backgroundColor,
-                        borderColor: CommonColors.lightGray,
-                        borderRadius: 5,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 14,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: CommonColors.blackColor.withOpacity(0.2),
-                            blurRadius: 4,
-                            offset: const Offset(0, 0),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                        ],
-                      ),
-                      child: CommonTextform(
-                        hintText: 'Country',
-                        textStyle: CommonTextStyle.splashheadline1.copyWith(
-                            fontSize: 15, fontWeight: FontWeight.w300),
-                        controller: controller.CountryController,
-                        fillColor: CommonColors.backgroundColor,
-                        borderColor: CommonColors.lightGray,
-                        borderRadius: 5,
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 10),
+                        ),
+                        stateHintText: controller.SelectState.value,
+                        onStateChanged: (String value) {
+                          controller.SelectState.value = value;
+                          controller.CountryController.text =
+                              '${controller.Selectcountry},${controller.SelectState.value}';
+                        },
                       ),
                     ),
                     const SizedBox(

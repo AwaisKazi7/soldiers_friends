@@ -7,6 +7,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SettingController extends GetxController {
   bool isNotificationEnabled = false;
+  RxBool isloggingout = false.obs;
   final Logincontroller = Get.put(LoginController());
 
   @override
@@ -19,8 +20,10 @@ class SettingController extends GetxController {
     update();
   }
 
-  Future<void> Logout(BuildContext context) async {
-    await LocalDataStorage.getInstance.logout();
+  Logout(BuildContext context) async {
+    isloggingout.value = true;
+    await LocalDataStorage.getInstance.logout(context);
+    isloggingout.value = false;
     Get.offAllNamed(RoutesName.loginPage);
   }
 }

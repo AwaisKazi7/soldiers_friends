@@ -78,7 +78,9 @@ class CustomTextFieldWidget extends StatelessWidget {
             filled: true,
             suffixIcon: suffixIcon,
             prefixIcon: icon,
-            border: OutlineInputBorder(
+            border:
+            
+             OutlineInputBorder(
               borderSide: BorderSide(
                   color: fieldColor ??
                       Colors.white.withOpacity(0.8)),

@@ -13,6 +13,7 @@ class FriendsModel {
   final DateTime createdAt;
   final List<String> images;
   final int chatId;
+  final int isblocked;
   final String lastMessage;
 
   FriendsModel({
@@ -29,11 +30,12 @@ class FriendsModel {
     required this.createdAt,
     required this.images,
     required this.chatId,
+    required this.isblocked,
     required this.lastMessage,
   });
 
-  factory FriendsModel.fromMap(
-      Map<String, dynamic> json, int chatid, String lastMessage) {
+  factory FriendsModel.fromMap(Map<String, dynamic> json, int chatid,
+      String lastMessage, int isblocked) {
     return FriendsModel(
       id: json['id'],
       name: json['name'] ?? '',
@@ -49,6 +51,7 @@ class FriendsModel {
       images: List<String>.from(
           json['profilepicture_table'].map((e) => e['imageUrl'])),
       chatId: chatid,
+      isblocked: isblocked,
       lastMessage: lastMessage,
     );
   }

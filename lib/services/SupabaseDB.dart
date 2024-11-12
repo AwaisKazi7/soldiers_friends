@@ -17,6 +17,8 @@ class supabse_DB {
       url: 'https://njxqtpmtoslpyhwuatxl.supabase.co',
       anonKey:
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5qeHF0cG10b3NscHlod3VhdHhsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjkyNDYzNjgsImV4cCI6MjA0NDgyMjM2OH0.THN-5C3-t_Fqu--mCXJjpcSx1wC2LVRhcYtJ8bVD8nU',
+      realtimeClientOptions: RealtimeClientOptions(
+          eventsPerSecond: 1000, timeout: Duration(hours: 20)),
     );
 
     print('Supabase successfully connected 🤑');
@@ -35,6 +37,7 @@ class supabse_DB {
         print("Sociallogin 👌✅");
         print(User);
         await LocalDataStorage.getInstance.insertUserData(User);
+        await addFcmtoken(context, User.id);
         print('UserId : ${User.id}');
         print('User email : ${User.email}');
         Get.offAllNamed(RoutesName.bottomnavbar);
@@ -56,6 +59,7 @@ class supabse_DB {
         print(data);
         UserModel User = UserModel.fromMap(data.last);
         await LocalDataStorage.getInstance.insertUserData(User);
+        await addFcmtoken(context, User.id);
         print('UserId : ${User.id}');
         print('User email : ${User.email}');
         Get.offAllNamed(RoutesName.bottomnavbar);
@@ -84,7 +88,9 @@ class supabse_DB {
         if (User.password == Password) {
           print("login 👌✅");
           print(User);
+
           await LocalDataStorage.getInstance.insertUserData(User);
+          await addFcmtoken(context, User.id);
           print('UserId : ${User.id}');
           print('User email : ${User.email}');
           Get.offAllNamed(RoutesName.bottomnavbar);
@@ -135,12 +141,66 @@ class supabse_DB {
       print(data);
       UserModel User = UserModel.fromMap(data.last);
       await LocalDataStorage.getInstance.insertUserData(User);
+      await addFcmtoken(context, User.id);
       print('UserId : ${User.id}');
       print('User email : ${User.email}');
 
       return true;
     } catch (e) {
       print('insert_userDetails Error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("ERROR: $e"),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return false;
+    }
+  }
+
+  addFcmtoken(
+    BuildContext context,
+    int userId,
+  ) async {
+    try {
+      var data = await Supabase.instance.client.from('Fcmtoken_table').insert([
+        {
+          'userId': userId,
+          'fcmToken': LocalDataStorage.fcmToken.value,
+          'deviceId': LocalDataStorage.DeviceID.value,
+        }
+      ]);
+
+      print("Add Fcmtoken 👌✅");
+
+      return true;
+    } catch (e) {
+      print('Add Fcmtoken Error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("ERROR: $e"),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return false;
+    }
+  }
+
+  DeleteFcmtoken(
+    BuildContext context,
+  ) async {
+    try {
+      var data = await Supabase.instance.client
+          .from('Fcmtoken_table')
+          .delete()
+          .eq('fcmToken', LocalDataStorage.fcmToken.value)
+          .eq('deviceId', LocalDataStorage.DeviceID.value);
+
+      print("Delete Fcmtoken 👌✅");
+
+      return true;
+    } catch (e) {
+      print('Delete Fcmtoken Error: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("ERROR: $e"),
@@ -172,7 +232,7 @@ class supabse_DB {
             backgroundColor: Colors.green,
           ),
         );
-        LocalDataStorage.getInstance.logout();
+        LocalDataStorage.getInstance.logout(context);
         Get.offAllNamed(RoutesName.loginPage);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -432,26 +492,44 @@ class supabse_DB {
 
   GetAllUser() async {
     try {
-      var data = await Supabase.instance.client
+      var userResponse = await Supabase.instance.client
           .from('users_table')
           .select('*, profilepicture_table(*)')
           .eq('isDelete', 0)
           .neq('id', LocalDataStorage.currentUserId.value);
 
+      var likedResponse =
+          await Supabase.instance.client.from('like_table').select('*');
+
+      List<homeModel> UsersList = userResponse
+          .map(
+            (e) => homeModel.fromMap(e),
+          )
+          .toList();
+
+      var likedUserIds = (likedResponse as List)
+          .where(
+            (e) =>
+                e['liked_by_userId'] ==
+                int.parse(LocalDataStorage.currentUserId.value),
+          )
+          .map((item) => item['liked_userId'])
+          .toList();
+      print('User Count: ${UsersList.length}');
+
+      for (final userId in likedUserIds) {
+        final userData = (userResponse as List<dynamic>).firstWhere(
+          (e) => e['id'] == userId,
+        );
+        homeModel data = homeModel.fromMap(userData);
+        UsersList.removeWhere(
+          (e) => e.id == userId,
+        );
+      }
+
       print("GetAllUser 👌✅");
-      print(data);
-
-      if (data.isNotEmpty) {
-        List<homeModel> UsersList = data
-            .map(
-              (e) => homeModel.fromMap(e),
-            )
-            .toList();
-
-        print('User Count: ${UsersList.length}');
-        return UsersList;
-      } else {}
-      return [];
+      print('User Count: ${UsersList.length}');
+      return UsersList;
     } catch (e) {
       print('GetAllUser Error: $e');
       return [];
@@ -647,7 +725,7 @@ class supabse_DB {
 
       var SecondFriendResponse = await Supabase.instance.client
           .from('Conversation_table')
-          .select('second_userId,id')
+          .select('second_userId,id,isblocked')
           .eq('first_userId', int.parse(LocalDataStorage.currentUserId.value))
           .eq('isblocked', 0);
 
@@ -678,7 +756,7 @@ class supabse_DB {
             (e) => e['id'] == Data['userid'],
           );
           FriendsModel data =
-              FriendsModel.fromMap(userData, Data['chatid'], '');
+              FriendsModel.fromMap(userData, Data['chatid'], '', 0);
           FriendsList.add(data);
         }
 
@@ -741,7 +819,7 @@ class supabse_DB {
             (e) => e['id'] == Data['userid'],
           );
           FriendsModel data =
-              FriendsModel.fromMap(userData, Data['chatid'], '');
+              FriendsModel.fromMap(userData, Data['chatid'], '', 1);
           FriendsList.add(data);
         }
 
@@ -767,14 +845,14 @@ class supabse_DB {
       //Fetch the liked user IDs
       var FirstFriendResponse = await Supabase.instance.client
           .from('Conversation_table')
-          .select('first_userId,id,last_message')
-          .eq('isblocked', 0)
+          .select('first_userId,id,last_message,isblocked')
+          // .eq('isblocked', 0)
           .eq('second_userId', int.parse(LocalDataStorage.currentUserId.value));
 
       var SecondFriendResponse = await Supabase.instance.client
           .from('Conversation_table')
-          .select('second_userId,id,last_message')
-          .eq('isblocked', 0)
+          .select('second_userId,id,last_message,isblocked')
+          // .eq('isblocked', 0)
           .eq('first_userId', int.parse(LocalDataStorage.currentUserId.value));
 
       //Fetch All users
@@ -787,7 +865,8 @@ class supabse_DB {
           List_of_ids.add({
             'userid': data['first_userId'],
             'chatid': data['id'],
-            'last_message': data['last_message']
+            'last_message': data['last_message'],
+            'isblocked': data['isblocked']
           });
         }
       }
@@ -799,7 +878,8 @@ class supabse_DB {
           List_of_ids.add({
             'userid': data['second_userId'],
             'chatid': data['id'],
-            'last_message': data['last_message']
+            'last_message': data['last_message'],
+            'isblocked': data['isblocked']
           });
         }
       }
@@ -811,8 +891,9 @@ class supabse_DB {
           final userData = (userResponse as List<dynamic>).firstWhere(
             (e) => e['id'] == Data['userid'],
           );
-          FriendsModel data = FriendsModel.fromMap(
-              userData, Data['chatid'], Data['last_message']);
+
+          FriendsModel data = FriendsModel.fromMap(userData, Data['chatid'],
+              Data['last_message'], Data['isblocked']);
           ConversationList.add(data);
         }
 

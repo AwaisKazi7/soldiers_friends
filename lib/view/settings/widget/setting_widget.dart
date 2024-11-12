@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:soldiers_friends/view/settings/widget/switch.dart';
 
 import '../../../common/common_colors.dart';
@@ -9,6 +10,7 @@ Widget buildAccountItemSettings({
   required String text,
   TextStyle? textStyle,
   Widget? icon,
+  bool? isloading,
   required void Function() onPressed,
   bool? switchValue,
   void Function(bool)? onSwitchChanged,
@@ -33,11 +35,12 @@ Widget buildAccountItemSettings({
               value: switchValue,
               onChanged: onSwitchChanged!,
             )
-          : icon??Icon(
-              Icons.arrow_forward_ios,
-              color: CommonColors.subHeafingBlackColor,
-              size: 16,
-            ),
+          : icon ??
+              Icon(
+                Icons.arrow_forward_ios,
+                color: CommonColors.subHeafingBlackColor,
+                size: 16,
+              ),
       onTap: onPressed,
     ),
   );

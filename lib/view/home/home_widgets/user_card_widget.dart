@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/common/imagewidget.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/model/home_model.dart';
+import 'package:soldiers_friends/view/chat/chat_view.dart';
 
 class UserCard extends StatelessWidget {
   final homeModel user;
@@ -64,9 +66,10 @@ class UserCard extends StatelessWidget {
                   const SizedBox(width: 4),
                   CommonText(
                     text: user.country,
+                    maxLines: 1,
                     style: CommonTextStyle.getstartedb1Style.copyWith(
                         color: CommonColors.backgroundColor,
-                        fontSize: 24,
+                        fontSize: 15.sp,
                         fontWeight: FontWeight.w500),
                   ),
                 ],

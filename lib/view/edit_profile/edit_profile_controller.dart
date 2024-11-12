@@ -21,6 +21,8 @@ class EditProfileController extends GetxController {
   final BioController = TextEditingController();
   final CountryController = TextEditingController();
   final DOBController = TextEditingController();
+  RxString Selectcountry = 'Select Country'.obs;
+  RxString SelectState = 'Select state'.obs;
 
   final FocusNode NameFocusNode = FocusNode();
   final FocusNode PhoneFocusNode = FocusNode();
