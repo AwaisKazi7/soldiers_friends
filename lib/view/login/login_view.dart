@@ -159,10 +159,10 @@ class _LoginPageState extends State<LoginPage> {
                             //   style: CommonTextStyle.splashheadline1,
                             // ),
                             const Spacer(),
-                            InkWell(
-                              hoverColor: Colors.transparent,
+                            GestureDetector(
                               onTap: () {
-                                Get.toNamed(RoutesName.forgotpasswordpage);
+                                Get.toNamed(RoutesName.forgotpasswordpage,
+                                    arguments: {'type': 'forget'});
                               },
                               child: const CommonText(
                                 text: "Forgot Password?",

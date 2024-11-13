@@ -69,108 +69,110 @@ class blockListView extends StatelessWidget {
                                       return FriendCard(
                                         Data: Data,
                                         onTap: () {
-                                          
-                                                  showDialog(
-                                                    context: context,
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return Dialog(
-                                                        backgroundColor:
-                                                            CommonColors
-                                                                .backgroundColor,
-                                                        child: Container(
-                                                          height: 200,
-                                                          width: 300,
-                                                          child: Padding(
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                                    horizontal:
-                                                                        20),
-                                                            child: Column(
-                                                                children: [
-                                                                  SizedBox(
-                                                                    height: 50,
-                                                                  ),
-                                                                  Text(
-                                                                    'Unblock this User',
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .black,
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return Dialog(
+                                                backgroundColor: CommonColors
+                                                    .backgroundColor,
+                                                child: Container(
+                                                  height: 200,
+                                                  width: 300,
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 20),
+                                                    child: Column(children: [
+                                                      SizedBox(
+                                                        height: 50,
+                                                      ),
+                                                      Text(
+                                                        'Unblock this User',
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 10,
+                                                      ),
+                                                      Text(
+                                                        'Are you sure you want to unblock \nthis user?',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 12,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 20,
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        // mainAxisSize: MainAxisSize.max,
+                                                        children: [
+                                                          Obx(
+                                                            () => CommonButton(
+                                                                height: 30,
+                                                                width: 100,
+                                                                text: 'Yes',
+                                                                isloading: controller
+                                                                    .Blockcontroller
+                                                                    .Blockloading
+                                                                    .value,
+                                                                textStyle: CommonTextStyle
+                                                                    .splashheadline1
+                                                                    .copyWith(
                                                                         fontSize:
                                                                             16,
                                                                         fontWeight:
-                                                                            FontWeight.w600),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height: 10,
-                                                                  ),
-                                                                  Text(
-                                                                    'Are you sure you want to unblock \nthis user?',
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          12,
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height: 20,
-                                                                  ),
-                                                                  Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .center,
-                                                                    // mainAxisSize: MainAxisSize.max,
-                                                                    children: [
-                                                                      Obx(
-                                                                        () => CommonButton(
-                                                                            height: 30,
-                                                                            width: 100,
-                                                                            text: 'Yes',
-                                                                            isloading: Get.find<ChatDetailController>().Blockloading.value,
-                                                                            textStyle: CommonTextStyle.splashheadline1.copyWith(fontSize: 16, fontWeight: FontWeight.w500),
-                                                                            borderRadius: 5,
-                                                                            boxShadow: const [],
-                                                                            onPressed: () async {
-                                                                              await Get.find<ChatDetailController>().blockAccount(context, Data.chatId,0);
-                                                                            }),
-                                                                      ),
-                                                                      SizedBox(
-                                                                        width:
-                                                                            10,
-                                                                      ),
-                                                                      CommonButton(
-                                                                          height:
-                                                                              30,
-                                                                          width:
-                                                                              100,
-                                                                          text:
-                                                                              'No',
-                                                                          textStyle: CommonTextStyle.splashheadline1.copyWith(
-                                                                              fontSize:
-                                                                                  16,
-                                                                              fontWeight: FontWeight
-                                                                                  .w500),
-                                                                          borderRadius:
-                                                                              5,
-                                                                          boxShadow: const [],
-                                                                          onPressed:
-                                                                              () {
-                                                                            Get.back();
-                                                                          }),
-                                                                    ],
-                                                                  )
-                                                                ]),
+                                                                            FontWeight
+                                                                                .w500),
+                                                                borderRadius: 5,
+                                                                boxShadow: const [],
+                                                                onPressed:
+                                                                    () async {
+                                                                  await Get.find<
+                                                                          ChatDetailController>()
+                                                                      .blockAccount(
+                                                                          context,
+                                                                          Data.chatId,
+                                                                          0);
+                                                                }),
                                                           ),
-                                                        ),
-                                                      );
-                                                    },
-                                                  );
-                                               
+                                                          SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          CommonButton(
+                                                              height: 30,
+                                                              width: 100,
+                                                              text: 'No',
+                                                              textStyle: CommonTextStyle
+                                                                  .splashheadline1
+                                                                  .copyWith(
+                                                                      fontSize:
+                                                                          16,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500),
+                                                              borderRadius: 5,
+                                                              boxShadow: const [],
+                                                              onPressed: () {
+                                                                Get.back();
+                                                              }),
+                                                        ],
+                                                      )
+                                                    ]),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
                                         },
                                         verifiedIconPath:
                                             CommonAssets.verifiedIcon,

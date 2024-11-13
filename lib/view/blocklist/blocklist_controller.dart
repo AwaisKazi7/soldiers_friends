@@ -2,10 +2,11 @@ import 'package:get/get.dart';
 import 'package:soldiers_friends/model/friendModel.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/services/SupabaseDB.dart';
+import 'package:soldiers_friends/view/chatopen/chatopen_cotroller.dart';
 
 class BlockListController extends GetxController {
   RxList<FriendsModel> blockList = <FriendsModel>[].obs;
-
+final Blockcontroller = Get.put(ChatDetailController());
   RxInt Likestab_Index = 0.obs;
   RxBool loading = false.obs;
 

@@ -11,10 +11,8 @@ class otpVerificationScreen extends StatelessWidget {
   otpVerificationScreen({
     super.key,
     required this.email,
-    required this.type,
   });
   final String email;
-  final String type;
 
   final _formkey = GlobalKey<FormState>();
 
@@ -64,7 +62,7 @@ class otpVerificationScreen extends StatelessWidget {
                   ),
                   OtpfieldWidget(otpController: controller.OtpController),
                   SizedBox(
-                    height: 20.sp,
+                    height: 25.sp,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -88,7 +86,6 @@ class otpVerificationScreen extends StatelessWidget {
                                       EdgeInsets.symmetric(horizontal: 5.sp),
                                   child: SizedBox(
                                       width: 15.sp,
-                                      height: 15.sp,
                                       child: CircularProgressIndicator(
                                         color: CommonColors.gradientEndColor,
                                       )),
@@ -132,13 +129,8 @@ class otpVerificationScreen extends StatelessWidget {
                     boxShadow: const [],
                     onPressed: () async {
                       print(controller.emailController.text);
-                      if (type == 'forget') {
-                        await controller.forgetPassword_otpVerification(
-                            context, controller.OtpController.text, email);
-                      } else {
-                        // await controller.user_otpVerification(
-                        //     context, controller.OtpController.text, email);
-                      }
+                      await controller.forgetPassword_otpVerification(
+                          context, controller.OtpController.text, email);
                     }),
               ),
             ),

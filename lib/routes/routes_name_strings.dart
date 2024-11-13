@@ -21,4 +21,5 @@ class RoutesName {
   static String blocklistview = "/blocklistview";
   static String otpVerification = "/otpVerification";
   static String resetpasswordview = "/resetpasswordview";
+  static String emailVerification = "/emailVerification";
 }

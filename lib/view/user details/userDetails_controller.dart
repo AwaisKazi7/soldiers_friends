@@ -7,6 +7,7 @@ import 'package:soldiers_friends/view/likes/likes_controller.dart';
 class UserDetailsController extends GetxController {
   RxBool showmessageBox = false.obs;
   RxBool AddFriendloading = false.obs;
+  RxBool Dislikeloading = false.obs;
 
   var likesController = Get.put(LikesController());
 
@@ -24,6 +25,16 @@ class UserDetailsController extends GetxController {
       showmessageBox.value = true;
     } else {
       showmessageBox.value = false;
+    }
+  }
+
+  dislikeApi(BuildContext context, homeModel userdata) async {
+    Dislikeloading.value = true;
+    var data = await supabse_DB.getInstance.dislikeApi(context, userdata.id);
+    Dislikeloading.value = false;
+    if (data) {
+      likesController.likesMeList.remove(userdata);
+      Get.back();
     }
   }
 }

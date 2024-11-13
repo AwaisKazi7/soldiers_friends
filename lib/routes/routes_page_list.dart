@@ -44,6 +44,8 @@ import 'package:soldiers_friends/view/forgotPassword/forgotPassword_binding.dart
 import 'package:soldiers_friends/view/forgotPassword/forgotPassword_view.dart';
 import 'package:soldiers_friends/view/user%20details/userDetails_bindings.dart';
 import 'package:soldiers_friends/view/user%20details/userDetails_view.dart';
+import 'package:soldiers_friends/view/user_verification/emailverification_view.dart';
+import 'package:soldiers_friends/view/user_verification/userVerification_binding.dart';
 
 class RoutesPageList {
   static List<GetPage> routList = [
@@ -59,10 +61,10 @@ class RoutesPageList {
         name: RoutesName.signuppage,
         page: () => SignupPage(),
         binding: SignUpBinding()),
-    GetPage(
-        name: RoutesName.usephonepage,
-        page: () => forgotPasswordView(),
-        binding: ForgotPasswordBinding()),
+    // GetPage(
+    //     name: RoutesName.usephonepage,
+    //     page: () => forgotPasswordView(),
+    //     binding: ForgotPasswordBinding()),
     GetPage(
         name: RoutesName.profilepage,
         page: () => const ProfileView(),
@@ -137,22 +139,27 @@ class RoutesPageList {
         page: () => blockListView(),
         binding: BlockListBinding()),
     GetPage(
+        arguments: {'type': String},
         name: RoutesName.forgotpasswordpage,
-        page: () => forgotPasswordView(),
+        page: () => forgotPasswordView(
+              type: Get.arguments['type'],
+            ),
         binding: ForgotPasswordBinding()),
     GetPage(
-        arguments: {
-          'email': String,
-        },
+        arguments: {'email': String, 'type': String},
         name: RoutesName.otpVerification,
-        page: () => otpVerificationScreen(email: Get.arguments['email']),
+        page: () => otpVerificationScreen(
+              email: Get.arguments['email'],
+              type: Get.arguments['type'],
+            ),
         binding: ForgotPasswordBinding()),
     GetPage(
-        arguments: {
-          'email': String,
-        },
+        arguments: {'email': String, 'type': String},
         name: RoutesName.resetpasswordview,
-        page: () => ResetPasswordView(email: Get.arguments['email']),
+        page: () => ResetPasswordView(
+              email: Get.arguments['email'],
+              type: Get.arguments['type'],
+            ),
         binding: ResetPasswordBinding()),
   ];
 }

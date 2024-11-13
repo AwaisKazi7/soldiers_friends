@@ -9,8 +9,9 @@ import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/resetPassword/resetpassword_Controller.dart';
 
 class ResetPasswordView extends StatelessWidget {
-  ResetPasswordView({super.key, required this.email});
+  ResetPasswordView({super.key, required this.email, required this.type});
   final String email;
+  final String type;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ResetPasswordController>(builder: (controller) {
@@ -119,7 +120,19 @@ class ResetPasswordView extends StatelessWidget {
                             if (controller.formkey.currentState!.validate()) {
                               if (controller.NewPasswordController.text ==
                                   controller.ConfirmPasswordController.text) {
-                                await controller.ResetPassword(context, email);
+                                 var flag = await controller.ResetPassword(
+                                      context, email);
+                                if (flag) {
+                                  if(type == 'forget')
+                                  {
+                                    Get.offAllNamed(RoutesName.loginPage);
+
+                                  }
+                                  else if (type == 'changePassword')
+                                  {
+                                    Get.offAllNamed(RoutesName.loginPage);
+                                  }
+                                } 
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(

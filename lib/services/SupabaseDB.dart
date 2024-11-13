@@ -346,7 +346,6 @@ class supabse_DB {
           backgroundColor: Colors.green,
         ),
       );
-      Get.offAllNamed(RoutesName.loginPage);
       return true;
     } catch (e) {
       print('ChangePassword Error: $e');
@@ -578,8 +577,7 @@ class supabse_DB {
       //Fetch All users
       var userResponse = await Supabase.instance.client
           .from('users_table')
-          .select('*,profilepicture_table(*)')
-          .eq('isDelete', 0);
+          .select('*,profilepicture_table(*)');
 
       if (likedResponse.isNotEmpty) {
         //----getting Ids of those users whom i like
@@ -600,7 +598,9 @@ class supabse_DB {
             (e) => e['id'] == userId,
           );
           homeModel data = homeModel.fromMap(userData);
-          myLikesList.add(data);
+          if (data.isDelete == 0) {
+            myLikesList.add(data);
+          }
         }
 
         //----getting Ids of those users who like me
@@ -620,7 +620,9 @@ class supabse_DB {
           );
 
           homeModel data = homeModel.fromMap(userData);
-          likesMeList.add(data);
+          if (data.isDelete == 0) {
+            likesMeList.add(data);
+          }
         }
 
         print('GetLikeUsers 👌✅');
@@ -665,6 +667,45 @@ class supabse_DB {
       return true;
     } catch (e) {
       print('likeApi Error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("ERROR: $e"),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return false;
+    }
+  }
+
+  dislikeApi(BuildContext context, int userId) async {
+    try {
+      var data = await Supabase.instance.client
+          .from('like_table')
+          .select('*')
+          .eq('liked_userId', userId)
+          .eq('liked_by_userId',
+              int.parse(LocalDataStorage.currentUserId.value));
+
+      if (data.isNotEmpty) {
+        await Supabase.instance.client
+            .from('like_table')
+            .delete()
+            .eq('liked_userId', userId)
+            .eq('liked_by_userId',
+                int.parse(LocalDataStorage.currentUserId.value));
+
+        print("dislikeApi 👌✅");
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("This user is already in Removed from you likeslist"),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+      return true;
+    } catch (e) {
+      print('dislikeApi Error: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("ERROR: $e"),
@@ -760,8 +801,7 @@ class supabse_DB {
       //Fetch All users
       var userResponse = await Supabase.instance.client
           .from('users_table')
-          .select('*,profilepicture_table(*)')
-          .eq('isDelete', 0);
+          .select('*,profilepicture_table(*)');
 
       if (FirstFriendResponse.isNotEmpty) {
         for (final data in FirstFriendResponse) {
@@ -786,7 +826,9 @@ class supabse_DB {
           );
           FriendsModel data =
               FriendsModel.fromMap(userData, Data['chatid'], '', 0);
-          FriendsList.add(data);
+          if (data.isDelete == 0) {
+            FriendsList.add(data);
+          }
         }
 
         print('GetfriendsList 👌✅');
@@ -824,8 +866,7 @@ class supabse_DB {
       //Fetch All users
       var userResponse = await Supabase.instance.client
           .from('users_table')
-          .select('*,profilepicture_table(*)')
-          .eq('isDelete', 0);
+          .select('*,profilepicture_table(*)');
 
       if (FirstFriendResponse.isNotEmpty) {
         for (final data in FirstFriendResponse) {
@@ -850,7 +891,9 @@ class supabse_DB {
           );
           FriendsModel data =
               FriendsModel.fromMap(userData, Data['chatid'], '', 1);
-          FriendsList.add(data);
+          if (data.isDelete == 0) {
+            FriendsList.add(data);
+          }
         }
 
         print('GetBlockedFriendsList 👌✅');
@@ -925,7 +968,9 @@ class supabse_DB {
 
           FriendsModel data = FriendsModel.fromMap(userData, Data['chatid'],
               Data['last_message'], Data['isblocked']);
-          ConversationList.add(data);
+          if (data.isDelete == 0) {
+            ConversationList.add(data);
+          }
         }
 
         print('GetconversationList 👌✅');

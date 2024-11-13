@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/model/messageModel.dart';
 import 'package:soldiers_friends/services/SupabaseDB.dart';
-import 'package:soldiers_friends/services/getx_helper.dart';
 import 'package:soldiers_friends/view/chat/chat_controller.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ChatDetailController extends GetxController {
-  final controllersProvider = Get.put(GetxControllersProvider());
-  final String chatName = "John Doe";
+  final chatcontrollers = Get.put(ChatViewController());
   final TextEditingController messagecontroller = TextEditingController();
   RxBool apihitting = false.obs;
   RxBool Blockloading = false.obs;
@@ -54,6 +52,7 @@ class ChatDetailController extends GetxController {
     try {
       Blockloading.value = true;
       await supabse_DB.getInstance.Block_user(context, chatid, action);
+      //  chatcontrollers.conversationList.firstWhere((e) => e.chatId == chatid,).isblocked = 1;
       await Get.find<ChatViewController>().GetconversationList();
       Blockloading.value = false;
     } catch (e) {

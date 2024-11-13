@@ -7,14 +7,16 @@ import 'package:soldiers_friends/common/common_rich_text.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/common/common_textform.dart';
+import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/forgotPassword/forgot_controller.dart';
+import 'package:soldiers_friends/view/user_verification/userVerification_controller.dart';
 
-class forgotPasswordView extends StatelessWidget {
-  forgotPasswordView({super.key, required this.type});
-  final String type;
+class Emailverification_View extends StatelessWidget {
+  Emailverification_View({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ForgotPasswordController>(builder: (controller) {
+    return GetBuilder<UserverificationController>(builder: (controller) {
       return Scaffold(
         backgroundColor: CommonColors.backgroundColor,
         body: SafeArea(
@@ -153,8 +155,8 @@ class forgotPasswordView extends StatelessWidget {
                               boxShadow: const [],
                               onPressed: () async {
                                 print(controller.emailController.text);
-                                await controller.sendEmail(context,
-                                    controller.emailController.text, 'forget');
+                                await controller.sendEmail(
+                                    context, controller.emailController.text);
                               }),
                         ),
                         const SizedBox(
@@ -162,7 +164,7 @@ class forgotPasswordView extends StatelessWidget {
                         ),
                         CommonRichText(
                           text1:
-                              'By providing Email, I hereby agree and\n accept the ',
+                              'By providing my phone number, I hereby agree and\n accept the ',
                           style1: CommonTextStyle.getstartedt1,
                           text2: 'Terms of Service',
                           style2: CommonTextStyle.gradienttext.copyWith(

@@ -181,7 +181,8 @@ class ProfileView extends StatelessWidget {
                           buildAccountItemSettings(
                             text: 'Change Password',
                             onPressed: () {
-                              Get.toNamed(RoutesName.changepasswordview);
+                              Get.toNamed(RoutesName.forgotpasswordpage,
+                                  arguments: {'type': 'changePassword'});
                             },
                           ),
                           const SizedBox(height: 10),

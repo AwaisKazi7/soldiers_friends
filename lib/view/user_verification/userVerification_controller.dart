@@ -1,15 +1,10 @@
-import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:soldiers_friends/model/country_code.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/services/emailsender.dart';
-import 'package:soldiers_friends/view/forgotPassword/verificationScreen.dart';
 
-class ForgotPasswordController extends GetxController {
+class UserverificationController extends GetxController {
   // List of available country codes
 
   final loading = false.obs;
@@ -30,13 +25,12 @@ class ForgotPasswordController extends GetxController {
     super.onReady();
   }
 
-  sendEmail(BuildContext context, String email, String type) async {
+  sendEmail(BuildContext context, String email) async {
     try {
       sendOtploading.value = true;
       var flag = await emailSender.getInstance.sendOtp(email);
       if (flag) {
-        Get.toNamed(RoutesName.otpVerification,
-            arguments: {'email': email});
+        Get.toNamed(RoutesName.otpVerification, arguments: {'email': email});
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -57,7 +51,7 @@ class ForgotPasswordController extends GetxController {
       ResendOtploading.value = true;
       var flag = await emailSender.getInstance.sendOtp(email);
       if (flag) {
-        // Get.toNamed(RoutesName.otpVerification, arguments: {'email': email});
+        Get.toNamed(RoutesName.otpVerification, arguments: {'email': email});
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -73,8 +67,7 @@ class ForgotPasswordController extends GetxController {
     }
   }
 
-  forgetPassword_otpVerification(
-      BuildContext context, String OTP, String email) async {
+  otpVerification(BuildContext context, String OTP, String email) async {
     try {
       verifyOtploading.value = true;
       var flag = await emailSender.getInstance.verifyOTP(OTP);
@@ -94,7 +87,6 @@ class ForgotPasswordController extends GetxController {
       verifyOtploading.value = false;
     }
   }
-
 
   Future<void> mobileotp_Send(BuildContext context, var number) async {
     try {
