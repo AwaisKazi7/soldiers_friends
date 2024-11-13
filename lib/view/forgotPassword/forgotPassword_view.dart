@@ -7,6 +7,7 @@ import 'package:soldiers_friends/common/common_rich_text.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/common/common_textform.dart';
+import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/forgotPassword/forgot_controller.dart';
 
 class forgotPasswordView extends StatelessWidget {
@@ -142,22 +143,24 @@ class forgotPasswordView extends StatelessWidget {
                         const SizedBox(
                           height: 18,
                         ),
-                        CommonButton(
-                            height: 50.98,
-                            width: 345.59,
-                            text: 'Confirm',
-                            textStyle: CommonTextStyle.splashheadline1.copyWith(
-                                fontSize: 16, fontWeight: FontWeight.w500),
-                            borderRadius: 5,
-                            boxShadow: const [],
-                            onPressed: () async {
-                              print(controller.emailController.text);
-                              await controller
-                                  .sendEmail(controller.emailController.text);
-                              // controller.mobileotp_Send(context,
-                              //     controller.phoneNumberController.text);
-                              // Get.to(() => OtpVerification());
-                            }),
+                        Obx(
+                          () => CommonButton(
+                              height: 50.98,
+                              width: 345.59,
+                              text: 'Confirm',
+                              isloading: controller.sendOtploading.value,
+                              textStyle: CommonTextStyle.splashheadline1
+                                  .copyWith(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500),
+                              borderRadius: 5,
+                              boxShadow: const [],
+                              onPressed: () async {
+                                print(controller.emailController.text);
+                                await controller.sendEmail(
+                                    context, controller.emailController.text);
+                              }),
+                        ),
                         const SizedBox(
                           height: 18,
                         ),

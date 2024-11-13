@@ -334,6 +334,33 @@ class supabse_DB {
     }
   }
 
+  ResetPassword(BuildContext context, String NewPassword, String email) async {
+    try {
+      var data = await Supabase.instance.client
+          .from('users_table')
+          .update({'password': NewPassword}).eq('email', email);
+      print("ResetPassword 👌✅");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Your Password has been updated successfully.'),
+          backgroundColor: Colors.green,
+        ),
+      );
+      Get.offAllNamed(RoutesName.loginPage);
+      return true;
+    } catch (e) {
+      print('ChangePassword Error: $e');
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to updated Password'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return false;
+    }
+  }
+
   editProfile(BuildContext context, String fullname, String phonenumber,
       String Bio, String DOB, String country, List<File?> images) async {
     try {
@@ -551,7 +578,8 @@ class supabse_DB {
       //Fetch All users
       var userResponse = await Supabase.instance.client
           .from('users_table')
-          .select('*,profilepicture_table(*)');
+          .select('*,profilepicture_table(*)')
+          .eq('isDelete', 0);
 
       if (likedResponse.isNotEmpty) {
         //----getting Ids of those users whom i like
@@ -732,7 +760,8 @@ class supabse_DB {
       //Fetch All users
       var userResponse = await Supabase.instance.client
           .from('users_table')
-          .select('*,profilepicture_table(*)');
+          .select('*,profilepicture_table(*)')
+          .eq('isDelete', 0);
 
       if (FirstFriendResponse.isNotEmpty) {
         for (final data in FirstFriendResponse) {
@@ -795,7 +824,8 @@ class supabse_DB {
       //Fetch All users
       var userResponse = await Supabase.instance.client
           .from('users_table')
-          .select('*,profilepicture_table(*)');
+          .select('*,profilepicture_table(*)')
+          .eq('isDelete', 0);
 
       if (FirstFriendResponse.isNotEmpty) {
         for (final data in FirstFriendResponse) {
@@ -858,7 +888,8 @@ class supabse_DB {
       //Fetch All users
       var userResponse = await Supabase.instance.client
           .from('users_table')
-          .select('*,profilepicture_table(*)');
+          .select('*,profilepicture_table(*)')
+          .eq('isDelete', 0);
 
       if (FirstFriendResponse.isNotEmpty) {
         for (final data in FirstFriendResponse) {

@@ -1,9 +1,13 @@
+import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/model/country_code.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
+import 'package:soldiers_friends/routes/routes_name_strings.dart';
+import 'package:soldiers_friends/services/emailsender.dart';
+import 'package:soldiers_friends/view/forgotPassword/verificationScreen.dart';
 
 class ForgotPasswordController extends GetxController {
   // List of available country codes
@@ -12,60 +16,80 @@ class ForgotPasswordController extends GetxController {
   final verifyotp = TextEditingController().obs;
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController OtpController = TextEditingController();
+  RxBool apihitting = false.obs;
+
+  RxBool ResendOtploading = false.obs;
+  RxBool sendOtploading = false.obs;
+  RxBool verifyOtploading = false.obs;
+
   final FirebaseAuth auth = FirebaseAuth.instance;
-
-  final List<CountryCode> _countryCodes = [
-    CountryCode(code: 'Select\nCode'),
-    CountryCode(code: '+1'),
-    CountryCode(code: '+44'),
-    CountryCode(code: '+33'),
-    CountryCode(code: '+92'),
-    CountryCode(code: '+67'),
-    CountryCode(code: '+71'),
-    // Add more country codes as needed
-  ];
-
-  // Private selected country code
-  CountryCode? _selectedCountryCode;
-
-  // Getter for country codes
-  List<CountryCode> get countryCodes => _countryCodes;
-
-  // Getter for the selected country code
-  CountryCode? get selectedCountryCode => _selectedCountryCode;
 
   @override
   void onReady() {
     super.onReady();
-    // navigate();
   }
 
-  // void navigate() {
-  //   Future.delayed(const Duration(seconds: 2), () {
-  //     Get.offAndToNamed(RoutesName.usephonepage);
-  //   });
-  // }
-
-  // Method to update the selected country code
-  void selectCountryCode(CountryCode? countryCode) {
-    _selectedCountryCode = countryCode;
-    update(); // Notify listeners to rebuild
-  }
-
-  sendEmail(String email) async {
-    final smtpServer =
-        gmail('admin@asolidersfriend.org', 'vldkgnqdsltyubpe'); // Or configure SMTP
-    final message = Message()
-      ..from = Address(email, 'Solider App User')
-      ..recipients.add('admin@asolidersfriend.org')
-      ..subject = 'Verification OTP by team Solider Friend : ${DateTime.now()}'
-      ..text = 'this is your verification OTP code: 2222';
-
+  sendEmail(BuildContext context, String email) async {
     try {
-      final sendReport = await send(message, smtpServer);
-      print('Email sent: ${sendReport.toString()}');
-    } on MailerException catch (e) {
+      sendOtploading.value = true;
+      var flag = await emailSender.getInstance.sendOtp(email);
+      if (flag) {
+        Get.toNamed(RoutesName.otpVerification, arguments: {'email': email});
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('There is some issue with email sender'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+      sendOtploading.value = false;
+    } catch (e) {
       print('Failed to send email: $e');
+      sendOtploading.value = false;
+    }
+  }
+
+  ResendEmail(BuildContext context, String email) async {
+    try {
+      ResendOtploading.value = true;
+      var flag = await emailSender.getInstance.sendOtp(email);
+      if (flag) {
+        Get.toNamed(RoutesName.otpVerification, arguments: {'email': email});
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('There is some issue with email sender'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+      ResendOtploading.value = false;
+    } catch (e) {
+      print('Failed to send email: $e');
+      ResendOtploading.value = false;
+    }
+  }
+
+  otpVerification(BuildContext context, String OTP, String email) async {
+    try {
+      verifyOtploading.value = true;
+      var flag = await emailSender.getInstance.verifyOTP(OTP);
+      if (flag) {
+        Get.toNamed(RoutesName.resetpasswordview, arguments: {'email': email});
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('There is some issue with otp Verification'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+      verifyOtploading.value = false;
+    } catch (e) {
+      print('Failed to send email: $e');
+      verifyOtploading.value = false;
     }
   }
 

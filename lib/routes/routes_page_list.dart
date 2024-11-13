@@ -16,6 +16,7 @@ import 'package:soldiers_friends/view/chatopen/chatopen_view.dart';
 import 'package:soldiers_friends/view/delete_account/deleteAccount_binding.dart';
 import 'package:soldiers_friends/view/delete_account/deleteAccount_view.dart';
 import 'package:soldiers_friends/view/edit_profile/edit_profile_view.dart';
+import 'package:soldiers_friends/view/forgotPassword/verificationScreen.dart';
 import 'package:soldiers_friends/view/friend%20detail/friendDetails_bindings.dart';
 import 'package:soldiers_friends/view/friend%20detail/friendDetails_controller.dart';
 import 'package:soldiers_friends/view/friend%20detail/friendDetails_view.dart';
@@ -29,6 +30,8 @@ import 'package:soldiers_friends/view/login/login_view.dart';
 import 'package:soldiers_friends/view/profile/profile_binding.dart';
 import 'package:soldiers_friends/view/profile/profile_view.dart';
 import 'package:soldiers_friends/view/edit_profile/edit_profile_binding.dart';
+import 'package:soldiers_friends/view/resetPassword/resetpassword_binding.dart';
+import 'package:soldiers_friends/view/resetPassword/resetpassword_view.dart';
 import 'package:soldiers_friends/view/settings/settings_binding.dart';
 import 'package:soldiers_friends/view/settings/settings_view.dart';
 import 'package:soldiers_friends/view/sign_up/signup_binding.dart';
@@ -133,5 +136,23 @@ class RoutesPageList {
         name: RoutesName.blocklistview,
         page: () => blockListView(),
         binding: BlockListBinding()),
+    GetPage(
+        name: RoutesName.forgotpasswordpage,
+        page: () => forgotPasswordView(),
+        binding: ForgotPasswordBinding()),
+    GetPage(
+        arguments: {
+          'email': String,
+        },
+        name: RoutesName.otpVerification,
+        page: () => otpVerificationScreen(email: Get.arguments['email']),
+        binding: ForgotPasswordBinding()),
+    GetPage(
+        arguments: {
+          'email': String,
+        },
+        name: RoutesName.resetpasswordview,
+        page: () => ResetPasswordView(email: Get.arguments['email']),
+        binding: ResetPasswordBinding()),
   ];
 }

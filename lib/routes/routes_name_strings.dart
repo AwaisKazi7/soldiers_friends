@@ -19,4 +19,6 @@ class RoutesName {
   static String friendlistview = "/friendlistview";
   static String frienddetailview = "/frienddetailview";
   static String blocklistview = "/blocklistview";
+  static String otpVerification = "/otpVerification";
+  static String resetpasswordview = "/resetpasswordview";
 }

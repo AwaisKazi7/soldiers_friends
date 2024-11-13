@@ -161,8 +161,9 @@ class _LoginPageState extends State<LoginPage> {
                             const Spacer(),
                             InkWell(
                               hoverColor: Colors.transparent,
-                              onTap: () =>
-                                  Get.toNamed(RoutesName.forgotpasswordpage),
+                              onTap: () {
+                                Get.toNamed(RoutesName.forgotpasswordpage);
+                              },
                               child: const CommonText(
                                 text: "Forgot Password?",
                                 style: CommonTextStyle.splashheadline1,
