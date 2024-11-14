@@ -260,18 +260,25 @@ class UserDetailView extends StatelessWidget {
                               children: [
                                 GestureDetector(
                                   onTap: () async {
-                                    await controller.dislikeApi(
-                                        context, data);
+                                    await controller.dislikeApi(context, data);
                                   },
                                   child: CircleAvatar(
                                       backgroundColor:
                                           CommonColors.gradientStartColor,
                                       radius: 30.sp,
-                                      child: Icon(
-                                        Icons.cancel_sharp,
-                                        size: 30,
-                                        color: Colors.white,
-                                      )),
+                                      child: controller.Dislikeloading.value
+                                          ? SizedBox(
+                                              height: 20.sp,
+                                              width: 20.sp,
+                                              child: CircularProgressIndicator(
+                                                color: Colors.white,
+                                              ),
+                                            )
+                                          : Icon(
+                                              Icons.cancel_sharp,
+                                              size: 30,
+                                              color: Colors.white,
+                                            )),
                                 ),
                                 SizedBox(
                                   width: 20.sp,

@@ -167,8 +167,8 @@ class ChatDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
                                           onPressed: () async {
                                             await Get.find<
                                                     ChatDetailController>()
-                                                .blockAccount(
-                                                    context, user.chatId, 1);
+                                                .blockAccount(context, user.id,
+                                                    user.chatId, 1);
                                           }),
                                     ),
                                     SizedBox(

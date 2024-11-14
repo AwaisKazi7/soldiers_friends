@@ -18,6 +18,7 @@ class blockListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<BlockListController>(
+      
       builder: (controller) {
         return Scaffold(
           backgroundColor: CommonColors.backgroundColor,
@@ -137,10 +138,11 @@ class blockListView extends StatelessWidget {
                                                                 boxShadow: const [],
                                                                 onPressed:
                                                                     () async {
-                                                                  await Get.find<
-                                                                          ChatDetailController>()
+                                                                  await controller
+                                                                          .Blockcontroller
                                                                       .blockAccount(
                                                                           context,
+                                                                          Data.id,
                                                                           Data.chatId,
                                                                           0);
                                                                 }),

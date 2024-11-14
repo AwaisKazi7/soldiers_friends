@@ -12,6 +12,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class supabse_DB {
   static supabse_DB? _instance;
   static supabse_DB get getInstance => _instance ??= supabse_DB();
+
   supabase_init() async {
     await Supabase.initialize(
       url: 'https://njxqtpmtoslpyhwuatxl.supabase.co',
@@ -257,13 +258,51 @@ class supabse_DB {
     }
   }
 
-  Block_user(BuildContext context, int chatId, int Action) async {
+  Block_user(BuildContext context, int userId, int chatId, int Action) async {
     try {
       await Supabase.instance.client
           .from('Conversation_table')
           .update({'isblocked': Action}).eq('id', chatId);
 
-      print("Block_user 👌✅");
+      if (Action == 1) {
+        print("Block_user 👌✅");
+      } else {
+        await Supabase.instance.client
+            .from('Conversation_table')
+            .delete()
+            .eq('id', chatId);
+
+        await Supabase.instance.client
+            .from('chat_table')
+            .delete()
+            .eq('chat_id', chatId);
+
+        await Supabase.instance.client
+            .from('friends_table')
+            .delete()
+            .eq('friend_userId', LocalDataStorage.currentUserId.value)
+            .eq('userId', userId);
+
+        await Supabase.instance.client
+            .from('friends_table')
+            .delete()
+            .eq('friend_userId', userId)
+            .eq('userId', LocalDataStorage.currentUserId.value);
+
+        await Supabase.instance.client
+            .from('like_table')
+            .delete()
+            .eq('liked_userId', LocalDataStorage.currentUserId.value)
+            .eq('liked_by_userId', userId);
+
+        await Supabase.instance.client
+            .from('like_table')
+            .delete()
+            .eq('liked_userId', userId)
+            .eq('liked_by_userId', LocalDataStorage.currentUserId.value);
+
+        print("Unblock_user 👌✅");
+      }
 
       // ScaffoldMessenger.of(context).showSnackBar(
       //   SnackBar(
@@ -365,22 +404,31 @@ class supabse_DB {
     try {
       // Prepare the updated data
       var updatedData = {
-        'name': fullname,
-        'phonenumber': phonenumber,
-        'DOB': DOB,
-        'bio': Bio,
-        'country': country
+        'name': fullname == '' ? LocalDataStorage.username.value : fullname,
+        'phonenumber':
+            phonenumber == '' ? LocalDataStorage.userPhone.value : phonenumber,
+        'DOB': DOB == '' ? LocalDataStorage.userDOB.value : DOB,
+        'bio': Bio == '' ? LocalDataStorage.userDOB.value : Bio,
+        'country': country == '' ? LocalDataStorage.usercountry.value : country,
       };
 
       // Update the user profile in the database
-      var data = await Supabase.instance.client
+      await Supabase.instance.client
           .from('users_table')
           .update(updatedData)
-          .eq('id', LocalDataStorage.currentUserId.value)
-          .select('*, profilepicture_table(*)');
+          .eq('id', LocalDataStorage.currentUserId.value);
 
       print("editProfile 👌✅");
-      print(data);
+      if (images.isNotEmpty) {
+        for (var element in images) {
+          await uploadImage(element!);
+        }
+      }
+
+      var data = await Supabase.instance.client
+          .from('users_table')
+          .select('*,profilepicture_table(*)')
+          .eq('id', LocalDataStorage.currentUserId.value);
 
       if (data.isNotEmpty) {
         UserModel user = UserModel.fromMap(data.last);
@@ -391,19 +439,6 @@ class supabse_DB {
             bio: user.bio,
             Country: user.country,
             image: user.images);
-
-        print('Updated UserId: ${user.id}');
-        print('Updated User email: ${user.email}');
-        for (var element in images) {
-          await uploadImage(element!);
-        }
-
-        //   return Supabase.instance.client.storage
-        //       .from('soliderbucket')
-        //       .getPublicUrl(fileName);
-        // }).toList());
-
-        // print('Uploaded file URLs: $fileUrls');
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -686,13 +721,11 @@ class supabse_DB {
           .eq('liked_by_userId',
               int.parse(LocalDataStorage.currentUserId.value));
 
-      if (data.isNotEmpty) {
+      if (data.isEmpty) {
         await Supabase.instance.client
             .from('like_table')
             .delete()
-            .eq('liked_userId', userId)
-            .eq('liked_by_userId',
-                int.parse(LocalDataStorage.currentUserId.value));
+            .eq('liked_by_userId', userId);
 
         print("dislikeApi 👌✅");
       } else {

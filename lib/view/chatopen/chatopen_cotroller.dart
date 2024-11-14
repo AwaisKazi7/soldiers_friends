@@ -45,13 +45,13 @@ class ChatDetailController extends GetxController {
     }
   }
 
-/// action = 1 >> block
-/// action = 0 >> Unblock
+  /// action = 1 >> block
+  /// action = 0 >> Unblock
   Future<void> blockAccount(
-      BuildContext context, int chatid, int action) async {
+      BuildContext context, int userId, int chatid, int action) async {
     try {
       Blockloading.value = true;
-      await supabse_DB.getInstance.Block_user(context, chatid, action);
+      await supabse_DB.getInstance.Block_user(context, userId, chatid, action);
       //  chatcontrollers.conversationList.firstWhere((e) => e.chatId == chatid,).isblocked = 1;
       await Get.find<ChatViewController>().GetconversationList();
       Blockloading.value = false;

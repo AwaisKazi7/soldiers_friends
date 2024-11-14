@@ -6,7 +6,7 @@ import 'package:soldiers_friends/view/chatopen/chatopen_cotroller.dart';
 
 class BlockListController extends GetxController {
   RxList<FriendsModel> blockList = <FriendsModel>[].obs;
-final Blockcontroller = Get.put(ChatDetailController());
+  final Blockcontroller = Get.put(ChatDetailController());
   RxInt Likestab_Index = 0.obs;
   RxBool loading = false.obs;
 
@@ -19,10 +19,10 @@ final Blockcontroller = Get.put(ChatDetailController());
   GetBlockedFriendsList() async {
     try {
       loading.value = true;
+      blockList.clear();
       var Data = await supabse_DB.getInstance.GetBlockedFriendsList();
 
       if (Data.length != 0) {
-        blockList.clear();
         blockList.addAll(Data);
       }
       loading.value = false;
