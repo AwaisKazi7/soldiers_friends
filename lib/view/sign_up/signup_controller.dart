@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:soldiers_friends/model/users_model.dart';
 import 'package:soldiers_friends/services/SupabaseDB.dart';
 import 'package:soldiers_friends/services/localStorage.dart';
@@ -30,6 +33,9 @@ class SignUpController extends GetxController {
   RxBool showpassword = true.obs;
   RxBool showConfirmpassword = true.obs;
   RxBool apihitting = false.obs;
+  RxBool uploading = false.obs;
+
+  RxString profilePicture = ''.obs;
 
   signUp(BuildContext context) async {
     try {
@@ -42,6 +48,28 @@ class SignUpController extends GetxController {
           PassowrdController.text);
       apihitting.value = false;
       return Data;
+    } catch (e) {
+      print('ERROR IN Sign Up :${e}');
+      return false;
+    }
+  }
+
+  pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(
+      source: ImageSource.gallery, // Change to ImageSource.camera for camera
+    );
+
+    return image?.path;
+  }
+
+  uploadProfilePicture() async {
+    try {
+      uploading.value = true;
+      var Data =
+          await supabse_DB.getInstance.uploadImage(File(profilePicture.value));
+      uploading.value = false;
+      return true;
     } catch (e) {
       print('ERROR IN Sign Up :${e}');
       return false;

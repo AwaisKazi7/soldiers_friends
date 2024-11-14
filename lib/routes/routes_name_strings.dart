@@ -22,4 +22,5 @@ class RoutesName {
   static String otpVerification = "/otpVerification";
   static String resetpasswordview = "/resetpasswordview";
   static String emailVerification = "/emailVerification";
+  static String uploadprofilepictureview = "/uploadprofilepictureview";
 }

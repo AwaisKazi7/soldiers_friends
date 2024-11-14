@@ -261,22 +261,27 @@ class SignupPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        CommonRichText(
-                          text1: 'Already have an account?',
-                          style1: CommonTextStyle.splashheadline1,
-                          text2: ' Sign In',
-                          style2: CommonTextStyle.splashheadline1.copyWith(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            decorationColor: CommonColors.blackColor,
-                            decorationThickness: 4.0,
+                        GestureDetector(
+                          onTap: () {
+                            Get.offAllNamed(RoutesName.loginPage);
+                          },
+                          child: CommonRichText(
+                            text1: 'Already have an account?',
+                            style1: CommonTextStyle.splashheadline1,
+                            text2: ' Sign In',
+                            style2: CommonTextStyle.splashheadline1.copyWith(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              decorationColor: CommonColors.blackColor,
+                              decorationThickness: 4.0,
+                            ),
+                            text3: '',
+                            style3: TextStyle(),
+                            text4: '',
+                            style4: TextStyle(),
+                            text5: '',
+                            style5: TextStyle(),
                           ),
-                          text3: '',
-                          style3: TextStyle(),
-                          text4: '',
-                          style4: TextStyle(),
-                          text5: '',
-                          style5: TextStyle(),
                         ),
                         const SizedBox(
                           height: 30,
@@ -297,7 +302,7 @@ class SignupPage extends StatelessWidget {
                                     controller.confirmPasswordController.text) {
                                   var result = await controller.signUp(context);
                                   if (result) {
-                                    Get.toNamed(RoutesName.subscribtion);
+                                    Get.toNamed(RoutesName.uploadprofilepictureview);
                                   }
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
