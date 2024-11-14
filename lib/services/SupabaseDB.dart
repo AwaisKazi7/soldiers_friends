@@ -556,7 +556,7 @@ class supabse_DB {
       var userResponse = await Supabase.instance.client
           .from('users_table')
           .select('*, profilepicture_table(*)')
-          .eq('isDelete', 0)
+          // .eq('isDelete', 0)
           .neq('id', LocalDataStorage.currentUserId.value);
 
       var likedResponse =
@@ -583,9 +583,11 @@ class supabse_DB {
           (e) => e['id'] == userId,
         );
         homeModel data = homeModel.fromMap(userData);
-        UsersList.removeWhere(
-          (e) => e.id == userId,
-        );
+        if (data.isDelete == 0) {
+          UsersList.removeWhere(
+            (e) => e.id == userId,
+          );
+        }
       }
 
       print("GetAllUser 👌✅");
