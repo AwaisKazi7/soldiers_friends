@@ -18,7 +18,9 @@ class blockListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<BlockListController>(
-      
+      initState: (state) async {
+        await Get.find<BlockListController>().GetBlockedFriendsList();
+      },
       builder: (controller) {
         return Scaffold(
           backgroundColor: CommonColors.backgroundColor,

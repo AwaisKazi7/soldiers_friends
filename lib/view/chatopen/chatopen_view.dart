@@ -30,10 +30,18 @@ class ChatOpenScreen extends StatelessWidget {
         appBar: ChatDetailAppBar(
           backIcon: AssetImage(CommonAssets.backarrowIcon),
           user: userData,
-          userImage: userData.images.isNotEmpty
-              ? userData.images.last
-              : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
-          username: userData.name,
+          userImage: userData.isDelete == 1
+              ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+              : userData.isblocked == 1
+                  ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+                  : userData.images.isNotEmpty
+                      ? userData.images.last
+                      : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
+          username: userData.isDelete == 1
+              ? 'Deleted User'
+              : userData.isblocked == 1
+                  ? 'Blocked User'
+                  : userData.name,
           subtitle: 'Your friend today!',
           threeDotIcon: AssetImage(CommonAssets.threedotsIcon),
         ),
@@ -137,7 +145,7 @@ class ChatOpenScreen extends StatelessWidget {
               ),
             ),
             Visibility(
-              visible: userData.isblocked == 0,
+              visible: userData.isDelete == 0,
               replacement: Padding(
                 padding: EdgeInsets.all(10.sp),
                 child: Container(
@@ -146,115 +154,129 @@ class ChatOpenScreen extends StatelessWidget {
                       color: Colors.grey.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(20.sp)),
                   padding: EdgeInsets.all(20.sp),
-                  child: Center(child: Text('This user is blocked')),
+                  child: Center(child: Text('This Account is deleted')),
                 ),
               ),
-              child: Container(
-                padding: EdgeInsets.all(16.0),
-                child: Row(
-                  children: [
-                    // Visibility(
-                    //   visible:
-                    //       controller.controllersProvider.imagePath.value == '',
-                    // replacement: Expanded(
-                    //   child: Container(
-                    //     decoration: BoxDecoration(
-                    //         color: Colors.white,
-                    //         border: Border.all(color: Colors.black, width: 1.sp),
-                    //         borderRadius: BorderRadius.circular(20.sp)),
-                    //     child: Padding(
-                    //       padding: EdgeInsets.symmetric(
-                    //           horizontal: 10.sp, vertical: 10.sp),
-                    //       child: Container(
-                    //         height: 80.sp,
-                    //         width: 100.sp,
-                    //         decoration: BoxDecoration(
-                    //           color: Colors.white,
-                    //           border:
-                    //               Border.all(color: Colors.black, width: 1.sp),
-                    //           borderRadius: BorderRadius.circular(20.sp),
-                    //           image: DecorationImage(
-                    //             alignment: Alignment.topLeft,
-                    //             fit: BoxFit.cover,
-                    //             image: FileImage(
-                    //               File(controller
-                    //                   .controllersProvider.imagePath.value),
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                    // child:
-                    Expanded(
-                      child: TextField(
-                        controller: controller.messagecontroller,
-                        decoration: InputDecoration(
-                          suffixIcon: SizedBox(
-                            width: 100,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                // IconButton(
-                                //   iconSize: 20,
-                                //   icon: Icon(
-                                //     Icons.image,
-                                //     color:
-                                //         Colors.grey, // Set icon color to grey
-                                //   ),
-                                //   onPressed: () {
-                                //     ImagePickerBottomSheet.show(context);
-                                //   },
-                                // ),
-                              ],
+              child: Visibility(
+                visible: userData.isblocked == 0,
+                replacement: Padding(
+                  padding: EdgeInsets.all(10.sp),
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(20.sp)),
+                    padding: EdgeInsets.all(20.sp),
+                    child: Center(child: Text('This user is blocked')),
+                  ),
+                ),
+                child: Container(
+                  padding: EdgeInsets.all(16.0),
+                  child: Row(
+                    children: [
+                      // Visibility(
+                      //   visible:
+                      //       controller.controllersProvider.imagePath.value == '',
+                      // replacement: Expanded(
+                      //   child: Container(
+                      //     decoration: BoxDecoration(
+                      //         color: Colors.white,
+                      //         border: Border.all(color: Colors.black, width: 1.sp),
+                      //         borderRadius: BorderRadius.circular(20.sp)),
+                      //     child: Padding(
+                      //       padding: EdgeInsets.symmetric(
+                      //           horizontal: 10.sp, vertical: 10.sp),
+                      //       child: Container(
+                      //         height: 80.sp,
+                      //         width: 100.sp,
+                      //         decoration: BoxDecoration(
+                      //           color: Colors.white,
+                      //           border:
+                      //               Border.all(color: Colors.black, width: 1.sp),
+                      //           borderRadius: BorderRadius.circular(20.sp),
+                      //           image: DecorationImage(
+                      //             alignment: Alignment.topLeft,
+                      //             fit: BoxFit.cover,
+                      //             image: FileImage(
+                      //               File(controller
+                      //                   .controllersProvider.imagePath.value),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      // child:
+                      Expanded(
+                        child: TextField(
+                          controller: controller.messagecontroller,
+                          decoration: InputDecoration(
+                            suffixIcon: SizedBox(
+                              width: 100,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  // IconButton(
+                                  //   iconSize: 20,
+                                  //   icon: Icon(
+                                  //     Icons.image,
+                                  //     color:
+                                  //         Colors.grey, // Set icon color to grey
+                                  //   ),
+                                  //   onPressed: () {
+                                  //     ImagePickerBottomSheet.show(context);
+                                  //   },
+                                  // ),
+                                ],
+                              ),
                             ),
-                          ),
-                          hintText: 'Write your message here',
-                          hintStyle:
-                              TextStyle(color: Colors.black.withOpacity(0.4)),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.grey
-                                  .withOpacity(0.5), // Set border color to grey
-                              width: 2,
+                            hintText: 'Write your message here',
+                            hintStyle:
+                                TextStyle(color: Colors.black.withOpacity(0.4)),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey.withOpacity(
+                                    0.5), // Set border color to grey
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(16.0),
                             ),
-                            borderRadius: BorderRadius.circular(16.0),
                           ),
                         ),
                       ),
-                    ),
-                    // ),
+                      // ),
 
-                    SizedBox(width: 8.0),
-                    Container(
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: LinearGradient(colors: [
-                            CommonColors.gradientStartColor,
-                            CommonColors.gradientEndColor
-                          ])),
-                      child: Obx(
-                        () => IconButton(
-                          color: Colors.white,
-                          icon: controller.apihitting.value
-                              ? SizedBox(
-                                  height: 10.sp,
-                                  width: 10.sp,
-                                  child: CircularProgressIndicator())
-                              : Icon(Icons.send),
-                          onPressed: () async {
-                            if (controller.messagecontroller.text != '') {
-                              await controller.sendMessage(
-                                  userData.id, 0, userData.chatId);
-                            } else {}
+                      SizedBox(width: 8.0),
+                      Container(
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: LinearGradient(colors: [
+                              CommonColors.gradientStartColor,
+                              CommonColors.gradientEndColor
+                            ])),
+                        child: Obx(
+                          () => IconButton(
+                            color: Colors.white,
+                            icon: controller.apihitting.value
+                                ? SizedBox(
+                                    height: 10.sp,
+                                    width: 10.sp,
+                                    child: CircularProgressIndicator())
+                                : Icon(Icons.send),
+                            onPressed: () async {
+                              if (controller.messagecontroller.text != '') {
+                                await controller.sendMessage(
+                                    userData.id, 0, userData.chatId);
+                              } else {}
 
-                            // await controller.GetMessage();
-                          },
+                              // await controller.GetMessage();
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

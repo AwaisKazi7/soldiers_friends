@@ -260,22 +260,24 @@ class supabse_DB {
 
   Block_user(BuildContext context, int userId, int chatId, int Action) async {
     try {
-      await Supabase.instance.client
-          .from('Conversation_table')
-          .update({'isblocked': Action}).eq('id', chatId);
-
       if (Action == 1) {
+        await Supabase.instance.client.from('Conversation_table').update({
+          'isblocked': Action,
+          'block_by_userId': int.parse(LocalDataStorage.currentUserId.value)
+        }).eq('id', chatId);
         print("Block_user 👌✅");
       } else {
-        await Supabase.instance.client
-            .from('Conversation_table')
-            .delete()
-            .eq('id', chatId);
+        await Supabase.instance.client.from('Conversation_table').update(
+            {'isblocked': Action, 'block_by_userId': null}).eq('id', chatId);
+        // await Supabase.instance.client
+        //     .from('Conversation_table')
+        //     .delete()
+        //     .eq('id', chatId);
 
-        await Supabase.instance.client
-            .from('chat_table')
-            .delete()
-            .eq('chat_id', chatId);
+        // await Supabase.instance.client
+        //     .from('chat_table')
+        //     .delete()
+        //     .eq('chat_id', chatId);
 
         await Supabase.instance.client
             .from('friends_table')
@@ -519,35 +521,6 @@ class supabse_DB {
     } catch (e) {
       print("Error In sendMessage: ${e}");
       return false;
-    }
-  }
-
-  GetMessage() async {
-    try {
-      List<MessageModel> dataList = [];
-
-      var response = await Supabase.instance.client
-          .from('chat_table')
-          .stream(primaryKey: ['id']).listen(
-        (event) {
-          for (var message in event) {
-            dataList.add(MessageModel.fromJson(message));
-          }
-        },
-      );
-
-      print("GetMessage 👌✅");
-      print(dataList);
-      if (dataList != null) {
-        return dataList;
-      } else {
-        print("Not Message found");
-
-        return [];
-      }
-    } catch (e) {
-      print("Error In sendMessage: ${e}");
-      return [];
     }
   }
 
@@ -890,13 +863,17 @@ class supabse_DB {
           .from('Conversation_table')
           .select('first_userId,id')
           .eq('second_userId', int.parse(LocalDataStorage.currentUserId.value))
-          .eq('isblocked', 1);
+          .eq('isblocked', 1)
+          .eq('block_by_userId',
+              int.parse(LocalDataStorage.currentUserId.value));
 
       var SecondFriendResponse = await Supabase.instance.client
           .from('Conversation_table')
           .select('second_userId,id')
           .eq('first_userId', int.parse(LocalDataStorage.currentUserId.value))
-          .eq('isblocked', 1);
+          .eq('isblocked', 1)
+          .eq('block_by_userId',
+              int.parse(LocalDataStorage.currentUserId.value));
 
       //Fetch All users
       var userResponse = await Supabase.instance.client
@@ -966,8 +943,8 @@ class supabse_DB {
       //Fetch All users
       var userResponse = await Supabase.instance.client
           .from('users_table')
-          .select('*,profilepicture_table(*)')
-          .eq('isDelete', 0);
+          .select('*,profilepicture_table(*)');
+      // .eq('isDelete', 0);
 
       if (FirstFriendResponse.isNotEmpty) {
         for (final data in FirstFriendResponse) {
@@ -1003,9 +980,9 @@ class supabse_DB {
 
           FriendsModel data = FriendsModel.fromMap(userData, Data['chatid'],
               Data['last_message'], Data['isblocked']);
-          if (data.isDelete == 0) {
-            ConversationList.add(data);
-          }
+          // if (data.isDelete == 0) {
+          ConversationList.add(data);
+          // }
         }
 
         print('GetconversationList 👌✅');

@@ -10,7 +10,7 @@ class ChatDetailController extends GetxController {
   final TextEditingController messagecontroller = TextEditingController();
   RxBool apihitting = false.obs;
   RxBool Blockloading = false.obs;
-  RxList<MessageModel> messagesList = <MessageModel>[].obs;
+  // RxList<MessageModel> messagesList = <MessageModel>[].obs;
 
   @override
   void onReady() {

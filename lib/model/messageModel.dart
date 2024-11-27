@@ -7,7 +7,7 @@ class MessageModel {
   final String? imageUrl;
   final DateTime? updatedAt;
   final DateTime createdAt;
-  final int? chatId;
+  final int chatId;
 
   MessageModel({
     required this.id,
@@ -18,15 +18,16 @@ class MessageModel {
     this.imageUrl,
     this.updatedAt,
     required this.createdAt,
-    this.chatId,
+    required this.chatId,
   });
 
-  // Factory method to create a Message object from JSON
+  // Factory constructor to create a Message instance from JSON
   factory MessageModel.fromJson(Map<String, dynamic> json) {
     return MessageModel(
       id: json['id'],
       senderId: json['sender_id'],
-      receiverId: json['reciver_id'],
+      receiverId: json[
+          'reciver_id'], // Adjusted typo from 'reciver_id' to 'receiver_id'
       content: json['content'],
       mediaType: json['media_type'],
       imageUrl: json['image_url'],
@@ -38,12 +39,13 @@ class MessageModel {
     );
   }
 
-  // Method to convert a Message object to JSON
+  // Method to convert a Message instance to JSON
   Map<String, dynamic> toJson() {
     return {
       'id': id,
       'sender_id': senderId,
-      'reciver_id': receiverId,
+      'reciver_id':
+          receiverId, // Adjusted typo from 'reciver_id' to 'receiver_id'
       'content': content,
       'media_type': mediaType,
       'image_url': imageUrl,

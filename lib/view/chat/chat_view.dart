@@ -21,7 +21,7 @@ class ChatView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<ChatViewController>(
       initState: (state) {
-        Get.find<ChatViewController>().onReady();
+        Get.find<ChatViewController>().GetconversationList();
       },
       builder: (controller) {
         return Scaffold(
@@ -156,9 +156,13 @@ class ChatView extends StatelessWidget {
                                         child: ClipOval(
                                           child: ImageWidget(
                                               width: 100.sp,
-                                              imageUrl: data.images.isEmpty
+                                              imageUrl: data.isDelete == 1
                                                   ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
-                                                  : data.images.last),
+                                                  : data.isblocked == 1
+                                                      ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+                                                      : data.images.isEmpty
+                                                          ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+                                                          : data.images.last),
                                         ),
                                         radius: 25,
                                       ),
@@ -184,7 +188,11 @@ class ChatView extends StatelessWidget {
                                     children: [
                                       Expanded(
                                         child: CommonText(
-                                          text: data.name,
+                                          text: data.isDelete == 1
+                                              ? 'Deleted User'
+                                              : data.isblocked == 1
+                                                  ? 'Blocked User'
+                                                  : data.name,
                                           style: CommonTextStyle.splashheadline1
                                               .copyWith(
                                             fontSize: 18,
@@ -228,9 +236,13 @@ class ChatView extends StatelessWidget {
                                         child: ClipOval(
                                           child: ImageWidget(
                                               width: 100.sp,
-                                              imageUrl: data.images.isEmpty
+                                              imageUrl: data.isDelete == 1
                                                   ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
-                                                  : data.images.last),
+                                                  : data.isblocked == 1
+                                                      ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+                                                      : data.images.isEmpty
+                                                          ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+                                                          : data.images.last),
                                         ),
                                         radius: 25,
                                       ),
@@ -256,7 +268,11 @@ class ChatView extends StatelessWidget {
                                     children: [
                                       Expanded(
                                         child: CommonText(
-                                          text: data.name,
+                                          text: data.isDelete == 1
+                                              ? 'Deleted User'
+                                              : data.isblocked == 1
+                                                  ? 'Blocked User'
+                                                  : data.name,
                                           style: CommonTextStyle.splashheadline1
                                               .copyWith(
                                             fontSize: 18,
