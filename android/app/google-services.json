@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "177377617100",
-    "project_id": "soldiers-friends-18909",
-    "storage_bucket": "soldiers-friends-18909.firebasestorage.app"
+    "project_number": "671636856087",
+    "project_id": "soldiersfriends",
+    "storage_bucket": "soldiersfriends.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:177377617100:android:313a99d78d57588a42ce69",
+        "mobilesdk_app_id": "1:671636856087:android:b93d5e0365732de7a36b52",
         "android_client_info": {
           "package_name": "com.example.soldiers_friends"
         }
       },
       "oauth_client": [
         {
-          "client_id": "177377617100-8d6lsvqo63gijp7mmcv4gn8js14k9bko.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.soldiers_friends",
-            "certificate_hash": "bd767116c405d29f80d2f2996bce5a668a24b6c3"
-          }
-        },
-        {
-          "client_id": "177377617100-1k6v2736da1juge0hcq6v6qmpn4oevee.apps.googleusercontent.com",
+          "client_id": "671636856087-5h60vnumjhe5fh3kcmtvrac1inpbi0ev.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDttuEX877jGA5Guvv-w6vfc7zBaBA-8_g"
+          "current_key": "AIzaSyD0OoNCwKloJ1iHTYgc1k6t-UZ63HB9DY8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "177377617100-1k6v2736da1juge0hcq6v6qmpn4oevee.apps.googleusercontent.com",
+              "client_id": "671636856087-5h60vnumjhe5fh3kcmtvrac1inpbi0ev.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

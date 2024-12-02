@@ -1,9 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/model/friendModel.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
-import 'package:soldiers_friends/model/messageModel.dart';
 import 'package:soldiers_friends/model/users_model.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/services/localStorage.dart';
@@ -996,4 +996,39 @@ class supabse_DB {
       return [];
     }
   }
+
+  // sendNotification(
+  //   int userId,
+  // ) async {
+  //   try {
+  //     var data = {
+  //       'to': 'fcmtoken',
+  //       'priority': 'high',
+  //       'notification': {
+  //         "title": 'solider friend',
+  //         'body': 'you have recived new notification',
+  //       },
+  //     };
+
+  //     await dio.post('https://fcm.googleapis.com/fcm/send',
+  //         data: data,
+  //         options: Options(headers: {
+  //           'content-Type': 'application/json; charset=UTF-8',
+  //           'Authorization': 'asdjlkjdsalkjlkasjdlkjaslkDjalksjdlkajsldkjaslkd'
+  //         }));
+
+  //     print("Add Fcmtoken 👌✅");
+
+  //     return true;
+  //   } catch (e) {
+  //     print('Add Fcmtoken Error: $e');
+  //     // ScaffoldMessenger.of(context).showSnackBar(
+  //     //   SnackBar(
+  //     //     content: Text("ERROR: $e"),
+  //     //     backgroundColor: Colors.red,
+  //     //   ),
+  //     // );
+  //     return false;
+  //   }
+  // }
 }

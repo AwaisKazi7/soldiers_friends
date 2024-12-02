@@ -5,7 +5,8 @@ import 'package:soldiers_friends/firebase_options.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/services/SupabaseDB.dart';
 import 'package:soldiers_friends/services/emailsender.dart';
-import 'package:soldiers_friends/services/fcmToken.dart';
+import 'package:soldiers_friends/notificationService/fcmToken.dart';
+import 'package:soldiers_friends/notificationService/localNotification.dart';
 import 'routes/routes_page_list.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -16,6 +17,7 @@ Future<void> main() async {
   );
   await supabse_DB.getInstance.supabase_init();
   FirebaseDB.init(); //---for FcmToken
+   LocalNotificationService.initialize(); //-----for displaying notifications
   emailSender.getInstance.init();
   runApp(const MyApp());
 }

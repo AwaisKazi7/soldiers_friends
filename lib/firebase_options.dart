@@ -41,52 +41,51 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBPfjcRG4QpG0RzQDyBfq_rl4gFKouWDMU',
-    appId: '1:177377617100:web:67c7782ded89a37d42ce69',
-    messagingSenderId: '177377617100',
-    projectId: 'soldiers-friends-18909',
-    authDomain: 'soldiers-friends-18909.firebaseapp.com',
-    storageBucket: 'soldiers-friends-18909.firebasestorage.app',
-    measurementId: 'G-N81238V8LM',
+    apiKey: 'AIzaSyD4zV_DTDYW7e1qdPbgCk7NN4fqxRvODKk',
+    appId: '1:671636856087:web:3ad70972fdc11bf2a36b52',
+    messagingSenderId: '671636856087',
+    projectId: 'soldiersfriends',
+    authDomain: 'soldiersfriends.firebaseapp.com',
+    storageBucket: 'soldiersfriends.firebasestorage.app',
+    measurementId: 'G-N8ZEKGX24K',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDttuEX877jGA5Guvv-w6vfc7zBaBA-8_g',
-    appId: '1:177377617100:android:313a99d78d57588a42ce69',
-    messagingSenderId: '177377617100',
-    projectId: 'soldiers-friends-18909',
-    storageBucket: 'soldiers-friends-18909.firebasestorage.app',
+    apiKey: 'AIzaSyD0OoNCwKloJ1iHTYgc1k6t-UZ63HB9DY8',
+    appId: '1:671636856087:android:b93d5e0365732de7a36b52',
+    messagingSenderId: '671636856087',
+    projectId: 'soldiersfriends',
+    storageBucket: 'soldiersfriends.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBnqD0B-p55Gvo0N8bsBnG9n3o3rq04RSI',
-    appId: '1:177377617100:ios:b6eb2c00eb66922742ce69',
-    messagingSenderId: '177377617100',
-    projectId: 'soldiers-friends-18909',
-    storageBucket: 'soldiers-friends-18909.firebasestorage.app',
-    androidClientId: '177377617100-8d6lsvqo63gijp7mmcv4gn8js14k9bko.apps.googleusercontent.com',
-    iosClientId: '177377617100-g6kimde0jn3llvme4tl4fb1e66oueo6j.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDvTb8Y3JI3EFlyBIjWXrUaObxUG-mbG4A',
+    appId: '1:671636856087:ios:2129480a8ca2ddaca36b52',
+    messagingSenderId: '671636856087',
+    projectId: 'soldiersfriends',
+    storageBucket: 'soldiersfriends.firebasestorage.app',
+    iosClientId: '671636856087-evsquiu7au7gscob7hrt9ci1hn0n8d6n.apps.googleusercontent.com',
     iosBundleId: 'com.example.soldiersFriends',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBnqD0B-p55Gvo0N8bsBnG9n3o3rq04RSI',
-    appId: '1:177377617100:ios:b6eb2c00eb66922742ce69',
-    messagingSenderId: '177377617100',
-    projectId: 'soldiers-friends-18909',
-    storageBucket: 'soldiers-friends-18909.firebasestorage.app',
-    androidClientId: '177377617100-8d6lsvqo63gijp7mmcv4gn8js14k9bko.apps.googleusercontent.com',
-    iosClientId: '177377617100-g6kimde0jn3llvme4tl4fb1e66oueo6j.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDvTb8Y3JI3EFlyBIjWXrUaObxUG-mbG4A',
+    appId: '1:671636856087:ios:2129480a8ca2ddaca36b52',
+    messagingSenderId: '671636856087',
+    projectId: 'soldiersfriends',
+    storageBucket: 'soldiersfriends.firebasestorage.app',
+    iosClientId: '671636856087-evsquiu7au7gscob7hrt9ci1hn0n8d6n.apps.googleusercontent.com',
     iosBundleId: 'com.example.soldiersFriends',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyBPfjcRG4QpG0RzQDyBfq_rl4gFKouWDMU',
-    appId: '1:177377617100:web:b920bb2bebf0479342ce69',
-    messagingSenderId: '177377617100',
-    projectId: 'soldiers-friends-18909',
-    authDomain: 'soldiers-friends-18909.firebaseapp.com',
-    storageBucket: 'soldiers-friends-18909.firebasestorage.app',
-    measurementId: 'G-ZCWTEGKXQL',
+    apiKey: 'AIzaSyD4zV_DTDYW7e1qdPbgCk7NN4fqxRvODKk',
+    appId: '1:671636856087:web:f104c9b6b7f2d3d5a36b52',
+    messagingSenderId: '671636856087',
+    projectId: 'soldiersfriends',
+    authDomain: 'soldiersfriends.firebaseapp.com',
+    storageBucket: 'soldiersfriends.firebasestorage.app',
+    measurementId: 'G-F0ZME66VM4',
   );
+
 }

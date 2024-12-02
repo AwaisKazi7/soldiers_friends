@@ -9,6 +9,7 @@ import 'package:soldiers_friends/common/imagewidget.dart';
 import 'package:soldiers_friends/main.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/services/localStorage.dart';
+import 'package:soldiers_friends/notificationService/pushNotification_service.dart';
 import 'package:soldiers_friends/view/profile/profile_controller.dart';
 import 'package:soldiers_friends/view/settings/widget/setting_widget.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -183,6 +184,16 @@ class ProfileView extends StatelessWidget {
                             onPressed: () {
                               Get.toNamed(RoutesName.forgotpasswordpage,
                                   arguments: {'type': 'changePassword'});
+                            },
+                          ),
+                          const SizedBox(height: 10),
+                          buildAccountItemSettings(
+                            text: 'Check notification',
+                            onPressed: () async {
+                              await PushnotificationService.getInstance
+                                  .sendNotification('FcmToken');
+                              // Get.toNamed(RoutesName.forgotpasswordpage,
+                              //     arguments: {'type': 'changePassword'});
                             },
                           ),
                           const SizedBox(height: 10),
