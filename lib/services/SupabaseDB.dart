@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:soldiers_friends/model/friendModel.dart';
 import 'package:soldiers_friends/model/homeData_model.dart';
 import 'package:soldiers_friends/model/users_model.dart';
+import 'package:soldiers_friends/notificationService/pushNotification_service.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/services/localStorage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -515,6 +516,16 @@ class supabse_DB {
             .update({'last_message': message}).eq('id', chatId);
 
         print("sendMessage 👌✅");
+        var fcmtokens = await Supabase.instance.client
+            .from('Fcmtoken_table')
+            .select('fcmToken')
+            .eq('userId', userId);
+        if (fcmtokens.isNotEmpty) {
+          await PushnotificationService.getInstance.sendNotification(
+              fcmtokens.first['fcmToken'].toString(), 'message');
+        } else {
+          print('No FCMTOKEN find for this userid:$userId');
+        }
       } else {}
 
       return true;
@@ -666,6 +677,16 @@ class supabse_DB {
         ]);
 
         print("likeApi 👌✅");
+        var fcmtokens = await Supabase.instance.client
+            .from('Fcmtoken_table')
+            .select('fcmToken')
+            .eq('userId', userId);
+        if (fcmtokens.isNotEmpty) {
+          await PushnotificationService.getInstance.sendNotification(
+              fcmtokens.first['fcmToken'].toString(), 'likeRequest');
+        } else {
+          print('No FCMTOKEN find for this userid:$userId');
+        }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -764,7 +785,16 @@ class supabse_DB {
         ]);
 
         print("addconversation 👌✅");
-
+        var fcmtokens = await Supabase.instance.client
+            .from('Fcmtoken_table')
+            .select('fcmToken')
+            .eq('userId', userId);
+        if (fcmtokens.isNotEmpty) {
+          await PushnotificationService.getInstance.sendNotification(
+              fcmtokens.first['fcmToken'].toString(), 'addfriend');
+        } else {
+          print('No FCMTOKEN find for this userid:$userId');
+        }
         return true;
       } else {
         ScaffoldMessenger.of(context).showSnackBar(

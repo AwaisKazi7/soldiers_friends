@@ -3,9 +3,14 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:soldiers_friends/main.dart';
 import 'package:soldiers_friends/notificationService/localNotification.dart';
+import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/services/localStorage.dart';
 import 'package:soldiers_friends/notificationService/pushNotification_service.dart';
+import 'package:soldiers_friends/view/bottomnavbar/bottomnavbar_controller.dart';
 
 import '../firebase_options.dart'; // Replace with your actual Firebase options file
 
@@ -17,7 +22,6 @@ class FirebaseDB {
         options: DefaultFirebaseOptions.currentPlatform,
       );
       print("Firebase initialized 🔥✅");
-
 
       // Subscribe to a topic (optional)
       FirebaseMessaging.instance.subscribeToTopic('subscription');
@@ -41,6 +45,7 @@ class FirebaseDB {
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
         print("Foreground Notification: ${message.notification?.title}");
         print("Foreground Notification: ${message.notification?.body}");
+        print("Foreground Notification: ${message.data}");
         LocalNotificationService.display(message);
       });
 
@@ -53,9 +58,11 @@ class FirebaseDB {
       });
 
       // Handle Initial Notification (when app is opened via a notification)
-      final initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+      final initialMessage =
+          await FirebaseMessaging.instance.getInitialMessage();
       if (initialMessage != null) {
-        print("Notification from Terminated State: ${initialMessage.notification?.title}");
+        print(
+            "Notification from Terminated State: ${initialMessage.notification?.title}");
       }
     } catch (e) {
       print("Error initializing Firebase: $e");
@@ -64,5 +71,17 @@ class FirebaseDB {
 
   static Future<void> _onBackgroundMessage(RemoteMessage message) async {
     print("Background Notification: ${message.notification?.title}");
+  }
+
+  handleNotification(String type) {
+    if (type == 'NewRequest') {
+      var controler = Get.put(NavbarController());
+      Get.toNamed(RoutesName.bottomnavbar);
+      controler.onTabTapped(1);
+    } else if (type == 'FriendList') {
+      var controler = Get.put(NavbarController());
+      Get.toNamed(RoutesName.bottomnavbar);
+      controler.onTabTapped(2);
+    }
   }
 }

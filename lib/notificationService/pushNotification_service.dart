@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:googleapis_auth/auth_io.dart' as auth;
 import 'package:http/http.dart' as http;
+import 'package:soldiers_friends/services/localStorage.dart';
 
 class PushnotificationService {
   static PushnotificationService? _instance;
@@ -47,18 +48,46 @@ class PushnotificationService {
     return crendentials.accessToken.data;
   }
 
-  Future<bool> sendNotification(String FcmToken) async {
+  Future<bool> sendNotification(
+      String FcmToken, String Notificationtype) async {
     try {
-      var data = {
-        'message': {
-          'token':
-              'epgRWHKIR8yT_BX-IDi8BE:APA91bHIZdSVQ_2otlBCiDPIO-6Cp--C6l6MjE-4tvaE85V3j0wuzQyNjGgI_-0fejqOTQMx2haiaF5XItB9ZPK9NrRfD9dzpq3DxANoKpZ7qJg5ZKu-jvY',
-          'notification': {
-            "title": 'solider friend',
-            'body': 'you have recived new notification',
-          },
-        }
-      };
+      var data;
+      if (Notificationtype == 'likeRequest') {
+        data = {
+          'message': {
+            'token': FcmToken,
+            'notification': {
+              "title": 'Friend Request',
+              'body': '${LocalDataStorage.username.value} likes you',
+            },
+            'data': {'key': 'NewRequest'}
+          }
+        };
+      } else if (Notificationtype == 'addfriend') {
+        data = {
+          'message': {
+            'token': FcmToken,
+            'notification': {
+              "title": 'New Friend Added',
+              'body':
+                  '${LocalDataStorage.username.value} add you in his friend list',
+            },
+            'data': {'key': 'FriendList'}
+          }
+        };
+      } else if (Notificationtype == 'message') {
+        data = {
+          'message': {
+            'token': LocalDataStorage.fcmToken.value,
+            // FcmToken,
+            'notification': {
+              "title": 'Got New Message',
+              'body': '${LocalDataStorage.username.value} sent you a message',
+            },
+            'data': {'key': 'newmessage'}
+          }
+        };
+      }
 
       final ServiceKey = await getAccessToken();
       var project_id = 'soldiersfriends';

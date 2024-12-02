@@ -188,16 +188,6 @@ class ProfileView extends StatelessWidget {
                           ),
                           const SizedBox(height: 10),
                           buildAccountItemSettings(
-                            text: 'Check notification',
-                            onPressed: () async {
-                              await PushnotificationService.getInstance
-                                  .sendNotification('FcmToken');
-                              // Get.toNamed(RoutesName.forgotpasswordpage,
-                              //     arguments: {'type': 'changePassword'});
-                            },
-                          ),
-                          const SizedBox(height: 10),
-                          buildAccountItemSettings(
                             text: 'Delete Account',
                             textStyle: TextStyle(
                               color: Colors.red,

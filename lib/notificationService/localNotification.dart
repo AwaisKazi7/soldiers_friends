@@ -8,7 +8,8 @@ class LocalNotificationService {
   static void initialize() {
     const InitializationSettings initializationSettings =
         InitializationSettings(
-      android: AndroidInitializationSettings('@mipmap/ic_launcher'), // Your app icon
+      android:
+          AndroidInitializationSettings('@mipmap/ic_launcher'), // Your app icon
       iOS: DarwinInitializationSettings(),
     );
 
