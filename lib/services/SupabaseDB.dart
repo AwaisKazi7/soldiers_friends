@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/model/friendModel.dart';
@@ -165,15 +166,31 @@ class supabse_DB {
     int userId,
   ) async {
     try {
-      var data = await Supabase.instance.client.from('Fcmtoken_table').insert([
-        {
-          'userId': userId,
-          'fcmToken': LocalDataStorage.fcmToken.value,
-          'deviceId': LocalDataStorage.DeviceID.value,
-        }
-      ]);
+      var fcmtokens = await Supabase.instance.client
+          .from('Fcmtoken_table')
+          .select('fcmToken')
+          .eq('userId', userId)
+          .eq('deviceId', LocalDataStorage.DeviceID.value);
 
-      print("Add Fcmtoken 👌✅");
+      if (fcmtokens.isEmpty) {
+        var data =
+            await Supabase.instance.client.from('Fcmtoken_table').insert([
+          {
+            'userId': userId,
+            'fcmToken': LocalDataStorage.fcmToken.value,
+            'deviceId': LocalDataStorage.DeviceID.value,
+          }
+        ]);
+
+        print("Add Fcmtoken 👌✅");
+      } else {
+        await Supabase.instance.client
+            .from('Fcmtoken_table')
+            .update({'fcmToken': LocalDataStorage.fcmToken.value})
+            .eq('userId', userId)
+            .eq('deviceId', LocalDataStorage.DeviceID.value);
+        print("Fcmtoken upddated 👌✅");
+      }
 
       return true;
     } catch (e) {

@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/Common/common_assets.dart';
@@ -19,6 +20,26 @@ class GetStartedView extends StatelessWidget {
     return GetBuilder<GetStartedController>(initState: (state) {
       LocalNotificationService.getInstance
           .initialize(context); //-----for displaying notifications
+      // Handle cold start (app launched via notification)
+      FirebaseMessaging.instance.getInitialMessage().then((message) {
+        if (message != null) {
+          final route = message.data['route']; // Extract the route
+          if (route != null) {
+            Navigator.pushNamed(context, route);
+          }
+        }
+      });
+
+      // Handle foreground notifications
+      FirebaseMessaging.onMessage.listen((message) {
+        LocalNotificationService.display(message);
+      });
+
+      // Handle background notifications
+      FirebaseMessaging.onMessageOpenedApp.listen((message) {
+        final route = message.data['key'];
+        LocalNotificationService.getInstance.handleNotification(route);
+      });
     }, builder: (controller) {
       return Scaffold(
         backgroundColor: CommonColors.backgroundColor,

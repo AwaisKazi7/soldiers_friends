@@ -78,7 +78,7 @@ class PushnotificationService {
       } else if (Notificationtype == 'message') {
         data = {
           'message': {
-            'token': LocalDataStorage.fcmToken.value,
+            'token': FcmToken,
             // FcmToken,
             'notification': {
               "title": 'Got New Message',
@@ -102,12 +102,12 @@ class PushnotificationService {
         body: jsonEncode(data),
       );
 
+      print(response.body);
       if (response.statusCode == 200) {
         print("Add Fcmtoken 👌✅");
         return true;
       } else {
-        print(
-            "Failed to send notification. Status Code: ${response.statusCode}");
+        print("Failed to send notification. Status Code: ${response}");
         return false;
       }
     } catch (e) {

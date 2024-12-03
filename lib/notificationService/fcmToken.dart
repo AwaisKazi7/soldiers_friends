@@ -41,6 +41,10 @@ class FirebaseDB {
         deviceID: deviceInfo.id,
       );
 
+      FirebaseMessaging.instance.onTokenRefresh.listen((newToken) {
+
+      });
+
       // Handle Foreground Notifications
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
         print("Foreground Notification: ${message.notification?.title}");
