@@ -72,16 +72,4 @@ class FirebaseDB {
   static Future<void> _onBackgroundMessage(RemoteMessage message) async {
     print("Background Notification: ${message.notification?.title}");
   }
-
-  handleNotification(String type) {
-    if (type == 'NewRequest') {
-      var controler = Get.put(NavbarController());
-      Get.toNamed(RoutesName.bottomnavbar);
-      controler.onTabTapped(1);
-    } else if (type == 'FriendList') {
-      var controler = Get.put(NavbarController());
-      Get.toNamed(RoutesName.bottomnavbar);
-      controler.onTabTapped(2);
-    }
-  }
 }

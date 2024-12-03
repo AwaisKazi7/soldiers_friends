@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/model/messageModel.dart';
+import 'package:soldiers_friends/notificationService/pushNotification_service.dart';
 import 'package:soldiers_friends/services/SupabaseDB.dart';
 import 'package:soldiers_friends/view/chat/chat_controller.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -26,6 +27,17 @@ class ChatDetailController extends GetxController {
           .sendMessage(UserId, messagecontroller.text, mediiatype, chatid);
       messagecontroller.clear();
       apihitting.value = false;
+
+        var fcmtokens = await Supabase.instance.client
+            .from('Fcmtoken_table')
+            .select('fcmToken')
+            .eq('userId', UserId);
+        if (fcmtokens.isNotEmpty) {
+          await PushnotificationService.getInstance.sendNotification(
+              fcmtokens.first['fcmToken'].toString(), 'message');
+        } else {
+          print('No FCMTOKEN find for this userid:$UserId');
+        }
     } catch (e) {
       print("Error sendMessage:${e}");
     }

@@ -6,6 +6,7 @@ import 'package:soldiers_friends/common/common_colors.dart';
 import 'package:soldiers_friends/common/common_rich_text.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
+import 'package:soldiers_friends/notificationService/localNotification.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/get_started/get_started_controller.dart';
 import 'package:soldiers_friends/view/login/login_controller.dart';
@@ -15,7 +16,10 @@ class GetStartedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<GetStartedController>(builder: (controller) {
+    return GetBuilder<GetStartedController>(initState: (state) {
+      LocalNotificationService.getInstance
+          .initialize(context); //-----for displaying notifications
+    }, builder: (controller) {
       return Scaffold(
         backgroundColor: CommonColors.backgroundColor,
         body: SingleChildScrollView(
@@ -95,9 +99,8 @@ class GetStartedView extends StatelessWidget {
                     borderRadius: 5,
                     textStyle: CommonTextStyle.getstartedb1Style,
                     boxShadow: const [],
-                    onPressed: () async{
+                    onPressed: () async {
                       await controller.onGetStartedPressed();
-
                     }),
                 const SizedBox(
                   height: 10,

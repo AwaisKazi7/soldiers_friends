@@ -12,6 +12,7 @@ class GetStartedController extends GetxController {
   }
 
   onGetStartedPressed() async {
+    
     await LocalDataStorage.getInstance.getUserData();
     print('=========WELCOME BACK===========');
     print('USER NAME:${LocalDataStorage.username.value}');

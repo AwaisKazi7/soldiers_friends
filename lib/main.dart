@@ -17,7 +17,7 @@ Future<void> main() async {
   );
   await supabse_DB.getInstance.supabase_init();
   FirebaseDB.init(); //---for FcmToken
-   LocalNotificationService.initialize(); //-----for displaying notifications
+
   emailSender.getInstance.init();
   runApp(const MyApp());
 }

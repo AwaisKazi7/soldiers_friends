@@ -47,6 +47,7 @@ class HomeController extends GetxController {
       if (!likedUsers.contains(user)) {
         likedUsers.add(user);
       }
+      
       return true;
     } else {
       return false;

@@ -516,16 +516,6 @@ class supabse_DB {
             .update({'last_message': message}).eq('id', chatId);
 
         print("sendMessage 👌✅");
-        var fcmtokens = await Supabase.instance.client
-            .from('Fcmtoken_table')
-            .select('fcmToken')
-            .eq('userId', userId);
-        if (fcmtokens.isNotEmpty) {
-          await PushnotificationService.getInstance.sendNotification(
-              fcmtokens.first['fcmToken'].toString(), 'message');
-        } else {
-          print('No FCMTOKEN find for this userid:$userId');
-        }
       } else {}
 
       return true;
