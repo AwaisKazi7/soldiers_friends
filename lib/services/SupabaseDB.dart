@@ -1034,38 +1034,4 @@ class supabse_DB {
     }
   }
 
-  // sendNotification(
-  //   int userId,
-  // ) async {
-  //   try {
-  //     var data = {
-  //       'to': 'fcmtoken',
-  //       'priority': 'high',
-  //       'notification': {
-  //         "title": 'solider friend',
-  //         'body': 'you have recived new notification',
-  //       },
-  //     };
-
-  //     await dio.post('https://fcm.googleapis.com/fcm/send',
-  //         data: data,
-  //         options: Options(headers: {
-  //           'content-Type': 'application/json; charset=UTF-8',
-  //           'Authorization': 'asdjlkjdsalkjlkasjdlkjaslkDjalksjdlkajsldkjaslkd'
-  //         }));
-
-  //     print("Add Fcmtoken 👌✅");
-
-  //     return true;
-  //   } catch (e) {
-  //     print('Add Fcmtoken Error: $e');
-  //     // ScaffoldMessenger.of(context).showSnackBar(
-  //     //   SnackBar(
-  //     //     content: Text("ERROR: $e"),
-  //     //     backgroundColor: Colors.red,
-  //     //   ),
-  //     // );
-  //     return false;
-  //   }
-  // }
 }
