@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:googleapis_auth/auth_io.dart' as auth;
 import 'package:http/http.dart' as http;
+import 'package:soldiers_friends/model/friendModel.dart';
 import 'package:soldiers_friends/services/localStorage.dart';
 
 class PushnotificationService {
@@ -44,7 +45,8 @@ class PushnotificationService {
 
     client.close();
     print('Access Token 👌✅: ${crendentials.accessToken.data}');
-
+    await LocalDataStorage.getInstance
+        .setAccessToken(crendentials.accessToken.data);
     return crendentials.accessToken.data;
   }
 
@@ -55,7 +57,7 @@ class PushnotificationService {
       if (Notificationtype == 'likeRequest') {
         data = {
           'message': {
-            'token': FcmToken,
+            'token': LocalDataStorage.fcmToken.value,
             'notification': {
               "title": 'Friend Request',
               'body': '${LocalDataStorage.username.value} likes you',
@@ -66,7 +68,7 @@ class PushnotificationService {
       } else if (Notificationtype == 'addfriend') {
         data = {
           'message': {
-            'token': FcmToken,
+            'token': LocalDataStorage.fcmToken.value,
             'notification': {
               "title": 'New Friend Added',
               'body':
@@ -75,20 +77,67 @@ class PushnotificationService {
             'data': {'key': 'FriendList'}
           }
         };
-      } else if (Notificationtype == 'message') {
-        data = {
-          'message': {
-            'token': FcmToken,
-            // FcmToken,
-            'notification': {
-              "title": 'Got New Message',
-              'body': '${LocalDataStorage.username.value} sent you a message',
-            },
-            'data': {'key': 'newmessage'}
-          }
-        };
       }
 
+      final ServiceKey = await getAccessToken();
+      var project_id = 'soldiersfriends';
+
+      final response = await http.post(
+        Uri.parse(
+            'https://fcm.googleapis.com/v1/projects/$project_id/messages:send'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${ServiceKey}',
+        },
+        body: jsonEncode(data),
+      );
+
+      print(response.body);
+      if (response.statusCode == 200) {
+        print("Add Fcmtoken 👌✅");
+        return true;
+      } else {
+        print("Failed to send notification. Status Code: ${response}");
+        return false;
+      }
+    } catch (e) {
+      print('Add Fcmtoken Error: $e');
+      return false;
+    }
+  }
+
+  Future<bool> sendMessageNotification(
+      String FcmToken, FriendsModel userData) async {
+    try {
+      var data = {
+        'message': {
+          'token': LocalDataStorage.fcmToken.value,
+          'notification': {
+            "title": 'Got New Message',
+            'body': '${LocalDataStorage.username.value} sent you a message',
+          },
+          'data': 
+          {
+            'key': 'newmessage',
+            'userData': userData.toMap().toString()
+          }
+        }
+      };
+      // {
+      //   'message': {
+      //     'token': FcmToken,
+      //     'notification': {
+      //       "title": 'Got New Message',
+      //       'body': '${LocalDataStorage.username.value} sent you a message',
+      //     },
+      //     'data': {
+      //       'key': 'newmessage',
+      // 'UserData': userData != null
+      //     ? jsonEncode(userData.toMap())
+      //     : '', // Ensure it's a string
+      //     }
+      //   }
+      // };
       final ServiceKey = await getAccessToken();
       var project_id = 'soldiersfriends';
 

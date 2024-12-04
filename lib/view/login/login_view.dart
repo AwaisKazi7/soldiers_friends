@@ -28,13 +28,13 @@ class _LoginPageState extends State<LoginPage> {
       return Scaffold(
         backgroundColor: CommonColors.backgroundColor,
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Container(
-              margin: const EdgeInsets.all(18.0),
-              height: context.height,
-              width: context.width,
-              child: Form(
-                key: controller.formkey,
+          child: Container(
+            margin: const EdgeInsets.all(18.0),
+            height: context.height,
+            width: context.width,
+            child: Form(
+              key: controller.formkey,
+              child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

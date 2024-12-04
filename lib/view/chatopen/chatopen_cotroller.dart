@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:soldiers_friends/model/friendModel.dart';
 import 'package:soldiers_friends/model/messageModel.dart';
 import 'package:soldiers_friends/notificationService/pushNotification_service.dart';
 import 'package:soldiers_friends/services/SupabaseDB.dart';
@@ -20,24 +21,24 @@ class ChatDetailController extends GetxController {
     // navigate();
   }
 
-  sendMessage(int UserId, int mediiatype, int chatid) async {
+  sendMessage(int UserId, int mediiatype, FriendsModel userData) async {
     try {
       apihitting.value = true;
-      var data = await supabse_DB.getInstance
-          .sendMessage(UserId, messagecontroller.text, mediiatype, chatid);
+      var data = await supabse_DB.getInstance.sendMessage(
+          UserId, messagecontroller.text, mediiatype, userData.chatId);
       messagecontroller.clear();
       apihitting.value = false;
 
-        var fcmtokens = await Supabase.instance.client
-            .from('Fcmtoken_table')
-            .select('fcmToken')
-            .eq('userId', UserId);
-        if (fcmtokens.isNotEmpty) {
-          await PushnotificationService.getInstance.sendNotification(
-              fcmtokens.first['fcmToken'].toString(), 'message');
-        } else {
-          print('No FCMTOKEN find for this userid:$UserId');
-        }
+      var fcmtokens = await Supabase.instance.client
+          .from('Fcmtoken_table')
+          .select('fcmToken')
+          .eq('userId', UserId);
+      if (fcmtokens.isNotEmpty) {
+        await PushnotificationService.getInstance.sendMessageNotification(
+            fcmtokens.first['fcmToken'].toString(), userData);
+      } else {
+        print('No FCMTOKEN find for this userid:$UserId');
+      }
     } catch (e) {
       print("Error sendMessage:${e}");
     }

@@ -56,20 +56,24 @@ class FriendsModel {
     );
   }
 
-  // Method to convert FriendsModel to a map (e.g., for JSON serialization)
   Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      'email': email,
-      'password': password,
-      'DOB': DOB,
-      'bio': bio,
-      'country': country,
-      'isApprove': isApprove,
-      'isDelete': isDelete,
-      'createdAt': createdAt.toIso8601String(),
-      'chat_id': chatId, // Include chat_id in the map
-    };
-  }
+  return {
+    "id": id,
+    "name": name,
+    "email": email,
+    "password": password,
+    "phonenumber": phonenumber, // Added
+    "DOB": DOB,
+    "bio": bio,
+    "country": country,
+    "isApprove": isApprove,
+    "isDelete": isDelete,
+    "createdAt": createdAt.toIso8601String(),
+    "chat_id": chatId,
+    "images": images, // Added
+    "isblocked": isblocked, // Added
+    "lastMessage": lastMessage, // Added
+  };
+}
+
 }

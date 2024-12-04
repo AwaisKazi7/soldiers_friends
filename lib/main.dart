@@ -6,7 +6,6 @@ import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/services/SupabaseDB.dart';
 import 'package:soldiers_friends/services/emailsender.dart';
 import 'package:soldiers_friends/notificationService/fcmToken.dart';
-import 'package:soldiers_friends/notificationService/localNotification.dart';
 import 'routes/routes_page_list.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -26,11 +25,10 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext hcontext) {
+  Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize:
-          const Size(375, 812), // Set your base design size (width, height)
-      minTextAdapt: true, // Ensures text scales properly
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
         return GetMaterialApp(

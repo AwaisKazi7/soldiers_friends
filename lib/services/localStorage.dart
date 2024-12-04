@@ -22,6 +22,7 @@ class LocalDataStorage extends GetxController {
   static RxString currentUserId = ''.obs;
   static RxString fcmToken = ''.obs;
   static RxString DeviceID = ''.obs;
+  static RxString accessToken = ''.obs;
 
   Future<void> insertUserData(UserModel userData) async {
     final SharedPreferences prefs = await _prefs;
@@ -56,6 +57,13 @@ class LocalDataStorage extends GetxController {
 
     fcmToken.value = FcmToken;
     DeviceID.value = deviceID;
+  }
+
+  setAccessToken(String Token) async {
+    final SharedPreferences? prefs = await _prefs;
+    await prefs?.setString('accessToken', Token);
+
+    accessToken.value = Token;
   }
 
   updateUserData(

@@ -21,310 +21,308 @@ class SignupPage extends StatelessWidget {
       return Scaffold(
         backgroundColor: CommonColors.backgroundColor,
         body: SafeArea(
-            child: SingleChildScrollView(
-          child: Container(
-            margin: const EdgeInsets.all(18.0),
-            height: context.height,
-            width: context.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  icon: CircleAvatar(
-                    backgroundColor: CommonColors.lightGray,
-                    child: ClipOval(
-                      child: Image.asset(
-                        CommonAssets.backarrowIcon,
-                        fit: BoxFit.cover,
-                        width: 70, // Responsive sizing
+            child: Container(
+              margin: const EdgeInsets.all(18.0),
+              height: context.height,
+              width: context.width,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      icon: CircleAvatar(
+                        backgroundColor: CommonColors.lightGray,
+                        child: ClipOval(
+                          child: Image.asset(
+                            CommonAssets.backarrowIcon,
+                            fit: BoxFit.cover,
+                            width: 70, // Responsive sizing
+                          ),
+                        ),
                       ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                     ),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                Image.asset(
-                  CommonAssets.rankImage,
-                ),
-                const CommonText(
-                  text: "Welcome",
-                  style: CommonTextStyle.welcomelogin,
-                ),
-                CommonText(
-                  text: "Create your account",
-                  style: CommonTextStyle.welcomelogin
-                      .copyWith(fontSize: 20, fontWeight: FontWeight.w400),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Form(
-                  key: controller.formkey,
-                  child: Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: CommonColors.blackColor.withOpacity(0.1),
-                              blurRadius: 9,
-                              offset: const Offset(0, 0),
+                    Image.asset(
+                      CommonAssets.rankImage,
+                    ),
+                    const CommonText(
+                      text: "Welcome",
+                      style: CommonTextStyle.welcomelogin,
+                    ),
+                    CommonText(
+                      text: "Create your account",
+                      style: CommonTextStyle.welcomelogin
+                          .copyWith(fontSize: 20, fontWeight: FontWeight.w400),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Form(
+                      key: controller.formkey,
+                      child: Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: CommonColors.blackColor.withOpacity(0.1),
+                                  blurRadius: 9,
+                                  offset: const Offset(0, 0),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        child: CustomTextFieldWidget(
-                          enabled: true,
-                          label: '',
-                          controller: controller.fullnameController,
-                          hintText: "Fullname",
-                          inputType: TextInputType.name,
-                          focusNode: controller.NameFocusNode,
-                          onchange: (value) {
-                            controller.apihitting.value = false;
-                          },
-                          onsubmit: () {},
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter fullname';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: CommonColors.blackColor.withOpacity(0.1),
-                              blurRadius: 9,
-                              offset: const Offset(0, 0),
-                            ),
-                          ],
-                        ),
-                        child: CustomTextFieldWidget(
-                          enabled: true,
-                          label: '',
-                          controller: controller.EmailController,
-                          hintText: "Email",
-                          inputType: TextInputType.name,
-                          focusNode: controller.EmailFocusNode,
-                          onchange: (value) {
-                            controller.apihitting.value = false;
-                          },
-                          onsubmit: () {},
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter an email address';
-                            }
-                            const emailPattern =
-                                r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)*(\.[a-z]{2,4})$';
-                            if (!RegExp(emailPattern).hasMatch(value)) {
-                              return 'Please enter a valid email address';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: CommonColors.blackColor.withOpacity(0.1),
-                              blurRadius: 9,
-                              offset: const Offset(0, 0),
-                            ),
-                          ],
-                        ),
-                        child: Obx(
-                          () => CustomTextFieldWidget(
-                            enabled: true,
-                            label: '',
-                            suffixIcon: GestureDetector(
-                                onTap: () {
-                                  controller.showpassword.value =
-                                      !controller.showpassword.value;
-                                },
-                                child: Icon(
-                                  controller.showpassword.value
-                                      ? Icons.visibility_outlined
-                                      : Icons.visibility_off_outlined,
-                                )),
-                            controller: controller.PassowrdController,
-                            hintText: "Password",
-                            obscureText: controller.showpassword.value,
-                            inputType: TextInputType.name,
-                            focusNode: controller.PasswordFocusNode,
-                            onchange: (value) {
-                              controller.apihitting.value = false;
-                            },
-                            onsubmit: () {},
-                            validator: (input) => input!.length < 3
-                                ? 'Please enter at least 3 characters'
-                                : input.length > 20
-                                    ? 'Please enter less then 20 characters'
-                                    : null,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: CommonColors.blackColor.withOpacity(0.1),
-                              blurRadius: 9,
-                              offset: const Offset(0, 0),
-                            ),
-                          ],
-                        ),
-                        child: Obx(
-                          () => CustomTextFieldWidget(
-                            enabled: true,
-                            label: '',
-                            controller: controller.confirmPasswordController,
-                            hintText: "Confirm Password",
-                            suffixIcon: GestureDetector(
-                                onTap: () {
-                                  controller.showConfirmpassword.value =
-                                      !controller.showConfirmpassword.value;
-                                },
-                                child: Icon(
-                                  controller.showConfirmpassword.value
-                                      ? Icons.visibility_outlined
-                                      : Icons.visibility_off_outlined,
-                                )),
-                            inputType: TextInputType.name,
-                            focusNode: controller.ConfirmPasswordFocusNode,
-                            obscureText: controller.showConfirmpassword.value,
-                            onchange: (value) {
-                              controller.apihitting.value = false;
-                            },
-                            onsubmit: () {},
-                            validator: (input) => input!.length < 3
-                                ? 'Please enter at least 3 characters'
-                                : input.length > 20
-                                    ? 'Please enter less then 20 characters'
-                                    : null,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: CommonColors.blackColor.withOpacity(0.1),
-                              blurRadius: 9,
-                              offset: const Offset(0, 0),
-                            ),
-                          ],
-                        ),
-                        child: CustomTextFieldWidget(
-                          enabled: true,
-                          label: 'Phone number',
-                          controller: controller.phoneController,
-                          hintText: "Phone number",
-                          inputType: TextInputType.number,
-                          focusNode: controller.PhoneFocusNode,
-                          onchange: (value) {
-                            controller.apihitting.value = false;
-                          },
-                          onsubmit: () {},
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter Phone Number';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Expanded(
-                  child: Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Get.offAllNamed(RoutesName.loginPage);
-                          },
-                          child: CommonRichText(
-                            text1: 'Already have an account?',
-                            style1: CommonTextStyle.splashheadline1,
-                            text2: ' Sign In',
-                            style2: CommonTextStyle.splashheadline1.copyWith(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              decorationColor: CommonColors.blackColor,
-                              decorationThickness: 4.0,
-                            ),
-                            text3: '',
-                            style3: TextStyle(),
-                            text4: '',
-                            style4: TextStyle(),
-                            text5: '',
-                            style5: TextStyle(),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Obx(
-                          () => CommonButton(
-                            height: 50.98,
-                            width: 345.59,
-                            text: 'Sign Up',
-                            textStyle: CommonTextStyle.splashheadline1.copyWith(
-                                fontSize: 16, fontWeight: FontWeight.w500),
-                            borderRadius: 5,
-                            isloading: controller.apihitting.value,
-                            boxShadow: const [],
-                            onPressed: () async {
-                              if (controller.formkey.currentState!.validate()) {
-                                if (controller.PassowrdController.text ==
-                                    controller.confirmPasswordController.text) {
-                                  var result = await controller.signUp(context);
-                                  if (result) {
-                                    Get.toNamed(RoutesName.uploadprofilepictureview);
-                                  }
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text("Password doesn't Match"),
-                                      backgroundColor: Colors.red,
-                                    ),
-                                  );
+                            child: CustomTextFieldWidget(
+                              enabled: true,
+                              label: '',
+                              controller: controller.fullnameController,
+                              hintText: "Fullname",
+                              inputType: TextInputType.name,
+                              focusNode: controller.NameFocusNode,
+                              onchange: (value) {
+                                controller.apihitting.value = false;
+                              },
+                              onsubmit: () {},
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter fullname';
                                 }
-                              }
-                            },
+                                return null;
+                              },
+                            ),
                           ),
-                        ),
-                        // ),
-                      ],
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: CommonColors.blackColor.withOpacity(0.1),
+                                  blurRadius: 9,
+                                  offset: const Offset(0, 0),
+                                ),
+                              ],
+                            ),
+                            child: CustomTextFieldWidget(
+                              enabled: true,
+                              label: '',
+                              controller: controller.EmailController,
+                              hintText: "Email",
+                              inputType: TextInputType.name,
+                              focusNode: controller.EmailFocusNode,
+                              onchange: (value) {
+                                controller.apihitting.value = false;
+                              },
+                              onsubmit: () {},
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter an email address';
+                                }
+                                const emailPattern =
+                                    r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)*(\.[a-z]{2,4})$';
+                                if (!RegExp(emailPattern).hasMatch(value)) {
+                                  return 'Please enter a valid email address';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: CommonColors.blackColor.withOpacity(0.1),
+                                  blurRadius: 9,
+                                  offset: const Offset(0, 0),
+                                ),
+                              ],
+                            ),
+                            child: Obx(
+                              () => CustomTextFieldWidget(
+                                enabled: true,
+                                label: '',
+                                suffixIcon: GestureDetector(
+                                    onTap: () {
+                                      controller.showpassword.value =
+                                          !controller.showpassword.value;
+                                    },
+                                    child: Icon(
+                                      controller.showpassword.value
+                                          ? Icons.visibility_outlined
+                                          : Icons.visibility_off_outlined,
+                                    )),
+                                controller: controller.PassowrdController,
+                                hintText: "Password",
+                                obscureText: controller.showpassword.value,
+                                inputType: TextInputType.name,
+                                focusNode: controller.PasswordFocusNode,
+                                onchange: (value) {
+                                  controller.apihitting.value = false;
+                                },
+                                onsubmit: () {},
+                                validator: (input) => input!.length < 3
+                                    ? 'Please enter at least 3 characters'
+                                    : input.length > 20
+                                        ? 'Please enter less then 20 characters'
+                                        : null,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: CommonColors.blackColor.withOpacity(0.1),
+                                  blurRadius: 9,
+                                  offset: const Offset(0, 0),
+                                ),
+                              ],
+                            ),
+                            child: Obx(
+                              () => CustomTextFieldWidget(
+                                enabled: true,
+                                label: '',
+                                controller: controller.confirmPasswordController,
+                                hintText: "Confirm Password",
+                                suffixIcon: GestureDetector(
+                                    onTap: () {
+                                      controller.showConfirmpassword.value =
+                                          !controller.showConfirmpassword.value;
+                                    },
+                                    child: Icon(
+                                      controller.showConfirmpassword.value
+                                          ? Icons.visibility_outlined
+                                          : Icons.visibility_off_outlined,
+                                    )),
+                                inputType: TextInputType.name,
+                                focusNode: controller.ConfirmPasswordFocusNode,
+                                obscureText: controller.showConfirmpassword.value,
+                                onchange: (value) {
+                                  controller.apihitting.value = false;
+                                },
+                                onsubmit: () {},
+                                validator: (input) => input!.length < 3
+                                    ? 'Please enter at least 3 characters'
+                                    : input.length > 20
+                                        ? 'Please enter less then 20 characters'
+                                        : null,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: CommonColors.blackColor.withOpacity(0.1),
+                                  blurRadius: 9,
+                                  offset: const Offset(0, 0),
+                                ),
+                              ],
+                            ),
+                            child: CustomTextFieldWidget(
+                              enabled: true,
+                              label: 'Phone number',
+                              controller: controller.phoneController,
+                              hintText: "Phone number",
+                              inputType: TextInputType.number,
+                              focusNode: controller.PhoneFocusNode,
+                              onchange: (value) {
+                                controller.apihitting.value = false;
+                              },
+                              onsubmit: () {},
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter Phone Number';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        )),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Get.offAllNamed(RoutesName.loginPage);
+                            },
+                            child: CommonRichText(
+                              text1: 'Already have an account?',
+                              style1: CommonTextStyle.splashheadline1,
+                              text2: ' Sign In',
+                              style2: CommonTextStyle.splashheadline1.copyWith(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                decorationColor: CommonColors.blackColor,
+                                decorationThickness: 4.0,
+                              ),
+                              text3: '',
+                              style3: TextStyle(),
+                              text4: '',
+                              style4: TextStyle(),
+                              text5: '',
+                              style5: TextStyle(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          Obx(
+                            () => CommonButton(
+                              height: 50.98,
+                              width: 345.59,
+                              text: 'Sign Up',
+                              textStyle: CommonTextStyle.splashheadline1.copyWith(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                              borderRadius: 5,
+                              isloading: controller.apihitting.value,
+                              boxShadow: const [],
+                              onPressed: () async {
+                                if (controller.formkey.currentState!.validate()) {
+                                  if (controller.PassowrdController.text ==
+                                      controller.confirmPasswordController.text) {
+                                    var result = await controller.signUp(context);
+                                    if (result) {
+                                      Get.toNamed(RoutesName.uploadprofilepictureview);
+                                    }
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text("Password doesn't Match"),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
+                                  }
+                                }
+                              },
+                            ),
+                          ),
+                          // ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )),
       );
     });
   }

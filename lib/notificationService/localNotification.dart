@@ -1,21 +1,24 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:soldiers_friends/model/friendModel.dart';
+import 'package:soldiers_friends/model/users_model.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/bottomnavbar/bottomnavbar_controller.dart';
 
 class LocalNotificationService {
-
-static LocalNotificationService? _instance;
+  static LocalNotificationService? _instance;
   static LocalNotificationService get getInstance =>
       _instance ??= LocalNotificationService();
 
   static final FlutterLocalNotificationsPlugin _notificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-   void initialize(BuildContext context) {
+  void initialize(BuildContext context) {
     const InitializationSettings initializationSettings =
         InitializationSettings(
       android: AndroidInitializationSettings('@mipmap/ic_launcher'),
@@ -26,9 +29,12 @@ static LocalNotificationService? _instance;
       initializationSettings,
       onDidReceiveNotificationResponse: (NotificationResponse response) {
         // Handle the notification tap
+
         if (response.payload != null) {
-          print('payload:${response.payload}');
-          handleNotification(response.payload!);
+          Map<String, dynamic> payload = json.decode(response.payload!);
+          print('payload:${payload}');
+
+          handleNotification(payload);
         }
       },
     );
@@ -51,34 +57,42 @@ static LocalNotificationService? _instance;
         const NotificationDetails platformChannelSpecifics =
             NotificationDetails(android: androidPlatformChannelSpecifics);
 
-        await _notificationsPlugin.show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
-          platformChannelSpecifics,
-          payload: message.data['key'], // Pass the route as payload
-        );
+        await _notificationsPlugin.show(notification.hashCode,
+            notification.title, notification.body, platformChannelSpecifics,
+            payload: json.encode(message.data));
       }
     } catch (e) {
       print('Error displaying notification: $e');
     }
   }
 
-  handleNotification(String type) {
-    if (type == 'NewRequest') {
-      var controler = Get.put(NavbarController());
-      Get.toNamed(RoutesName.bottomnavbar);
-      controler.onTabTapped(1);
-    } else if (type == 'FriendList') {
-      var controler = Get.put(NavbarController());
-      Get.toNamed(RoutesName.bottomnavbar);
-      controler.onTabTapped(3);
-      Get.toNamed(RoutesName.friendlistview);
-    }
-    else if (type == 'newmessage') {
-      var controler = Get.put(NavbarController());
-      Get.toNamed(RoutesName.bottomnavbar);
-      controler.onTabTapped(2);
+  handleNotification(Map<String, dynamic> payload) {
+    try {
+      if (payload['key'] == 'NewRequest') {
+        var controler = Get.put(NavbarController());
+        Get.toNamed(RoutesName.bottomnavbar);
+        controler.onTabTapped(1);
+      } else if (payload['key'] == 'FriendList') {
+        var controler = Get.put(NavbarController());
+        Get.toNamed(RoutesName.bottomnavbar);
+        controler.onTabTapped(3);
+        Get.toNamed(RoutesName.friendlistview);
+      } else {
+        // For messages
+        print(payload);
+
+        Map<String, dynamic> userDataMap = jsonDecode(payload['userData']);
+
+        var userData = FriendsModel.fromMap(userDataMap, userDataMap['chat_id'],
+            userDataMap['lastMessage'], userDataMap['isblocked']);
+
+        var controler = Get.put(NavbarController());
+        Get.toNamed(RoutesName.bottomnavbar);
+        controler.onTabTapped(2);
+        Get.toNamed(RoutesName.chatdetails, arguments: userData);
+      }
+    } catch (e) {
+      print("Error: $e");
     }
   }
 }

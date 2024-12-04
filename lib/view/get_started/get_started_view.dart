@@ -8,6 +8,7 @@ import 'package:soldiers_friends/common/common_rich_text.dart';
 import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/notificationService/localNotification.dart';
+import 'package:soldiers_friends/notificationService/pushNotification_service.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/view/get_started/get_started_controller.dart';
 import 'package:soldiers_friends/view/login/login_controller.dart';
@@ -17,10 +18,11 @@ class GetStartedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<GetStartedController>(initState: (state) {
+    return GetBuilder<GetStartedController>(initState: (state) async {
       LocalNotificationService.getInstance
           .initialize(context); //-----for displaying notifications
       // Handle cold start (app launched via notification)
+      await PushnotificationService.getInstance.getAccessToken();
       FirebaseMessaging.instance.getInitialMessage().then((message) {
         if (message != null) {
           final route = message.data['route']; // Extract the route
