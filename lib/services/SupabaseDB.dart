@@ -1034,4 +1034,50 @@ class supabse_DB {
     }
   }
 
+  GetUserconversationData_by_chatId(int chat_id) async {
+    try {
+      var userResponse;
+
+      var FriendResponse = await Supabase.instance.client
+          .from('Conversation_table')
+          .select('*')
+          .eq('id', chat_id);
+      if (FriendResponse.isNotEmpty) {
+        if (FriendResponse.first['second_userId'] !=
+            int.parse(LocalDataStorage.currentUserId.value)) {
+          userResponse = await Supabase.instance.client
+              .from('users_table')
+              .select('*,profilepicture_table(*)')
+              .eq('id', FriendResponse.first['second_userId'])
+              .maybeSingle();
+        }
+
+        if (FriendResponse.first['first_userId'] !=
+            int.parse(LocalDataStorage.currentUserId.value)) {
+          userResponse = await Supabase.instance.client
+              .from('users_table')
+              .select('*,profilepicture_table(*)')
+              .eq('id', FriendResponse.first['first_userId'])
+              .maybeSingle();
+        }
+
+        FriendsModel data = FriendsModel.fromMap(
+            userResponse,
+            FriendResponse.first['id'],
+            FriendResponse.first['last_message'],
+            FriendResponse.first['isblocked']);
+
+        print('GetUserconversationData_by_chatId 👌✅');
+        print({
+          'Conversation Data': data,
+        });
+        return data;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('GetUserconversationData_by_chatId Error: $e');
+      return null;
+    }
+  }
 }

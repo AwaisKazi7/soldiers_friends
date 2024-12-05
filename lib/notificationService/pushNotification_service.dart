@@ -116,28 +116,10 @@ class PushnotificationService {
             "title": 'Got New Message',
             'body': '${LocalDataStorage.username.value} sent you a message',
           },
-          'data': 
-          {
-            'key': 'newmessage',
-            'userData': userData.toMap().toString()
-          }
+          'data': {'key': 'newmessage', 'chatId': userData.chatId.toString()}
         }
       };
-      // {
-      //   'message': {
-      //     'token': FcmToken,
-      //     'notification': {
-      //       "title": 'Got New Message',
-      //       'body': '${LocalDataStorage.username.value} sent you a message',
-      //     },
-      //     'data': {
-      //       'key': 'newmessage',
-      // 'UserData': userData != null
-      //     ? jsonEncode(userData.toMap())
-      //     : '', // Ensure it's a string
-      //     }
-      //   }
-      // };
+
       final ServiceKey = await getAccessToken();
       var project_id = 'soldiersfriends';
 

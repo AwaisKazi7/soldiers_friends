@@ -8,6 +8,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:soldiers_friends/model/friendModel.dart';
 import 'package:soldiers_friends/model/users_model.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
+import 'package:soldiers_friends/services/SupabaseDB.dart';
 import 'package:soldiers_friends/view/bottomnavbar/bottomnavbar_controller.dart';
 
 class LocalNotificationService {
@@ -66,7 +67,18 @@ class LocalNotificationService {
     }
   }
 
-  handleNotification(Map<String, dynamic> payload) {
+  String fixJson(String invalidJson) {
+    return invalidJson
+        .replaceAllMapped(RegExp(r'([a-zA-Z0-9_]+):'),
+            (match) => '"${match[1]}":') // Add quotes to keys
+        .replaceAll("'", '"') // Replace single quotes with double quotes
+        .replaceAll(RegExp(r'(\s*):(\s*)'),
+            ':') // Remove unnecessary spaces around colons
+        .replaceAllMapped(RegExp(r'(?<=\s|^)([0-9a-zA-Z_]+):'),
+            (match) => '"${match[1]}":'); // Add quotes
+  }
+
+  handleNotification(Map<String, dynamic> payload) async {
     try {
       if (payload['key'] == 'NewRequest') {
         var controler = Get.put(NavbarController());
@@ -78,18 +90,16 @@ class LocalNotificationService {
         controler.onTabTapped(3);
         Get.toNamed(RoutesName.friendlistview);
       } else {
-        // For messages
-        print(payload);
+        var chatid = int.parse(payload['chatId']);
+        var data = await supabse_DB.getInstance
+            .GetUserconversationData_by_chatId(chatid);
 
-        Map<String, dynamic> userDataMap = jsonDecode(payload['userData']);
-
-        var userData = FriendsModel.fromMap(userDataMap, userDataMap['chat_id'],
-            userDataMap['lastMessage'], userDataMap['isblocked']);
-
-        var controler = Get.put(NavbarController());
-        Get.toNamed(RoutesName.bottomnavbar);
-        controler.onTabTapped(2);
-        Get.toNamed(RoutesName.chatdetails, arguments: userData);
+        if (data != null) {
+          var controler = Get.put(NavbarController());
+          Get.toNamed(RoutesName.bottomnavbar);
+          controler.onTabTapped(2);
+          Get.toNamed(RoutesName.chatdetails, arguments: data);
+        }
       }
     } catch (e) {
       print("Error: $e");

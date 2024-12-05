@@ -57,23 +57,22 @@ class FriendsModel {
   }
 
   Map<String, dynamic> toMap() {
-  return {
-    "id": id,
-    "name": name,
-    "email": email,
-    "password": password,
-    "phonenumber": phonenumber, // Added
-    "DOB": DOB,
-    "bio": bio,
-    "country": country,
-    "isApprove": isApprove,
-    "isDelete": isDelete,
-    "createdAt": createdAt.toIso8601String(),
-    "chat_id": chatId,
-    "images": images, // Added
-    "isblocked": isblocked, // Added
-    "lastMessage": lastMessage, // Added
-  };
-}
-
+    return {
+      "id": id,
+      "name": name,
+      "email": email,
+      "password": password,
+      "phonenumber": phonenumber,
+      "DOB": DOB,
+      "bio": bio,
+      "country": country,
+      "isApprove": isApprove,
+      "isDelete": isDelete,
+      "createdAt": createdAt.toIso8601String(),
+      "chat_id": chatId,
+      "images": images,
+      "isblocked": isblocked,
+      "lastMessage": lastMessage,
+    };
+  }
 }
