@@ -57,7 +57,7 @@ class PushnotificationService {
       if (Notificationtype == 'likeRequest') {
         data = {
           'message': {
-            'token': LocalDataStorage.fcmToken.value,
+            'token': FcmToken,
             'notification': {
               "title": 'Friend Request',
               'body': '${LocalDataStorage.username.value} likes you',
@@ -97,7 +97,7 @@ class PushnotificationService {
     try {
       var data = {
         'message': {
-          'token': LocalDataStorage.fcmToken.value,
+          'token': FcmToken,
           'notification': {
             "title": 'New Friend Added',
             'body':
@@ -142,7 +142,7 @@ class PushnotificationService {
     try {
       var data = {
         'message': {
-          'token': LocalDataStorage.fcmToken.value,
+          'token': FcmToken,
           'notification': {
             "title": 'Got New Message',
             'body': '${LocalDataStorage.username.value} sent you a message',

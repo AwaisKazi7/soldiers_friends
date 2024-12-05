@@ -85,20 +85,24 @@ class LocalNotificationService {
         Get.toNamed(RoutesName.bottomnavbar);
         controler.onTabTapped(1);
       } else if (payload['key'] == 'FriendList') {
-        var controler = Get.put(NavbarController());
-        Get.toNamed(RoutesName.bottomnavbar);
-        controler.onTabTapped(3);
-        Get.toNamed(RoutesName.friendlistview);
-      } else {
-        var chatid = int.parse(payload['chatId']);
-        var data = await supabse_DB.getInstance
-            .GetUserData_by_chatId(chatid);
+        var userId = int.parse(payload['userId']);
+        var data = await supabse_DB.getInstance.GetfriendData_by_Id(userId);
 
         if (data != null) {
           var controler = Get.put(NavbarController());
           Get.toNamed(RoutesName.bottomnavbar);
           controler.onTabTapped(2);
-          Get.toNamed(RoutesName.chatdetails, arguments: data);
+          Get.toNamed(RoutesName.frienddetailview, arguments: data);
+        } else {
+          var chatid = int.parse(payload['chatId']);
+          var data = await supabse_DB.getInstance.GetUserData_by_chatId(chatid);
+
+          if (data != null) {
+            var controler = Get.put(NavbarController());
+            Get.toNamed(RoutesName.bottomnavbar);
+            controler.onTabTapped(2);
+            Get.toNamed(RoutesName.chatdetails, arguments: data);
+          }
         }
       }
     } catch (e) {
