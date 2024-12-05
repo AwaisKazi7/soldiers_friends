@@ -689,7 +689,7 @@ class supabse_DB {
             .select('fcmToken')
             .eq('userId', userId);
         if (fcmtokens.isNotEmpty) {
-          await PushnotificationService.getInstance.sendNotification(
+          await PushnotificationService.getInstance.likeRequestNotification(
               fcmtokens.first['fcmToken'].toString(), 'likeRequest');
         } else {
           print('No FCMTOKEN find for this userid:$userId');
@@ -797,7 +797,7 @@ class supabse_DB {
             .select('fcmToken')
             .eq('userId', userId);
         if (fcmtokens.isNotEmpty) {
-          await PushnotificationService.getInstance.sendNotification(
+          await PushnotificationService.getInstance.likeRequestNotification(
               fcmtokens.first['fcmToken'].toString(), 'addfriend');
         } else {
           print('No FCMTOKEN find for this userid:$userId');
@@ -1034,7 +1034,7 @@ class supabse_DB {
     }
   }
 
-  GetUserconversationData_by_chatId(int chat_id) async {
+  GetUserData_by_chatId(int chat_id) async {
     try {
       var userResponse;
 
@@ -1077,6 +1077,37 @@ class supabse_DB {
       }
     } catch (e) {
       print('GetUserconversationData_by_chatId Error: $e');
+      return null;
+    }
+  }
+
+  GetfriendData_by_Id(int friend_userId) async {
+    try {
+      var FriendResponse = await Supabase.instance.client
+          .from('Conversation_table')
+          .select('first_userId,id')
+          .eq('second_userId', friend_userId)
+          .eq('first_userId', int.parse(LocalDataStorage.currentUserId.value));
+
+      var userResponse = await Supabase.instance.client
+          .from('users_table')
+          .select('*,profilepicture_table(*)')
+          .eq('id', friend_userId)
+          .maybeSingle();
+
+      if (userResponse!.isNotEmpty) {
+        FriendsModel data = FriendsModel.fromMap(
+            userResponse,
+            FriendResponse.first['id'],
+            FriendResponse.first['last_message'],
+            FriendResponse.first['isblocked']);
+        print('GetfriendData_by_Id 👌✅');
+        return data;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('GetfriendData_by_Id Error: $e');
       return null;
     }
   }

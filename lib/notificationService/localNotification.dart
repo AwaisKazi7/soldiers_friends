@@ -92,7 +92,7 @@ class LocalNotificationService {
       } else {
         var chatid = int.parse(payload['chatId']);
         var data = await supabse_DB.getInstance
-            .GetUserconversationData_by_chatId(chatid);
+            .GetUserData_by_chatId(chatid);
 
         if (data != null) {
           var controler = Get.put(NavbarController());

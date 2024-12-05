@@ -50,7 +50,7 @@ class PushnotificationService {
     return crendentials.accessToken.data;
   }
 
-  Future<bool> sendNotification(
+  Future<bool> likeRequestNotification(
       String FcmToken, String Notificationtype) async {
     try {
       var data;
@@ -65,21 +65,52 @@ class PushnotificationService {
             'data': {'key': 'NewRequest'}
           }
         };
-      } else if (Notificationtype == 'addfriend') {
-        data = {
-          'message': {
-            'token': LocalDataStorage.fcmToken.value,
-            'notification': {
-              "title": 'New Friend Added',
-              'body':
-                  '${LocalDataStorage.username.value} add you in his friend list',
-            },
-            'data': {'key': 'FriendList'}
-          }
-        };
       }
 
-      final ServiceKey = await getAccessToken();
+      final ServiceKey = LocalDataStorage.accessToken.value;
+      var project_id = 'soldiersfriends';
+
+      final response = await http.post(
+        Uri.parse(
+            'https://fcm.googleapis.com/v1/projects/$project_id/messages:send'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${ServiceKey}',
+        },
+        body: jsonEncode(data),
+      );
+      print(response.body);
+      if (response.statusCode == 200) {
+        print("likeRequestNotification 👌✅");
+        return true;
+      } else {
+        print("Failed to send notification. Status Code: ${response}");
+        return false;
+      }
+    } catch (e) {
+      print('likeRequestNotification Error: $e');
+      return false;
+    }
+  }
+
+  Future<bool> AddFriendNotification(String FcmToken, int userId) async {
+    try {
+      var data = {
+        'message': {
+          'token': LocalDataStorage.fcmToken.value,
+          'notification': {
+            "title": 'New Friend Added',
+            'body':
+                '${LocalDataStorage.username.value} add you in his friend list',
+          },
+          'data': {
+            'key': 'FriendList',
+            'userId': userId.toString(),
+          }
+        }
+      };
+
+      final ServiceKey = LocalDataStorage.accessToken.value;
       var project_id = 'soldiersfriends';
 
       final response = await http.post(
@@ -94,14 +125,14 @@ class PushnotificationService {
 
       print(response.body);
       if (response.statusCode == 200) {
-        print("Add Fcmtoken 👌✅");
+        print("AddFriendNotification 👌✅");
         return true;
       } else {
         print("Failed to send notification. Status Code: ${response}");
         return false;
       }
     } catch (e) {
-      print('Add Fcmtoken Error: $e');
+      print('AddFriendNotification Error: $e');
       return false;
     }
   }
@@ -120,7 +151,7 @@ class PushnotificationService {
         }
       };
 
-      final ServiceKey = await getAccessToken();
+      final ServiceKey = LocalDataStorage.accessToken.value;
       var project_id = 'soldiersfriends';
 
       final response = await http.post(
@@ -135,14 +166,14 @@ class PushnotificationService {
 
       print(response.body);
       if (response.statusCode == 200) {
-        print("Add Fcmtoken 👌✅");
+        print("sendMessageNotification 👌✅");
         return true;
       } else {
         print("Failed to send notification. Status Code: ${response}");
         return false;
       }
     } catch (e) {
-      print('Add Fcmtoken Error: $e');
+      print('sendMessageNotification Error: $e');
       return false;
     }
   }
