@@ -93,16 +93,16 @@ class LocalNotificationService {
           Get.toNamed(RoutesName.bottomnavbar);
           controler.onTabTapped(2);
           Get.toNamed(RoutesName.frienddetailview, arguments: data);
-        } else {
-          var chatid = int.parse(payload['chatId']);
-          var data = await supabse_DB.getInstance.GetUserData_by_chatId(chatid);
+        }
+      } else {
+        var chatid = int.parse(payload['chatId']);
+        var data = await supabse_DB.getInstance.GetUserData_by_chatId(chatid);
 
-          if (data != null) {
-            var controler = Get.put(NavbarController());
-            Get.toNamed(RoutesName.bottomnavbar);
-            controler.onTabTapped(2);
-            Get.toNamed(RoutesName.chatdetails, arguments: data);
-          }
+        if (data != null) {
+          var controler = Get.put(NavbarController());
+          Get.toNamed(RoutesName.bottomnavbar);
+          controler.onTabTapped(2);
+          Get.toNamed(RoutesName.chatdetails, arguments: data);
         }
       }
     } catch (e) {

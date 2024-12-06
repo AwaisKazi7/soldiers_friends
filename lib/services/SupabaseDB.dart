@@ -1085,19 +1085,18 @@ class supabse_DB {
     try {
       var FriendResponse = await Supabase.instance.client
           .from('Conversation_table')
-          .select('first_userId,id')
-          .eq('second_userId', friend_userId)
-          .eq('first_userId', int.parse(LocalDataStorage.currentUserId.value));
-
+          .select('*')
+          .eq('second_userId', int.parse(LocalDataStorage.currentUserId.value))
+          .eq('first_userId', friend_userId);
+      print(FriendResponse);
       var userResponse = await Supabase.instance.client
           .from('users_table')
           .select('*,profilepicture_table(*)')
-          .eq('id', friend_userId)
-          .maybeSingle();
+          .eq('id', friend_userId);
 
-      if (userResponse!.isNotEmpty) {
+      if (userResponse.isNotEmpty) {
         FriendsModel data = FriendsModel.fromMap(
-            userResponse,
+            userResponse.first,
             FriendResponse.first['id'],
             FriendResponse.first['last_message'],
             FriendResponse.first['isblocked']);

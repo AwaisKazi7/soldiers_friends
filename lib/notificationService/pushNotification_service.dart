@@ -67,7 +67,7 @@ class PushnotificationService {
         };
       }
 
-      final ServiceKey = LocalDataStorage.accessToken.value;
+      final ServiceKey = await getAccessToken();
       var project_id = 'soldiersfriends';
 
       final response = await http.post(
@@ -105,12 +105,12 @@ class PushnotificationService {
           },
           'data': {
             'key': 'FriendList',
-            'userId': userId.toString(),
+            'userId': LocalDataStorage.currentUserId.value,
           }
         }
       };
 
-      final ServiceKey = LocalDataStorage.accessToken.value;
+      final ServiceKey = await getAccessToken();
       var project_id = 'soldiersfriends';
 
       final response = await http.post(
@@ -151,7 +151,7 @@ class PushnotificationService {
         }
       };
 
-      final ServiceKey = LocalDataStorage.accessToken.value;
+      final ServiceKey = await getAccessToken();
       var project_id = 'soldiersfriends';
 
       final response = await http.post(
