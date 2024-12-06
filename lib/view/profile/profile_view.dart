@@ -103,7 +103,7 @@ class ProfileView extends StatelessWidget {
                             height: 10.sp,
                           ),
                           CircleAvatar(
-                            radius: 82.sp,
+                            radius: 50.sp,
                             backgroundColor: Colors.white,
                             child: CircleAvatar(
                                 radius: 80.sp,
@@ -135,7 +135,7 @@ class ProfileView extends StatelessWidget {
                                 TextStyle(color: Colors.white, fontSize: 15.sp),
                           ),
                           SizedBox(
-                            height: 20.sp,
+                            height: 10.sp,
                           ),
                           CommonButton(
                             width: 100.sp,

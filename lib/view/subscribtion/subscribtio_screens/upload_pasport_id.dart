@@ -70,32 +70,34 @@ class UploadPasportId extends StatelessWidget {
                         SizedBox(width: screenWidth * 0.16),
                       ],
                     ),
-                    Center(
-                      child: controllersProvider.imagePath.value == ''
-                          ? Image.asset(
-                              CommonAssets.passport,
-                              height: screenHeight * 0.3,
-                            )
-                          : Container(
-                              width: 350.sp,
-                              height: 200.sp,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(8),
-                                image:
-                                    controllersProvider.imagePath.value != null
-                                        ? DecorationImage(
-                                            image: FileImage(File(
-                                                controllersProvider
-                                                    .imagePath.value)),
-                                            fit: BoxFit.cover,
-                                          )
-                                        : null,
-                              ),
-                              child: Image.file(
-                                File(controllersProvider.imagePath.value),
-                                fit: BoxFit.cover,
-                              )),
+                    Obx(
+                      () =>  Center(
+                        child: controllersProvider.imagePath.value == ''
+                            ? Image.asset(
+                                CommonAssets.passport,
+                                height: screenHeight * 0.3,
+                              )
+                            : Container(
+                                width: 350.sp,
+                                height: 200.sp,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(8),
+                                  image:
+                                      controllersProvider.imagePath.value != null
+                                          ? DecorationImage(
+                                              image: FileImage(File(
+                                                  controllersProvider
+                                                      .imagePath.value)),
+                                              fit: BoxFit.cover,
+                                            )
+                                          : null,
+                                ),
+                                child: Image.file(
+                                  File(controllersProvider.imagePath.value),
+                                  fit: BoxFit.cover,
+                                )),
+                      ),
                     ),
                     SizedBox(height: screenHeight * 0.03), // Responsive spacing
                   ],

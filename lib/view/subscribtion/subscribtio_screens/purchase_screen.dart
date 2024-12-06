@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:soldiers_friends/common/common_assets.dart';
@@ -55,10 +56,11 @@ class MyHomePage extends StatelessWidget {
                           end: Alignment.bottomRight,
                         ).createShader(bounds),
                         blendMode: BlendMode.srcIn,
-                        child: const CommonText(
+                        child:  CommonText(
                           textAlign: TextAlign.center,
                           text: 'Soldiers Friends',
-                          style: CommonTextStyle.splashtitle,
+                          
+                          style: TextStyle(fontSize: 10.sp),
                         ),
                       ),
                       Spacer(),

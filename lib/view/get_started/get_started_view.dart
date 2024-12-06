@@ -105,27 +105,7 @@ class GetStartedView extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                CommonButton(
-                  text: 'Use Mobile Number',
-                  height: 50.98,
-                  width: 345.59,
-                  borderRadius: 5,
-                  boxShadow: const [],
-                  icon: Image.asset(
-                    CommonAssets.phoneIcon,
-                    width: 24,
-                    height: 24,
-                  ),
-                  backgroundColor: CommonColors.lightGray,
-                  textColor: CommonColors.primaryColor,
-                  onPressed: () {
-                    Get.toNamed(RoutesName.usephonepage);
-                  },
-                  gradient: null,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
+              
                 const CommonRichText(
                   text1: 'By signing up you agree to our',
                   style1: CommonTextStyle.getstartedt1,
