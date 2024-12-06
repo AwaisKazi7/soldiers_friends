@@ -24,6 +24,7 @@ class HomeController extends GetxController {
     var data = await supabse_DB.getInstance.GetAllUser(); // Await the Future
 
     if (data != null && data.isNotEmpty) {
+      UsersList.clear();
       UsersList.addAll(data);
       loadingHome.value = false;
     } else {

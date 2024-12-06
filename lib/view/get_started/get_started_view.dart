@@ -18,31 +18,8 @@ class GetStartedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<GetStartedController>(initState: (state) async {
-      LocalNotificationService.getInstance
-          .initialize(context); //-----for displaying notifications
-      // Handle cold start (app launched via notification)
-      await PushnotificationService.getInstance.getAccessToken();
-      FirebaseMessaging.instance.getInitialMessage().then((message) {
-        if (message != null) {
-          final route = message.data['route']; // Extract the route
-          if (route != null) {
-            Navigator.pushNamed(context, route);
-          }
-        }
-      });
-
-      // Handle foreground notifications
-      FirebaseMessaging.onMessage.listen((message) {
-        LocalNotificationService.display(message);
-      });
-
-      // Handle background notifications
-      FirebaseMessaging.onMessageOpenedApp.listen((message) {
-        final route = message.data['key'];
-        LocalNotificationService.getInstance.handleNotification(route);
-      });
-    }, builder: (controller) {
+    return GetBuilder<GetStartedController>(builder: (controller) {
+      controller.navigate(context);
       return Scaffold(
         backgroundColor: CommonColors.backgroundColor,
         body: SingleChildScrollView(

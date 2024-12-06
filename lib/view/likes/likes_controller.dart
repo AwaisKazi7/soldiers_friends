@@ -9,7 +9,7 @@ class LikesController extends GetxController {
   RxList<homeModel> likesMeList = <homeModel>[].obs;
   List<homeModel> myLikesList = <homeModel>[].obs;
   RxBool loading = false.obs;
-  RxInt Likestab_Index = 0.obs;
+  RxInt Likestab_Index = 1.obs;
 
   @override
   Future<void> onReady() async {
