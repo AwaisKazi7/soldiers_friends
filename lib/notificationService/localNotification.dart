@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:soldiers_friends/model/friendModel.dart';
@@ -96,12 +97,15 @@ class LocalNotificationService {
         }
       } else {
         var chatid = int.parse(payload['chatId']);
+        // Fluttertoast.showToast(msg: 'in chat${chatid}');
+        
         var data = await supabse_DB.getInstance.GetUserData_by_chatId(chatid);
 
+        var controler = Get.put(NavbarController());
+        Get.toNamed(RoutesName.bottomnavbar);
+        controler.onTabTapped(2);
         if (data != null) {
-          var controler = Get.put(NavbarController());
-          Get.toNamed(RoutesName.bottomnavbar);
-          controler.onTabTapped(2);
+          // Fluttertoast.showToast(msg: 'in chat${data}');
           Get.toNamed(RoutesName.chatdetails, arguments: data);
         }
       }

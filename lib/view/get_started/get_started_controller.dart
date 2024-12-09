@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/notificationService/localNotification.dart';
 import 'package:soldiers_friends/notificationService/pushNotification_service.dart';
@@ -33,11 +34,12 @@ class GetStartedController extends GetxController {
         .initialize(context); //-----for displaying notifications
     // Handle cold start (app launched via notification)
     await PushnotificationService.getInstance.getAccessToken();
-    FirebaseMessaging.instance.getInitialMessage().then((message) {
+    FirebaseMessaging.instance.getInitialMessage().then((message) async {
       if (message != null) {
-        final route = message.data['route']; // Extract the route
+        final route = message.data; // Extract the route
         if (route != null) {
-          Navigator.pushNamed(context, route);
+          Fluttertoast.showToast(msg: 'navigate terminated:${message.data}');
+          await LocalNotificationService.getInstance.handleNotification(route);
         }
       }
     });

@@ -20,8 +20,8 @@ class ChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ChatViewController>(
-      initState: (state) {
-        Get.find<ChatViewController>().GetconversationList();
+      initState: (state) async {
+        // await Get.find<ChatViewController>().GetconversationList();
       },
       builder: (controller) {
         return Scaffold(
