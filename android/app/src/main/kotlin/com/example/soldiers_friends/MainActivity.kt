@@ -1,4 +1,4 @@
-package com.example.soldiers_friends
+package com.hbox.soldiers_friends
 
 import io.flutter.embedding.android.FlutterActivity
 

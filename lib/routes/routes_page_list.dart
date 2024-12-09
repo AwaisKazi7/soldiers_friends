@@ -39,6 +39,7 @@ import 'package:soldiers_friends/view/sign_up/signup_view.dart';
 import 'package:soldiers_friends/view/home/home_binding.dart';
 import 'package:soldiers_friends/view/home/home_view.dart';
 import 'package:soldiers_friends/view/sign_up/uploadProfilePicture.dart';
+import 'package:soldiers_friends/view/subscribtion/subscribtio_screens/purchase_screen.dart';
 import 'package:soldiers_friends/view/subscribtion/subscribtio_screens/subscribtion_view.dart';
 import 'package:soldiers_friends/view/subscribtion/subscribtion_binding.dart';
 import 'package:soldiers_friends/view/forgotPassword/forgotPassword_binding.dart';
@@ -58,6 +59,11 @@ class RoutesPageList {
         name: RoutesName.loginPage,
         page: () => LoginPage(),
         binding: LoginBinding()),
+        GetPage(
+        name: RoutesName.loginPage,
+        page: () => purchaseScreen(),
+        binding: SubscribtionBinding()),
+        
     GetPage(
         name: RoutesName.signuppage,
         page: () => SignupPage(),

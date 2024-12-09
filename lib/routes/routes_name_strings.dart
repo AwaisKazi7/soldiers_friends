@@ -23,4 +23,5 @@ class RoutesName {
   static String resetpasswordview = "/resetpasswordview";
   static String emailVerification = "/emailVerification";
   static String uploadprofilepictureview = "/uploadprofilepictureview";
+  static String purchasescreen = "/purchasescreen";
 }

@@ -58,11 +58,12 @@ class ProfileView extends StatelessWidget {
                         ),
                       ),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           // Row(
                           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           //   children: [
+                          SizedBox(height: 30.sp,),
                           GestureDetector(
                             onTap: () {
                               Get.toNamed(RoutesName.editprofile);
@@ -103,7 +104,7 @@ class ProfileView extends StatelessWidget {
                             height: 10.sp,
                           ),
                           CircleAvatar(
-                            radius: 50.sp,
+                            radius: 60.sp,
                             backgroundColor: Colors.white,
                             child: CircleAvatar(
                                 radius: 80.sp,

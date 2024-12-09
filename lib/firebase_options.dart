@@ -52,7 +52,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyD0OoNCwKloJ1iHTYgc1k6t-UZ63HB9DY8',
-    appId: '1:671636856087:android:b93d5e0365732de7a36b52',
+    appId: '1:671636856087:android:9cda06927ad5de5da36b52',
     messagingSenderId: '671636856087',
     projectId: 'soldiersfriends',
     storageBucket: 'soldiersfriends.firebasestorage.app',
@@ -60,20 +60,22 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDvTb8Y3JI3EFlyBIjWXrUaObxUG-mbG4A',
-    appId: '1:671636856087:ios:2129480a8ca2ddaca36b52',
+    appId: '1:671636856087:ios:b0f3f3153e2cbcfca36b52',
     messagingSenderId: '671636856087',
     projectId: 'soldiersfriends',
     storageBucket: 'soldiersfriends.firebasestorage.app',
+    androidClientId: '671636856087-88smqmfcmq690kooapqg7rv4etghf25g.apps.googleusercontent.com',
     iosClientId: '671636856087-evsquiu7au7gscob7hrt9ci1hn0n8d6n.apps.googleusercontent.com',
     iosBundleId: 'com.example.soldiersFriends',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyDvTb8Y3JI3EFlyBIjWXrUaObxUG-mbG4A',
-    appId: '1:671636856087:ios:2129480a8ca2ddaca36b52',
+    appId: '1:671636856087:ios:b0f3f3153e2cbcfca36b52',
     messagingSenderId: '671636856087',
     projectId: 'soldiersfriends',
     storageBucket: 'soldiersfriends.firebasestorage.app',
+    androidClientId: '671636856087-88smqmfcmq690kooapqg7rv4etghf25g.apps.googleusercontent.com',
     iosClientId: '671636856087-evsquiu7au7gscob7hrt9ci1hn0n8d6n.apps.googleusercontent.com',
     iosBundleId: 'com.example.soldiersFriends',
   );

@@ -181,7 +181,7 @@ class UploadPasportId extends StatelessWidget {
                   text: "Continue",
                   textStyle: CommonTextStyle.getstartedb1Style
                       .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
-                  onPressed: () => Get.to(() => MyHomePage()),
+                  onPressed: () => Get.off(() => purchaseScreen()),
                   height: 46,
                   boxShadow: [],
                 ),

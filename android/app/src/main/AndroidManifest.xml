@@ -31,6 +31,10 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data
+            android:name="com.google.android.gms.client.application_id"
+            android:value="671636856087-5h60vnumjhe5fh3kcmtvrac1inpbi0ev.apps.googleusercontent.com" />
+
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

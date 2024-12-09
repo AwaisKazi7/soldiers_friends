@@ -9,7 +9,7 @@ import 'package:soldiers_friends/common/common_text.dart';
 import 'package:soldiers_friends/common/common_text_style.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 
-class MyHomePage extends StatelessWidget {
+class purchaseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -46,23 +46,22 @@ class MyHomePage extends StatelessWidget {
                           Navigator.pop(context);
                         },
                       ),
-                      ShaderMask(
-                        shaderCallback: (bounds) => const LinearGradient(
-                          colors: [
-                            CommonColors.gradientEndColor,
-                            CommonColors.gradientStartColor
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ).createShader(bounds),
-                        blendMode: BlendMode.srcIn,
-                        child:  CommonText(
-                          textAlign: TextAlign.center,
-                          text: 'Soldiers Friends',
-                          
-                          style: TextStyle(fontSize: 10.sp),
-                        ),
-                      ),
+                      // ShaderMask(
+                      //   shaderCallback: (bounds) => const LinearGradient(
+                      //     colors: [
+                      //       CommonColors.gradientEndColor,
+                      //       CommonColors.gradientStartColor
+                      //     ],
+                      //     begin: Alignment.topLeft,
+                      //     end: Alignment.bottomRight,
+                      //   ).createShader(bounds),
+                      //   blendMode: BlendMode.srcIn,
+                      //   child: CommonText(
+                      //     textAlign: TextAlign.center,
+                      //     text: 'Soldiers Friends',
+                      //     style: TextStyle(fontSize: 20.sp),
+                      //   ),
+                      // ),
                       Spacer(),
                     ],
                   ),
@@ -146,7 +145,7 @@ class MyHomePage extends StatelessWidget {
                 text: "Continue Free",
                 textStyle: CommonTextStyle.getstartedb1Style
                     .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
-                onPressed: () => Get.offAndToNamed(RoutesName.loginPage),
+                onPressed: () => Get.offAllNamed(RoutesName.loginPage),
                 height: 46,
                 boxShadow: [],
               ),

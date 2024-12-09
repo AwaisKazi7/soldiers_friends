@@ -7,14 +7,22 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:671636856087:android:b93d5e0365732de7a36b52",
+        "mobilesdk_app_id": "1:671636856087:android:9cda06927ad5de5da36b52",
         "android_client_info": {
-          "package_name": "com.example.soldiers_friends"
+          "package_name": "com.hbox.soldiers_friends"
         }
       },
       "oauth_client": [
         {
-          "client_id": "671636856087-5h60vnumjhe5fh3kcmtvrac1inpbi0ev.apps.googleusercontent.com",
+          "client_id": "671636856087-88smqmfcmq690kooapqg7rv4etghf25g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hbox.soldiers_friends",
+            "certificate_hash": "bd767116c405d29f80d2f2996bce5a668a24b6c3"
+          }
+        },
+        {
+          "client_id": "671636856087-u5b0nvbk5rdr4epr5toh6j9nja9fv5vk.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -29,6 +37,13 @@
             {
               "client_id": "671636856087-5h60vnumjhe5fh3kcmtvrac1inpbi0ev.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "671636856087-evsquiu7au7gscob7hrt9ci1hn0n8d6n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.soldiersFriends"
+              }
             }
           ]
         }

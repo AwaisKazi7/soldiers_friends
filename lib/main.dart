@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soldiers_friends/firebase_options.dart';
+import 'package:soldiers_friends/notificationService/localNotification.dart';
 import 'package:soldiers_friends/routes/routes_name_strings.dart';
 import 'package:soldiers_friends/services/SupabaseDB.dart';
 import 'package:soldiers_friends/services/emailsender.dart';
@@ -15,7 +16,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await supabse_DB.getInstance.supabase_init();
-  FirebaseDB.init(); //---for FcmToken
+  await FirebaseDB.init(); //---for FcmToken
 
   emailSender.getInstance.init();
   runApp(const MyApp());
@@ -39,7 +40,9 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           getPages: RoutesPageList.routList,
-          initialRoute: RoutesName.getstartedPage,
+          initialRoute: Get.routing.current.isEmpty
+              ? RoutesName.getstartedPage
+              : Get.currentRoute,
         );
       },
     );
